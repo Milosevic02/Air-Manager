@@ -18,20 +18,20 @@ namespace Rezervacija_Avio_Karata.Models
 
     public class Korisnik
     {
-        public string Korisnicko_ime { get; set; }//unique
+        public string KorisnickoIme { get; set; }//unique
         public string Lozinka { get; set; }
         public string Ime {  get; set; }
         public string Prezime {  get; set; }
         public string Email { get; set; }
-        public DateTime Datum_rodjenja {  get; set; }
+        public DateTime DatumRodjenja {  get; set; }
         public Pol Pol { get; set; }
-        public Tip Tip_Korisnika { get; set; }    
+        public Tip TipKorisnika { get; set; }    
         public List<Rezervacija>Rezervacije { get; set; }
 
         public Korisnik() { }
         public Korisnik(string username,string password,string ime,string prezime)
         {
-            Korisnicko_ime = username;
+            KorisnickoIme = username;
             Lozinka = password;
             Ime = ime;
             Prezime = prezime;
