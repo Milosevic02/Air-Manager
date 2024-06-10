@@ -22,6 +22,7 @@ namespace Rezervacija_Avio_Karata.Models
         public int BrojZauzetihMesta { get; set; }
         public double Cena {  get; set; }
         public Status Status { get; set; }
+        public Let() { }
 
 
 
