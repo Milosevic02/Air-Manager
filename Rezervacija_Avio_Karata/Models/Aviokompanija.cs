@@ -9,7 +9,7 @@ namespace Rezervacija_Avio_Karata.Models
     {
         public string Naziv {  get; set; }
         public string Adresa {  get; set; }
-        public string Kontakt_informacije {  get; set; }
+        public string KontaktInformacije {  get; set; }
         public List<Let>Letovi { get; set; }
         public List<Recenzija> Recenzije { get;set; }
 

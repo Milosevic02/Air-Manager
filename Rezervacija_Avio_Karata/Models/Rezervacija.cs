@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Rezervacija_Avio_Karata.Models
 {
-    public enum Status
+    public enum StatusRezervacije
     {
         Kreirana,
         Odobrena,
@@ -18,7 +18,7 @@ namespace Rezervacija_Avio_Karata.Models
         public Let Let { get; set; }
         public int BrojPutnika {  get; set; }
         public double UkupnaCena { get; set; }
-        public Status Status { get; set; }
+        public StatusRezervacije StaStatusRezervacijetus { get; set; }
 
         public Rezervacija() { }
     }
