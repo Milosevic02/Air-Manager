@@ -39,7 +39,7 @@ li{
 
 .sec-color{
     /*rgb(15, 23, 46);*/
-    background-color: rgb(15, 23, 46);
+    background-color: rgb(25, 38, 77);
 }
 
 .data-picker{
@@ -69,18 +69,18 @@ p{
 }
 
 tr:nth-child(even) td {
-    background-color: rgba(15, 23, 46) !important; /* Adjust the alpha value (0.8) to make it lighter or darker */
+    background-color: rgb(25, 38, 77)!important; /* Adjust the alpha value (0.8) to make it lighter or darker */
     color: white !important;
 }
 
 tr:nth-child(odd) td {
-    background-color: rgb(15, 23, 46,0.5) !important;
+    background-color: rgb(25, 38, 77,0.6) !important;
     color: white !important;
 }
 
 
 th{
-    background-color: rgb(15, 23, 46) !important;
+    background-color: rgb(25, 38, 77) !important;
     color: white !important;
 
 }
