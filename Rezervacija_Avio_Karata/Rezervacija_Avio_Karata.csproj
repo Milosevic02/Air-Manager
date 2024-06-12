@@ -105,7 +105,9 @@
     <Content Include="Pages\Airlline.html" />
     <Content Include="Pages\Img\Logo.png" />
     <Content Include="Pages\Login.html" />
+    <Content Include="Pages\Register.html" />
     <Content Include="Pages\Reservation.html" />
+    <Content Include="Pages\Script\Register.js" />
     <Content Include="Pages\Style\Index.css" />
     <Content Include="Pages\Index.html" />
     <Content Include="Web.config" />
@@ -136,7 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Pages\Script\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
