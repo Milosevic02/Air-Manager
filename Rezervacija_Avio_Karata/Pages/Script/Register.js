@@ -1,20 +1,30 @@
-function Register(role=""){
-    let name = $("#name")
-    let surname = $("#surname")
-    let username = $("#username")
-    let password = $("#password")
-    let email = $("#email")
-    let birthDate = $("#dateOfBirth")
-
-    let fields = [name,surname,username,password,email,birthDate,gender]
-
+function Register(){
     let form = $("#registerForm")
     let data = convertFormToJSON(form)
     data = JSON.stringify(data)
-    console.log(data)
+
+    $.ajax({
+        url: "/api/RegisterUser",
+        type: "POST",
+        data: data,
+        contentType: "application/json",
+        success: function (result) {
+            console.log("success");
+            // Show success toast
+            window.location.href = "Login.html"
+            var successToast = new bootstrap.Toast(document.getElementById('successToast'));
+            successToast.show();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("error");
+            // Show error toast
+            var errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
+            errorToast.show();
+        }
+    });
+
 
 }
-
 
 function convertFormToJSON(form) {
     const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
