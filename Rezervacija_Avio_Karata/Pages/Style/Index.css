@@ -1,8 +1,10 @@
 body {
     padding-top: 80px; /* Adjust this value according to your navbar height */
+
 }
 .navbar {
     height: 100px; /* Set the desired height for the navbar */
+    
 }
 .navbar-brand {
     display: flex;
@@ -34,4 +36,52 @@ body {
 li{
     padding-right:4rem;
    }
+
+.sec-color{
+    /*rgb(15, 23, 46);*/
+    background-color: rgb(15, 23, 46);
+}
+
+.data-picker{
+    height: 55px;
+}
+
+.status{
+    height: 40px;
+    width: 250px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.filter-btn{
+    width: 120px;
+    height: 40px;
+    margin-right: 25px;
+}
+
+.reset-btn{
+    width: 120px;
+    height: 40px;
+}
+
+p{
+    font-weight: bold;
+}
+
+tr:nth-child(even) td {
+    background-color: rgba(15, 23, 46) !important; /* Adjust the alpha value (0.8) to make it lighter or darker */
+    color: white !important;
+}
+
+tr:nth-child(odd) td {
+    background-color: rgb(15, 23, 46,0.5) !important;
+    color: white !important;
+}
+
+
+th{
+    background-color: rgb(15, 23, 46) !important;
+    color: white !important;
+
+}
 
