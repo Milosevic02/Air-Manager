@@ -35,34 +35,34 @@ namespace Rezervacija_Avio_Karata.Controllers
             return Ok();
         }
 
-        [HttpGet]
+        [HttpPost] // Use POST method to handle login securely
         [Route("LoginUser")]
-        public IHttpActionResult LoginUser(string username, string password)
+        public IHttpActionResult LoginUser(User model)
         {
-            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Users.txt"));
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data", "Users.txt"));
             List<User> users = JsonConvert.DeserializeObject<List<User>>(content) ?? new List<User>();
-            var exsists = users.Find(x => x.Username.Equals(username));
-            if (exsists == null)
-            {
-                return BadRequest("User with username \"" + username + "\" doesn't exist!");
+            var user = users.Find(u => u.Username.Equals(model.Username));
 
+            if (user == null)
+            {
+                return BadRequest("User with username \"" + model.Username + "\" doesn't exist!");
             }
 
-            if (exsists.Password != password)
+            if (user.Password != model.Password)
             {
                 return BadRequest("Incorrect password");
             }
 
             User current = (User)HttpContext.Current.Session["user"];
-            if (current != null && current.Username == username)
+            if (current != null && current.Username == model.Username)
             {
                 return BadRequest("User already logged in");
             }
 
-            HttpContext.Current.Session["user"] = exsists;
-            return Ok(username + " successfully logged in");
-
+            HttpContext.Current.Session["user"] = user;
+            return Ok(new { message = $"{model.Username} successfully logged in" });
         }
+
     }
 
 
