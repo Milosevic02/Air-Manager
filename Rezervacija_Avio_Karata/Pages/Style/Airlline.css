@@ -38,3 +38,7 @@ body {
 li{
     padding-right:4rem;
 }
+
+.view-btn{
+    margin-left: 55px !important;
+}
