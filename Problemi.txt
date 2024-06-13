@@ -1,0 +1,1 @@
+- Kada prodje register formu sve lepo uradi samo return Ok() ne vrati js da je ok I ne udje nikad u success
