@@ -1,4 +1,6 @@
-function Register(){
+
+function Register(event) {
+    event.preventDefault();
     let form = $("#registerForm")
     let data = convertFormToJSON(form)
     data = JSON.stringify(data)
