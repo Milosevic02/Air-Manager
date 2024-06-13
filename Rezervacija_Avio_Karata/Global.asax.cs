@@ -7,6 +7,8 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
+using System.Web.Optimization;
+using Rezervacija_Avio_Karata.App_Start;
 
 namespace Rezervacija_Avio_Karata
 {
@@ -17,7 +19,23 @@ namespace Rezervacija_Avio_Karata
             // Code that runs on application startup
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);            
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+        }
+
+        public override void Init()
+        {
+            this.PostAuthenticateRequest += MyPostAuthenticateRequest;
+            base.Init();
+        }
+
+        void MyPostAuthenticateRequest(object sender, EventArgs e)
+        {
+            if (HttpContext.Current.Request.Url.AbsolutePath.StartsWith("/api/"))
+            {
+                System.Web.HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
+            }
         }
     }
 }
