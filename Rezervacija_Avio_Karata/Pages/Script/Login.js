@@ -1,25 +1,26 @@
-function Login(){
-    let form = $("#loginForm")
-    let data = convertFormToJSON(form)
+function Login(event) {
+    event.preventDefault(); 
+
+    let form = $("#loginForm");
+    let data = convertFormToJSON(form);
 
     $.ajax({
-        url:"/api/LoginUser",
-        type:"GET",
-        data:{username:data.username,password:data.password},
-        contentType:"text/plain",
-        complete: function(result){
-            if(result.status == 400){
-                console.log("Error when log in")
-            }else if(result == 200){
-                console.log("Success Log in")
-                window.location.href = "Index.html"
-            }else{
-                console.log("Unknown error when log in")
-            }
+        url: "/api/LoginUser",
+        type: "POST", 
+        data: JSON.stringify(data),
+        contentType: "application/json", 
+        success: function (result) {
+            console.log("success", result);
+            window.location.href = "Passenger.html";
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("error", xhr.responseText);
+            var errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
+            errorToast.show();
         }
-    })
-
+    });
 }
+
 
 
 
