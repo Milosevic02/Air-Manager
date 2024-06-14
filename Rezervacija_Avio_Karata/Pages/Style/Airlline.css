@@ -32,6 +32,9 @@ body {
     /*rgb(15, 23, 46);*/
     background-color: rgb(25, 38, 77);
 }
+.dropdown-item:hover {
+    background-color: rgb(35, 55, 95);  /* Custom hover background color */
+  }
 .name{
     font-size: 36px;
 }
