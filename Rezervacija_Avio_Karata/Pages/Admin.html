@@ -10,11 +10,14 @@
     
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="Script/Index.js"></script>
+    <script src="Script/Flight.js"></script>
+
 
     <script src="Script/LoggedIn.js"></script>
     <script>
         $(document).ready(function(){
             GetUserRole("Admin")
+            LoadFlights()
         })
     </script>
 
@@ -115,81 +118,7 @@
 
 
     <!--Table-->
-    <div class=" m-5">
-        <table class="table table-striped table-hover table-bordered fs-5">
-            <thead >
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Airlline</th>
-                <th scope="col">Departure Destination</th>
-                <th scope="col">Arrival Destination</th>
-                <th scope="col">Departure Date</th>
-                <th scope="col">Arrival Date</th>
-                <th scope="col">Available Seats</th>
-                <th scope="col">Price</th>
-                <th scope="col">Status</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
-
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td scope="row">1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-pen"></i> Edit</button>
-                </td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button>
-                </td>
-
-              </tr>
-              <tr>
-                <td scope="row">2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-pen"></i> Edit</button>
-                </td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button>
-                </td>
-              </tr>
-              <tr>
-                <td scope="row">3</td>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-pen"></i> Edit</button>
-                </td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button>
-                </td>
-              </tr>
-            </tbody>
-            <tfoot>
-            </tfoot>
-          </table>
-    </div>
+    <div id="flightTable" class="m-5"></div>
 
     <!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -257,47 +186,35 @@
                 <h2 class="modal-title" id="exampleModalLabel">Add Flight</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="addFlightForm">
+            <form id="addFlightForm" onsubmit="AddFlight(event)">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="airline" class="form-label">Airline</label>
-                        <input type="text" class="form-control" id="airline" name="airline" required>
+                        <input type="text" class="form-control has-validation" id="airline" name="airline" required>
                     </div>
                     <div class="mb-3">
                         <label for="departureDestination" class="form-label">Departure Destination</label>
-                        <input type="text" class="form-control" id="departureDestination" name="departureDestination" required>
+                        <input type="text" class="form-control has-validation" id="departureDestination" name="departureDestination" required>
                     </div>
                     <div class="mb-3">
                         <label for="arrivalDestination" class="form-label">Arrival Destination</label>
-                        <input type="text" class="form-control" id="arrivalDestination" name="arrivalDestination" required>
+                        <input type="text" class="form-control has-validation" id="arrivalDestination" name="arrivalDestination" required>
                     </div>
                     <div class="mb-3">
                         <label for="departureDateAndTime" class="form-label">Departure Date and Time</label>
-                        <input type="datetime-local" class="form-control" id="departureDateAndTime" name="departureDateAndTime" required>
+                        <input type="datetime-local" class="form-control has-validation" id="departureDateAndTime" name="departureDateAndTime" required>
                     </div>
                     <div class="mb-3">
                         <label for="arrivalDateAndTime" class="form-label">Arrival Date and Time</label>
-                        <input type="datetime-local" class="form-control" id="arrivalDateAndTime" name="arrivalDateAndTime" required>
+                        <input type="datetime-local" class="form-control has-validation" id="arrivalDateAndTime" name="arrivalDateAndTime" required>
                     </div>
                     <div class="mb-3">
                         <label for="availableSeats" class="form-label">Available Seats</label>
-                        <input type="number" class="form-control" id="availableSeats" name="availableSeats" min="1" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="occupiedSeats" class="form-label">Occupied Seats</label>
-                        <input type="number" class="form-control" id="occupiedSeats" name="occupiedSeats" min="0" required>
+                        <input type="number" class="form-control has-validation" id="availableSeats" name="availableSeats" min="1" required>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="price" name="price" step="0.01" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="flightStatus" class="form-label">Flight Status</label>
-                        <select class="form-select" id="flightStatus" name="flightStatus" required>
-                            <option value="Scheduled">Active</option>
-                            <option value="Cancelled">Cancelled</option>
-                            <option value="Completed">Completed</option>
-                        </select>
+                        <input type="number" class="form-control has-validation"  id="price" name="price" step="0.01" required>
                     </div>
                 </div>
                 <div class="modal-footer">
