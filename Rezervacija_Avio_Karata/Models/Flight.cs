@@ -13,14 +13,14 @@ namespace Rezervacija_Avio_Karata.Models
     }
     public class Flight
     {
-        public Airline Airline { get; set; }
+        public string Airline { get; set; }
         public string DepartureDestination { get; set; }
         public string ArrivalDestination { get; set; }
-        public DateTime DepartureDateAndTime { get; set; }
-        public DateTime ArrivalDateAndTime { get; set; }
+        public string DepartureDateAndTime { get; set; }
+        public string ArrivalDateAndTime { get; set; }
         public int AvailableSeats { get; set; }
-        public int OccupiedSeats { get; set; }
+        public int OccupiedSeats { get; set; } = 0;
         public double Price { get; set; }
-        public FlightStatus FlightStatus {get;set;}
+        public string FlightStatus {get;set;} = "Active";
     }
 }
