@@ -137,6 +137,7 @@
     <Content Include="Pages\Passenger.html" />
     <Content Include="Pages\Register.html" />
     <Content Include="Pages\Reservation.html" />
+    <Content Include="Pages\Script\Index.js" />
     <Content Include="Pages\Script\LoggedIn.js" />
     <Content Include="Pages\Script\Login.js" />
     <Content Include="Pages\Script\Register.js" />
