@@ -56,9 +56,9 @@
   <div class="container mt-5 pb-5">
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title text-center">Registration</h5>
+        <div class="card sec-color text-light fs-5">
+          <div class="card-body ">
+            <h3 class="card-title text-center">Registration</h3>
             <form id="registerForm" onsubmit="Register(event)">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
@@ -94,7 +94,7 @@
                 </select>
               </div>
               <button type="submit" class="btn btn-primary d-block mx-auto">Register</button>
-              <div class="card-footer text-muted mt-2">
+              <div class="card-footer text-light mt-2">
                 You have an account? <a href="Login.html">Login here</a>
               </div>
             </form>
@@ -104,21 +104,6 @@
     </div>
   </div>
 
-  <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer" style="z-index: 1100">
-    <!-- Success Toast -->
-    <div class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true" id="successToast" data-bs-autohide="true">
-        <div class="toast-body">
-            Registration successful!
-        </div>
-    </div>
-    
-    <!-- Error Toast -->
-    <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true" id="errorToast" data-bs-autohide="true">
-        <div class="toast-body">
-            Registration failed: User with this username already exists!
-        </div>
-    </div>
-</div>
 
   
 
