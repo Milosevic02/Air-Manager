@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Routing;
 
 namespace Rezervacija_Avio_Karata.Controllers
 {
@@ -69,8 +70,19 @@ namespace Rezervacija_Avio_Karata.Controllers
         {
             HttpContext.Current.Session["user"] = null;
             return Ok();
-        }    
+        }
 
+        [HttpGet]
+        [Route("GetUserRole")]
+        public string GetUserRole()
+        {
+            User user = (User)HttpContext.Current.Session["user"];
+            if(user == null)
+            {
+                return "Not logged";
+            }
+            return user.Role;
+        }
 
 
     }
