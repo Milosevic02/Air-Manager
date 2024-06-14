@@ -1,0 +1,35 @@
+[
+  {
+    "Username": "maki",
+    "Password": "maki",
+    "Email": "maki@kavasaki",
+    "Name": "Marko",
+    "Surname": "Markovic",
+    "DateOfBirth": "2024-06-08",
+    "Role": "Passenger",
+    "Gender": 0,
+    "Reservations": []
+  },
+  {
+    "Username": "dragan",
+    "Password": "dragan",
+    "Email": "dmilosevic322@gmail.com",
+    "Name": "Dragan",
+    "Surname": "Milosevic",
+    "DateOfBirth": "2002-12-28",
+    "Role": "Admin",
+    "Gender": 0,
+    "Reservations": []
+  },
+  {
+    "Username": "pera",
+    "Password": "pera",
+    "Email": "pera@gmail.com",
+    "Name": "Pera ",
+    "Surname": "Peric",
+    "DateOfBirth": "2024-06-02",
+    "Role": "Passenger",
+    "Gender": 0,
+    "Reservations": []
+  }
+]
