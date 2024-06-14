@@ -17,7 +17,7 @@ body {
 .navbar-brand {
     display: flex;
     justify-content: space-between;
-    width: 50%;
+    width: 40%;
 }
 .navbar-nav .nav-item .nav-link i {
     font-size: 40px;
@@ -62,9 +62,16 @@ li{
     margin-right: 25px;
 }
 
+.add-btn{
+    width: 140px;
+    height: 40px;
+    margin-left: 25px;
+}
+
 .reset-btn{
     width: 120px;
     height: 40px;
+
 }
 
 p{
@@ -86,5 +93,10 @@ th{
     background-color: rgb(25, 38, 77) !important;
     color: white !important;
 
+}
+
+.admin-date{
+    width: 300px !important;
+    margin-left: 80px !important;
 }
 

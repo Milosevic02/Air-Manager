@@ -17,7 +17,7 @@ body {
 .navbar-brand {
     display: flex;
     justify-content: space-between;
-    width: 50%;
+    width: 40%;
 }
 .navbar-nav .nav-item .nav-link i {
     font-size: 40px;
@@ -45,3 +45,4 @@ li{
 .view-btn{
     margin-left: 55px !important;
 }
+
