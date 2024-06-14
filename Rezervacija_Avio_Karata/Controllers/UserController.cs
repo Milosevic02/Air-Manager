@@ -79,7 +79,7 @@ namespace Rezervacija_Avio_Karata.Controllers
             User user = (User)HttpContext.Current.Session["user"];
             if(user == null)
             {
-                return "Not logged";
+                return "";
             }
             return user.Role;
         }
