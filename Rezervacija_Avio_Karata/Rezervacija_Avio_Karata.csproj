@@ -130,10 +130,14 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Pages\Airlline.html" />
+    <Content Include="Pages\AirllinePassenger.html" />
+    <Content Include="Pages\EditProfile.html" />
     <Content Include="Pages\Img\Logo.png" />
     <Content Include="Pages\Login.html" />
+    <Content Include="Pages\Passenger.html" />
     <Content Include="Pages\Register.html" />
     <Content Include="Pages\Reservation.html" />
+    <Content Include="Pages\Script\LoggedIn.js" />
     <Content Include="Pages\Script\Login.js" />
     <Content Include="Pages\Script\Register.js" />
     <Content Include="Pages\Style\Index.css" />

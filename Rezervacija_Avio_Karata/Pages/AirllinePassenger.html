@@ -38,11 +38,15 @@
                             <small>Reservations</small>
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link text-center" href="Login.html">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <small>Sign out</small>
-                        </a>
+                    <li class="nav-item dropdown">
+                        <button class="nav-link " data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user "></i>
+                            <small class="dropdown-toggle">Profile</small>
+                        </button>
+                        <ul class="dropdown-menu sec-color" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item text-light" href="EditProfile.html"><i class="fas fa-user-edit me-2"></i>Edit Profile</a></li>
+                            <li><a onclick="SignOut()" class="dropdown-item text-light" href="#"><i class="fas fa-sign-out-alt me-2"></i>Sign Out</a></li>
+                          </ul>
                     </li>
                 </ul>
             </div>
