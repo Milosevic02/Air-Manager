@@ -9,13 +9,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="Script/Airlline.js"></script>
     <script src="Script/Index.js"></script>
+
 
     <script src="Script/LoggedIn.js"></script>
     <script>
         $(document).ready(function(){
             GetUserRole("Admin")
             LoadAirllines()
+
         })
     </script>
 
@@ -133,8 +136,7 @@
 
 
     <!--Table-->
-    <div id="airllineTable" class=" m-5">
-    </div>
+    <div id="airllineTable" class="container mt-3 mb-5"></div>
 
 <!-- Edit Modal -->
 <div class="modal fade" id="editAirllineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -199,19 +201,19 @@
                 <h2 class="modal-title" id="exampleModalLabel">Add Airline</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="addAirlineForm">
+            <form id="addAirlineForm" onsubmit="AddAirlline(event)">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <input type="text" class="form-control has-validation" id="name" name="name" required>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" required>
+                        <input type="text" class="form-control has-validation" id="address" name="address" required>
                     </div>
                     <div class="mb-3">
                         <label for="contactInfo" class="form-label">Contact Info</label>
-                        <input type="text" class="form-control" id="contactInfo" name="contactInfo" required>
+                        <input type="text" class="form-control has-validation " id="contactInfo" name="contactInfo" required>
                     </div>
                    
                 </div>
