@@ -18,6 +18,7 @@ namespace Rezervacija_Avio_Karata.Models
         public string Name { get; set; }    
         public string Surname {  get; set; }
         public string DateOfBirth { get; set; }
+        public string Role { get; set; } = "Passenger";
         public Gender Gender { get; set; }
         public List<Reservation> Reservations { get; set; } = new List<Reservation>();
 
