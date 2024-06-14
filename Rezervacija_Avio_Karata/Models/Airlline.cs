@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Rezervacija_Avio_Karata.Models
 {
-    public class Airline
+    public class Airlline
     {
         public string Name {  get; set; }
         public string Address {  get; set; }
