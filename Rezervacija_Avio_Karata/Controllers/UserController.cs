@@ -35,7 +35,7 @@ namespace Rezervacija_Avio_Karata.Controllers
             return Ok();
         }
 
-        [HttpPost] // Use POST method to handle login securely
+        [HttpPost]
         [Route("LoginUser")]
         public IHttpActionResult LoginUser(User model)
         {
@@ -63,7 +63,15 @@ namespace Rezervacija_Avio_Karata.Controllers
             return Ok(new { message = $"{model.Username} successfully logged in" });
         }
 
+        [HttpGet]
+        [Route("SignOut")]
+        public IHttpActionResult SignOut()
+        {
+            HttpContext.Current.Session["user"] = null;
+            return Ok();
+        }    
+
+
+
     }
-
-
 }
