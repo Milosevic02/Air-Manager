@@ -13,7 +13,7 @@
         "AvailableSeats": 33,
         "OccupiedSeats": 0,
         "Price": 320.0,
-        "FlightStatus": "0"
+        "FlightStatus": 0
       },
       {
         "Airline": "Qatar",
@@ -24,7 +24,7 @@
         "AvailableSeats": 43,
         "OccupiedSeats": 0,
         "Price": 230.0,
-        "FlightStatus": "0"
+        "FlightStatus": 0
       },
       {
         "Airline": "Qatar",
@@ -35,7 +35,7 @@
         "AvailableSeats": 33,
         "OccupiedSeats": 0,
         "Price": 40.0,
-        "FlightStatus": "0"
+        "FlightStatus": 0
       },
       {
         "Airline": "Qatar",
@@ -46,7 +46,7 @@
         "AvailableSeats": 44,
         "OccupiedSeats": 0,
         "Price": 23.0,
-        "FlightStatus": "Active"
+        "FlightStatus": 0
       }
     ],
     "Reviews": []
@@ -59,14 +59,26 @@
     "Reviews": []
   },
   {
-    "Name": "StarCruise ",
+    "Name": "StarCruise",
     "Address": "Skyline Road, 789 ,Starlight Town",
     "ContactInfo": "+44 123 456 7890",
-    "Flights": [],
+    "Flights": [
+      {
+        "Airline": "StarCruise",
+        "DepartureDestination": "Paris",
+        "ArrivalDestination": "London",
+        "DepartureDateAndTime": "2024-06-20 22:38",
+        "ArrivalDateAndTime": "2024-06-15 23:44",
+        "AvailableSeats": 45,
+        "OccupiedSeats": 0,
+        "Price": 120.0,
+        "FlightStatus": 0
+      }
+    ],
     "Reviews": []
   },
   {
-    "Name": "SkyHigh ",
+    "Name": "SkyHigh",
     "Address": "Airline Boulevard, 890 ,Aeroport City",
     "ContactInfo": "info@skyhighairlines.com",
     "Flights": [],
