@@ -21,6 +21,6 @@ namespace Rezervacija_Avio_Karata.Models
         public int AvailableSeats { get; set; }
         public int OccupiedSeats { get; set; } = 0;
         public double Price { get; set; }
-        public string FlightStatus {get;set;} = "Active";
+        public FlightStatus FlightStatus {get;set;} = FlightStatus.Active;
     }
 }
