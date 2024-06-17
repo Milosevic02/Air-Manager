@@ -14,7 +14,8 @@ function LoadFlights(){
             row += '<td>' + data[flight].AvailableSeats + '</td>'; 
             row += '<td>' + data[flight].OccupiedSeats + '</td>'; 
             row += '<td>' + data[flight].Price + '</td>'; 
-            row += '<td>' + data[flight].Status + '</td>'; 
+            let status = GetStatus(data[flight].FlightStatus);
+            row += '<td>' + status + '</td>'; 
 
             row += '<td class="text-center">  <button type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-pen"></i> Edit</button></td>'; 
             row += '<td class="text-center">   <button type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button></td>'; 
@@ -60,3 +61,12 @@ function convertFormToJSON(form) {
     return json;
 }
 
+function GetStatus(param){
+    if(param == 0){
+        return "Active";
+    }else if(param == 1){
+        return "Cancelled";
+    }else if(param == 2){
+        return "Completed";
+    }
+}
