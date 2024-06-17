@@ -47,8 +47,13 @@ li{
 
 .data-picker{
     height: 55px;
+    
 }
-
+.date-picker{
+    height: 35px;
+    width: 250px;
+    font-weight: bold;
+}
 .status{
     height: 40px;
     width: 250px;
