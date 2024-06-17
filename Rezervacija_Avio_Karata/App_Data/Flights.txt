@@ -3,23 +3,23 @@
     "Airline": "Qatar",
     "DepartureDestination": "Beograd",
     "ArrivalDestination": "Dubai",
-    "DepartureDateAndTime": "2024-06-15T21:10",
-    "ArrivalDateAndTime": "2024-06-14T00:12",
+    "DepartureDateAndTime": "2024-06-15 21:10",
+    "ArrivalDateAndTime": "2024-06-14 00:12",
     "AvailableSeats": 43,
     "OccupiedSeats": 0,
     "Price": 230.0,
-    "FlightStatus": "Active"
+    "FlightStatus": 0
   },
   {
     "Airline": "Qatar",
     "DepartureDestination": "Beograd",
     "ArrivalDestination": "Prague",
-    "DepartureDateAndTime": "2024-06-2023:21",
-    "ArrivalDateAndTime": "2024-06-2103:23",
+    "DepartureDateAndTime": "2024-06-20 23:21",
+    "ArrivalDateAndTime": "2024-06-21 03:23",
     "AvailableSeats": 33,
     "OccupiedSeats": 0,
     "Price": 40.0,
-    "FlightStatus": "Active"
+    "FlightStatus": 0
   },
   {
     "Airline": "Qatar",
@@ -30,6 +30,17 @@
     "AvailableSeats": 44,
     "OccupiedSeats": 0,
     "Price": 23.0,
-    "FlightStatus": "Active"
+    "FlightStatus": 0
+  },
+  {
+    "Airline": "StarCruise",
+    "DepartureDestination": "Paris",
+    "ArrivalDestination": "London",
+    "DepartureDateAndTime": "2024-06-20 22:38",
+    "ArrivalDateAndTime": "2024-06-15 23:44",
+    "AvailableSeats": 45,
+    "OccupiedSeats": 0,
+    "Price": 120.0,
+    "FlightStatus": 0
   }
 ]
