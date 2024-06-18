@@ -90,7 +90,7 @@ function IndexTable(data) {
     for (flight in data) {
         counter++;
         let row = '<td>' + counter.toString() + '</td>';
-        row += '<td>' + data[flight].Airline + '</td>';
+        row += '<td><a class="text-light" href="#" data-bs-toggle="modal" data-bs-target="#airllineModal">' + data[flight].Airline + '</a></td>';
         row += '<td>' + data[flight].DepartureDestination + '</td>';
         row += '<td>' + data[flight].ArrivalDestination + '</td>';
         row += '<td>' + data[flight].DepartureDateAndTime + '</td>';
@@ -117,7 +117,7 @@ function PassengerTable(data) {
     for (flight in data) {
         counter++;
         let row = '<td>' + counter.toString() + '</td>';
-        row += '<td>' + data[flight].Airline + '</td>';
+        row += '<td><a class="text-light" href="#" data-bs-toggle="modal" data-bs-target="#airllineModal">' + data[flight].Airline + '</a></td>';
         row += '<td>' + data[flight].DepartureDestination + '</td>';
         row += '<td>' + data[flight].ArrivalDestination + '</td>';
         row += '<td>' + data[flight].DepartureDateAndTime + '</td>';
