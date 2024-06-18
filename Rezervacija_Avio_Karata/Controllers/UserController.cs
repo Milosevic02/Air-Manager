@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
@@ -24,9 +25,9 @@ namespace Rezervacija_Avio_Karata.Controllers
             var exsists = users.Find(x=> x.Username == user.Username);
             if (exsists != null)
             {
-                return BadRequest();
+                return BadRequest("User with username \"" + user.Username + "\" already exist!");
             }
-            
+
             string[] dateTime = user.DateOfBirth.Split(' ');
             user.DateOfBirth = dateTime[0];
 
