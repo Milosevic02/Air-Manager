@@ -13,6 +13,8 @@ namespace Rezervacija_Avio_Karata.Models
     }
     public class Flight
     {
+
+        public int Id { get; set; } = IdGenerator.GenerateFlightId();
         public string Airline { get; set; }
         public string DepartureDestination { get; set; }
         public string ArrivalDestination { get; set; }
@@ -22,5 +24,7 @@ namespace Rezervacija_Avio_Karata.Models
         public int OccupiedSeats { get; set; } = 0;
         public double Price { get; set; }
         public FlightStatus FlightStatus {get;set;} = FlightStatus.Active;
+
+
     }
 }

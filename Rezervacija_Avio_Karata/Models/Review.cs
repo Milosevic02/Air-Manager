@@ -13,7 +13,8 @@ namespace Rezervacija_Avio_Karata.Models
     }
     public class Review
     {
-        public User Reviewer { get; set; }
+        public int Id { get; set; } = IdGenerator.GenerateReviewId();
+        public string Reviewer { get; set; }
         public string Airline { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

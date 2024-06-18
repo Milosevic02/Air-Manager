@@ -14,8 +14,9 @@ namespace Rezervacija_Avio_Karata.Models
     }
     public class Reservation
     {
-        public User User { get; set; }
-        public Flight Flight { get; set; }
+        public int Id { get; set; } = IdGenerator.GenerateReservationId();
+        public string User { get; set; }
+        public int FlightId { get; set; }
         public int NumberOfPassenger {  get; set; }
         public double Price {  get; set; }
         public ReservationStatus ReservationStatus { get; set; }
