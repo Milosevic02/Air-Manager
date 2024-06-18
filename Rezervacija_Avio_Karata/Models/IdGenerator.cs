@@ -8,7 +8,7 @@ namespace Rezervacija_Avio_Karata.Models
 {
     public static class IdGenerator
     {
-        private static readonly string path = "Id.txt";
+        private static readonly string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "Id.txt");
         private static int reservationCounter;
         private static int reviewCounter;
         private static int flightCounter;
