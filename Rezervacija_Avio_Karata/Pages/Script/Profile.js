@@ -38,11 +38,3 @@ function LoadAllUsers(){
         $('#userTable').html(table);
     })
 }
-
-function GetGender(param){
-    if(param == 0){
-        return "Male";
-    }else if(param == 1){
-        return "Female";
-    }
-}
