@@ -49,6 +49,7 @@ namespace Rezervacija_Avio_Karata.Controllers
 
                 flight.DepartureDateAndTime = dateD[0] + ' ' + dateD[1];
                 flight.ArrivalDateAndTime = dateA[0] + ' ' + dateA[1];
+                flight.Id = IdGenerator.GenerateFlightId();
 
                 var airlline = airllines[index];
                 airllines.RemoveAt(index);
