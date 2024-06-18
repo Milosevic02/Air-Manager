@@ -73,5 +73,21 @@ namespace Rezervacija_Avio_Karata.Controllers
             
             return flight;
         }
+
+        [HttpGet]
+        [Route("GetActiveFlights")]
+        public List<Flight> GetActiveFlights()
+        {
+            var retVal = new List<Flight>();
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
+            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
+            foreach (Flight flight in flights)
+            {
+                if (flight.FlightStatus == FlightStatus.Active) retVal.Add(flight);
+            }
+            return retVal;
+        }
+
+
     }
 }
