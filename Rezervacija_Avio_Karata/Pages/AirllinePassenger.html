@@ -10,9 +10,12 @@
 
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="Script/Index.js"></script>
+    <script src="Script/Airlline.js"></script>
+
     <script>
       $(document).ready(function(){
           GetUserRole("Passenger")
+          LoadAirllines("Passenger")
       })
   </script>
 
@@ -63,27 +66,7 @@
     </nav>
 
     <!-- Airlline Cards -->
-    <div class="container mt-5 pt-5">
-        <div class="row">
-            <div class="card p-3 sec-color text-light" style="width: 22rem;margin-bottom:50px !important;margin-left:80px !important">
-                <div class="card-body ">
-                  <h5 class="card-title">Card title</h5>
-                </div>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item sec-color text-light">Adress:</li>
-                  <li class="list-group-item sec-color text-light">Contact Info:</li>
-                </ul>
-                <div class="card-body view-btn">
-                  <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#airllineModal"><i class="fas fa-eye"></i>
-                    View Airlline</button>
-                </div>
-              </div>
-              
-              
-              
-        </div>
-        
-    </div>
+    <div id="airllineCard" class="container mt-5 pt-5"></div>
 
     <!--Modal-->
     <div class="modal fade" id="airllineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
