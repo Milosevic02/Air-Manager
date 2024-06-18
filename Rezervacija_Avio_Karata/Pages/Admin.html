@@ -131,35 +131,36 @@
             </div>
             <form id="editFlightForm">
                 <div class="modal-body">
+                    <input type="hidden" id="editFlightId">
                     <div class="mb-3">
                         <label for="airline" class="form-label">Airline</label>
-                        <input type="text" class="form-control" id="airline" name="airline" required>
+                        <input type="text" class="form-control" id="editAirline" name="airline" required>
                     </div>
                 
                     <div class="mb-3">
                         <label for="departureDateAndTime" class="form-label">Departure Date and Time</label>
-                        <input type="datetime-local" class="form-control" id="departureDateAndTime" name="departureDateAndTime" required>
+                        <input type="datetime-local" class="form-control" id="editDepartureDateAndTime" name="departureDateAndTime" required>
                     </div>
                     <div class="mb-3">
                         <label for="arrivalDateAndTime" class="form-label">Arrival Date and Time</label>
-                        <input type="datetime-local" class="form-control" id="arrivalDateAndTime" name="arrivalDateAndTime" required>
+                        <input type="datetime-local" class="form-control" id="editArrivalDateAndTime" name="arrivalDateAndTime" required>
                     </div>
                     <div class="mb-3">
                         <label for="availableSeats" class="form-label">Available Seats</label>
-                        <input type="number" class="form-control" id="availableSeats" name="availableSeats" min="1" required>
+                        <input type="number" class="form-control" id="editAvailableSeats" name="availableSeats" min="1" required>
                     </div>
                     <div class="mb-3">
                         <label for="occupiedSeats" class="form-label">Occupied Seats</label>
-                        <input type="number" class="form-control" id="occupiedSeats" name="occupiedSeats" min="0" required>
+                        <input type="number" class="form-control" id="editOccupiedSeats" name="occupiedSeats" min="0" required>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+                        <input type="number" class="form-control" id="editPrice" name="price" step="0.01" required>
                     </div>
                     <div class="mb-3">
                         <label for="flightStatus" class="form-label">Flight Status</label>
-                        <select class="form-select" id="flightStatus" name="flightStatus" required>
-                            <option value="Scheduled">Active</option>
+                        <select class="form-select" id="editFlightStatus" name="editFlightStatus" required>
+                            <option value="Active">Active</option>
                             <option value="Cancelled">Cancelled</option>
                             <option value="Completed">Completed</option>
                         </select>
