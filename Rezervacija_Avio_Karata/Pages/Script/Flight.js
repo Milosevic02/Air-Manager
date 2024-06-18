@@ -70,3 +70,69 @@ function GetStatus(param){
         return "Completed";
     }
 }
+
+function LoadActiveFlights(role){
+    $.get("/api/GetActiveFlights",function(data){
+        if (role != "Passenger") {
+            IndexTable(data);
+        } else {
+            PassengerTable(data);
+        }
+    })
+}
+
+
+
+function IndexTable(data) {
+    let table = '<table class="table table-striped table-hover table-bordered fs-5"><thead><tr><th scope="col">#</th><th scope="col">Airlline</th><th scope="col">Departure Destination</th><th scope="col">Arrival Destination</th><th scope="col">Departure Date</th><th scope="col">Arrival Date</th><th scope="col">Available Seats</th><th scope="col">Occupied Seats</th><th scope="col">Price</th><th scope="col">Status</th></tr></thead><tbody>';
+
+    let counter = 0;
+    for (flight in data) {
+        counter++;
+        let row = '<td>' + counter.toString() + '</td>';
+        row += '<td>' + data[flight].Airline + '</td>';
+        row += '<td>' + data[flight].DepartureDestination + '</td>';
+        row += '<td>' + data[flight].ArrivalDestination + '</td>';
+        row += '<td>' + data[flight].DepartureDateAndTime + '</td>';
+        row += '<td>' + data[flight].ArrivalDateAndTime + '</td>';
+        row += '<td>' + data[flight].AvailableSeats + '</td>';
+        row += '<td>' + data[flight].OccupiedSeats + '</td>';
+        row += '<td>' + data[flight].Price + '</td>';
+        let status = GetStatus(data[flight].FlightStatus);
+        row += '<td>' + status + '</td>';
+
+
+        table += '<tr>' + row + '<tr/>';
+    }
+
+    table += '</tbody></table>';
+    $('#flightTable').html(table);
+}
+
+
+function PassengerTable(data) {
+    let table = '<table class="table table-striped table-hover table-bordered fs-5"><thead><tr><th scope="col">#</th><th scope="col">Airlline</th><th scope="col">Departure Destination</th><th scope="col">Arrival Destination</th><th scope="col">Departure Date</th><th scope="col">Arrival Date</th><th scope="col">Available Seats</th><th scope="col">Occupied Seats</th><th scope="col">Price</th><th scope="col">Status</th><th>Action</th></tr></thead><tbody>';
+
+    let counter = 0;
+    for (flight in data) {
+        counter++;
+        let row = '<td>' + counter.toString() + '</td>';
+        row += '<td>' + data[flight].Airline + '</td>';
+        row += '<td>' + data[flight].DepartureDestination + '</td>';
+        row += '<td>' + data[flight].ArrivalDestination + '</td>';
+        row += '<td>' + data[flight].DepartureDateAndTime + '</td>';
+        row += '<td>' + data[flight].ArrivalDateAndTime + '</td>';
+        row += '<td>' + data[flight].AvailableSeats + '</td>';
+        row += '<td>' + data[flight].OccupiedSeats + '</td>';
+        row += '<td>' + data[flight].Price + '</td>';
+        let status = GetStatus(data[flight].FlightStatus);
+        row += '<td>' + status + '</td>';
+
+        row += '<td class="text-center">   <button type="button" class="btn btn-primary text-light" data-bs-toggle="modal" data-bs-target="#reservationModal">Reserve</button></td>'; 
+
+        table += '<tr>' + row + '<tr/>';
+    }
+
+    table += '</tbody></table>';
+    $('#flightTable').html(table);
+}
