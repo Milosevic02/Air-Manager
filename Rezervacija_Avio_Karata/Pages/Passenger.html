@@ -10,11 +10,16 @@
     
     <script src="../Scripts/jquery-3.4.1.min.js"></script>
     <script src="Script/Index.js"></script>
+    <script src="Script/Login.js"></script>
+    <script src="Script/Flight.js"></script>
+
 
     <script src="Script/LoggedIn.js"></script>
     <script>
         $(document).ready(function(){
             GetUserRole("Passenger")
+            LoadActiveFlights("Passenger")
+
         })
     </script>
 
@@ -62,6 +67,16 @@
             </div>
         </div>
     </nav>
+
+    <!-- Toast Notification -->
+    <div id="passengerToast" class="toast mt-5 align-items-center text-bg-primary border-0 position-fixed start-50 translate-middle-x" role="alert" aria-live="assertive" aria-atomic="true" style="top: 75px; z-index: 11;">
+        <div class="d-flex">
+            <div class="toast-body">
+                
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
 
     <!-- Filter -->
     <div class="container mt-5 p-5 sec-color text-dark">
@@ -169,70 +184,7 @@
 
 
     <!--Table-->
-    <div class=" m-5">
-        <table class="table table-striped table-hover table-bordered fs-5">
-            <thead >
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Airlline</th>
-                <th scope="col">Departure Destination</th>
-                <th scope="col">Arrival Destination</th>
-                <th scope="col">Departure Date</th>
-                <th scope="col">Arrival Date</th>
-                <th scope="col">Available Seats</th>
-                <th scope="col">Price</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td scope="row">1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-success text-light" data-bs-toggle="modal" data-bs-target="#reservationModal">Reserve</button>
-                </td>
-
-              </tr>
-              <tr>
-                <td scope="row">2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-danger text-light">Cancel</button>
-                </td>
-              </tr>
-              <tr>
-                <td scope="row">3</td>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-primary text-light">Reserve</button>
-                </td>
-              </tr>
-            </tbody>
-            <tfoot>
-            </tfoot>
-          </table>
-    </div>
+    <div id="flightTable" class=" m-5"></div>
 
     <!-- Modal -->
     <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
