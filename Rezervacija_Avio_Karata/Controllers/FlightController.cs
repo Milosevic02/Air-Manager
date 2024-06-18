@@ -89,6 +89,30 @@ namespace Rezervacija_Avio_Karata.Controllers
             return retVal;
         }
 
+        [HttpGet]
+        [Route("GetFlightDetails")]
+        public IHttpActionResult GetFlightDetails(int id)
+        {
+            var flight = GetFlightById(id);
+
+            if (flight == null)
+            {
+                return NotFound(); // Return 404 Not Found if flight with ID not found
+            }
+
+            return Ok(flight);
+        }
+
+        private Flight GetFlightById(int id)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
+            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
+
+            var flight = flights.FirstOrDefault(f => f.Id == id);
+            return flight;
+        }
+
+
 
     }
 }
