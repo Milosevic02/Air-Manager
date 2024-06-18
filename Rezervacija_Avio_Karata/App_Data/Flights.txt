@@ -19,7 +19,7 @@
     "AvailableSeats": 33,
     "OccupiedSeats": 0,
     "Price": 40.0,
-    "FlightStatus": 0
+    "FlightStatus": 2
   },
   {
     "Airline": "Qatar",
