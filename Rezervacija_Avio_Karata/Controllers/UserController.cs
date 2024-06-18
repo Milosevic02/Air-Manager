@@ -85,6 +85,23 @@ namespace Rezervacija_Avio_Karata.Controllers
             return user.Role;
         }
 
+        [HttpGet]
+        [Route("GetCurrentUser")]
+        public User GetCurrentUser()
+        {
+            return (User)HttpContext.Current.Session["user"];
+        }
+
+
+        [HttpGet]
+        [Route("GetAllUsers")]
+        public List<User> GetAllUsers()
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Users.txt"));
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(content) ?? new List<User>();
+            return users;
+        }
+
 
     }
 }
