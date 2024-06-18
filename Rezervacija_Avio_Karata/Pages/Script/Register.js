@@ -11,17 +11,16 @@ function Register(event) {
         data: data,
         contentType: "application/json",
         success: function (result) {
-            console.log("success");
             // Show success toast
             window.location.href = "Login.html"
-            var successToast = new bootstrap.Toast(document.getElementById('successToast'));
-            successToast.show();
+            
         },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log("error");
-            // Show error toast
-            var errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
-            errorToast.show();
+        error: function(xhr) {
+            var errorMessage = xhr.responseJSON ? xhr.responseJSON.Message : "An error occurred";
+            $('#registerToast .toast-body').text(errorMessage);
+            $('#registerToast').removeClass('text-bg-success').addClass('text-bg-danger');
+            var toastEl = new bootstrap.Toast($('#registerToast'));
+            toastEl.show();
         }
     });
 
