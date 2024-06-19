@@ -72,6 +72,15 @@
         </div>
     </nav>
 
+    <div id="FlightsToast" class="toast mt-5 align-items-center text-bg-primary border-0 position-fixed start-50 translate-middle-x" role="alert" aria-live="assertive" aria-atomic="true" style="top: 75px; z-index: 11;">
+        <div class="d-flex">
+            <div class="toast-body">
+                
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+
     <!-- Filter -->
     <div class="container mt-5 p-5 sec-color text-dark ">
         <div class="row admin-filter">
@@ -120,6 +129,27 @@
 
     <!--Table-->
     <div id="flightTable" class="m-5"></div>
+
+
+    <!--Delete Modal-->
+    <div class="modal" tabindex="-1" id="deleteModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content sec-color text-light">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete Flight</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="deleteFlightId">
+              <p>Are you sure want to delete this flight?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button onclick="DeleteFlight()" type="button" class="btn btn-danger">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     <!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
