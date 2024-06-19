@@ -28,8 +28,8 @@ function LoadAllUsers(){
             row += '<td>' + data[user].Email + '</td>'; 
             row += '<td>' + data[user].DateOfBirth + '</td>'; 
             row += '<td>' + data[user].Role + '</td>'; 
-            let gender = GetGender(data[user].Gender);
-            row += '<td>' + gender + '</td>'; 
+            var genderValue = data[user].Gender == 0 ? "Male" : "Female";
+            row += '<td>' + genderValue + '</td>'; 
 
             table += '<tr>' + row + '<tr/>';
         }
