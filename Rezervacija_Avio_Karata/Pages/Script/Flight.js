@@ -188,3 +188,35 @@ function PassengerTable(data) {
     table += '</tbody></table>';
     $('#flightTable').html(table);
 }
+
+function EditFlight(event){
+    event.preventDefault();
+    let form = $('#editFlightForm');
+    let data = convertFormToJSON(form);
+    data = JSON.stringify(data);
+    let id = $('#editFlightId').val();
+
+
+    $.ajax({
+        url:"/api/EditFlight?id=" + id,
+        type:"PUT",
+        data:data,
+        contentType:"application/json",
+        success: function(){
+            $('#editModal').modal('hide');
+            LoadFlights();
+            $('#FlightsToast .toast-body').text('Flight edited successfully.');
+            $('#FlightsToast').removeClass('text-bg-danger').addClass('text-bg-success');
+            var toastEl = new bootstrap.Toast($('#FlightsToast'));
+            toastEl.show();
+        },
+        error:function(xhr){
+            var errorMessage = xhr.responseJSON ? xhr.responseJSON.Message : "An error occurred";
+            $('#registerToast .toast-body').text(errorMessage);
+            $('#registerToast').removeClass('text-bg-success').addClass('text-bg-danger');
+            var toastEl = new bootstrap.Toast($('#registerToast'));
+            toastEl.show();
+        }
+
+    })
+}
