@@ -150,7 +150,13 @@ namespace Rezervacija_Avio_Karata.Controllers
             {
                 if(air.Name == flight.Airline)
                 {
-                    air.Flights.Remove(flight);
+                    for (int i = 0; i < air.Flights.Count; i++)
+                    {
+                        if(air.Flights[i].Id == flight.Id)
+                        {
+                            air.Flights[i].IsDeleted = true;
+                        }
+                    }
                 }
             }
             content = JsonConvert.SerializeObject(airllines, Formatting.Indented);
