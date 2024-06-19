@@ -18,7 +18,7 @@ function LoadFlights(){
             row += '<td>' + status + '</td>'; 
 
             row += '<td class="text-center">  <button onclick ="GetFlightInfo('+ data[flight].Id + ')" type="button" class="btn btn-warning text-dark edit-flight-btn" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-pen"></i> Edit</button></td>'; 
-            row += '<td class="text-center">   <button onclick="DeleteFlight(' + data[flight].Id + ') type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button></td>'; 
+            row += '<td class="text-center">   <button onclick="AddIdToDeleteModal(' + data[flight].Id + ')" type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button></td>'; 
 
             table += '<tr>' + row + '<tr/>';
         }
@@ -26,6 +26,34 @@ function LoadFlights(){
         table += '</tbody></table>';
         $('#flightTable').html(table);
     })
+}
+
+function AddIdToDeleteModal(flightId){
+    $('#deleteFlightId').val(flightId)
+}
+
+function DeleteFlight() {
+    let id = $('#deleteFlightId').val();
+    $.ajax({
+        url: '/api/DeleteFlight?id=' + id,
+        type: 'DELETE',
+        success: function () {
+            LoadFlights();
+            $('#deleteModal').modal('hide');
+            $('#FlightsToast .toast-body').text('Flight deleted successfully.');
+            $('#FlightsToast').removeClass('text-bg-danger').addClass('text-bg-success');
+            var toastEl = new bootstrap.Toast($('#FlightsToast'));
+            toastEl.show();
+        },
+        error: function (xhr) {
+            $('#deleteModal').modal('hide');
+            var errorMessage = xhr.responseJSON ? xhr.responseJSON.Message : "An error occurred";
+            $('#FlightsToast .toast-body').text(errorMessage);
+            $('#FlightsToast').removeClass('text-bg-success').addClass('text-bg-danger');
+            var toastEl = new bootstrap.Toast($('#FlightsToast'));
+            toastEl.show();
+        }
+    });
 }
 
 function GetFlightInfo(flightId){
@@ -38,7 +66,6 @@ function GetFlightInfo(flightId){
         $('#editOccupiedSeats').val(flightDetails.OccupiedSeats);
         $('#editPrice').val(flightDetails.Price);
         let statusValue = GetStatus(flightDetails.FlightStatus);
-
         $('#editFlightStatus').val(statusValue);
     });
 }
@@ -55,10 +82,6 @@ function GetStatus(status) {
     return retVal;
 }
 
-function DeleteFlight(id){
-
-}
-
 function AddFlight(event){
     event.preventDefault(); 
 
@@ -70,14 +93,21 @@ function AddFlight(event){
         type: "POST", 
         data: JSON.stringify(data),
         contentType: "application/json", 
-        success: function (result) {
-            console.log("success", result);
-            window.location.href = "Admin.html";
+        success: function () {
+            $('#addModal').modal('hide');
+            LoadFlights();
+            $('#FlightsToast .toast-body').text('Flight added successfully.');
+            $('#FlightsToast').removeClass('text-bg-danger').addClass('text-bg-success');
+            var toastEl = new bootstrap.Toast($('#FlightsToast'));
+            toastEl.show();
         },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log("error", xhr.responseText);
-            var errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
-            errorToast.show();
+        error: function (xhr) {
+            $('#addModal').modal('hide');
+            var errorMessage = xhr.responseJSON ? xhr.responseJSON.Message : "An error occurred";
+            $('#FlightsToast .toast-body').text(errorMessage);
+            $('#FlightsToast').removeClass('text-bg-success').addClass('text-bg-danger');
+            var toastEl = new bootstrap.Toast($('#FlightsToast'));
+            toastEl.show();
         }
     });
 
