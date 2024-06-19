@@ -2,6 +2,7 @@
   {
     "Id": 8,
     "Airline": "Qatar",
+    "IsDeleted": false,
     "DepartureDestination": "Beograd",
     "ArrivalDestination": "Dubai",
     "DepartureDateAndTime": "2024-06-15 21:10",
@@ -14,6 +15,7 @@
   {
     "Id": 6,
     "Airline": "Qatar",
+    "IsDeleted": false,
     "DepartureDestination": "Beograd",
     "ArrivalDestination": "Prague",
     "DepartureDateAndTime": "2024-06-20 23:21",
@@ -26,6 +28,7 @@
   {
     "Id": 5,
     "Airline": "Qatar",
+    "IsDeleted": false,
     "DepartureDestination": "Beograd",
     "ArrivalDestination": "Paris",
     "DepartureDateAndTime": "2024-06-15 21:27",
@@ -38,6 +41,7 @@
   {
     "Id": 4,
     "Airline": "StarCruise",
+    "IsDeleted": false,
     "DepartureDestination": "Paris",
     "ArrivalDestination": "London",
     "DepartureDateAndTime": "2024-06-20 22:38",
@@ -50,6 +54,7 @@
   {
     "Id": 3,
     "Airline": "StarCruise",
+    "IsDeleted": false,
     "DepartureDestination": "Paris",
     "ArrivalDestination": "Istanbul",
     "DepartureDateAndTime": "2024-06-22 18:09",
@@ -62,6 +67,7 @@
   {
     "Id": 2,
     "Airline": "SkyHigh",
+    "IsDeleted": false,
     "DepartureDestination": "Lisabon",
     "ArrivalDestination": "Roma",
     "DepartureDateAndTime": "2024-06-28 21:15",
@@ -74,6 +80,7 @@
   {
     "Id": 1,
     "Airline": "SkyHigh",
+    "IsDeleted": false,
     "DepartureDestination": "Lisabon",
     "ArrivalDestination": "Madrid",
     "DepartureDateAndTime": "2024-06-27 10:28",
@@ -81,6 +88,32 @@
     "AvailableSeats": 47,
     "OccupiedSeats": 0,
     "Price": 55.0,
+    "FlightStatus": 0
+  },
+  {
+    "Id": 10,
+    "Airline": "StarCruise",
+    "IsDeleted": false,
+    "DepartureDestination": "Rome",
+    "ArrivalDestination": "London",
+    "DepartureDateAndTime": "2024-06-29 16:38",
+    "ArrivalDateAndTime": "2024-06-29 18:45",
+    "AvailableSeats": 20,
+    "OccupiedSeats": 0,
+    "Price": 125.0,
+    "FlightStatus": 0
+  },
+  {
+    "Id": 11,
+    "Airline": "Qatar",
+    "IsDeleted": false,
+    "DepartureDestination": "Hurgada",
+    "ArrivalDestination": "Beograd",
+    "DepartureDateAndTime": "2024-06-21 17:43",
+    "ArrivalDateAndTime": "2024-06-21 21:58",
+    "AvailableSeats": 56,
+    "OccupiedSeats": 0,
+    "Price": 250.0,
     "FlightStatus": 0
   }
 ]
