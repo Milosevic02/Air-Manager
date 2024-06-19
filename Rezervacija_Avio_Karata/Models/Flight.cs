@@ -16,6 +16,7 @@ namespace Rezervacija_Avio_Karata.Models
 
         public int Id { get; set;}
         public string Airline { get; set; }
+        public bool IsDeleted {  get; set; } = false;
         public string DepartureDestination { get; set; }
         public string ArrivalDestination { get; set; }
         public string DepartureDateAndTime { get; set; }
