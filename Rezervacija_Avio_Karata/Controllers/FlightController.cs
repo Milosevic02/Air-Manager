@@ -54,6 +54,8 @@ namespace Rezervacija_Avio_Karata.Controllers
 
                 flight.DepartureDateAndTime = dateD[0] + ' ' + dateD[1];
                 flight.ArrivalDateAndTime = dateA[0] + ' ' + dateA[1];
+                flight.FlightStatus = FlightStatus.Active;
+                flight.OccupiedSeats = 0;
                 flight.Id = IdGenerator.GenerateFlightId();
 
                 var airlline = airllines[index];
@@ -176,13 +178,17 @@ namespace Rezervacija_Avio_Karata.Controllers
                     {
                         string oldAirline = flights[i].Airline;
                         flights[i].Airline = flight.Airline;
-                        flights[i].ArrivalDateAndTime = flight.ArrivalDateAndTime;
-                        flights[i].DepartureDateAndTime = flight.DepartureDateAndTime;
+                        string[] dateA = flight.ArrivalDateAndTime.ToString().Split('T');
+                        string[] dateD = flight.DepartureDateAndTime.ToString().Split('T');
+
+          
+                        flights[i].ArrivalDateAndTime = dateD[0] + ' ' + dateD[1];
+                        flights[i].DepartureDateAndTime = dateA[0] + ' ' + dateA[1];
                         flights[i].OccupiedSeats = flight.OccupiedSeats;
                         flights[i].AvailableSeats = flight.AvailableSeats;
                         flights[i].Price = flight.Price;
                         flights[i].FlightStatus = flight.FlightStatus;
-                        if (flight.Airline != oldAirline) { FileChangeFlightForAirline(oldAirline, flights[i]); }
+                        FileChangeFlightForAirline(oldAirline, flights[i]);
                         break;
                     }
                 }
@@ -197,11 +203,44 @@ namespace Rezervacija_Avio_Karata.Controllers
             return Ok();
         }
 
-        private void FileChangeFlightForAirline(string oldAirline,Flight flight) {
-
-
+        private void FileChangeFlightForAirline(string oldAirline,Flight flight) 
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"));
+            List<Airlline> airllines = JsonConvert.DeserializeObject<List<Airlline>>(content) ?? new List<Airlline>();
             
+            if (flight.Airline != oldAirline)
+            {
+                DeleteFlightFromAirllineFile(oldAirline, flight.Id);
+                foreach (Airlline air in airllines)
+                {
+                    if(air.Name == flight.Airline)
+                    {
+                        air.Flights.Add(flight);
+                    }
+                }
+
+            }
+            else
+            {
+                foreach(Airlline air in airllines){
+                    if(air.Name == flight.Airline)
+                    {
+                       for(int i = 0; i < air.Flights.Count; i++)
+                        {
+                            if (air.Flights[i].Id == flight.Id)
+                            {
+                                air.Flights[i] = flight;
+                            }
+                        }
+                    }
+                }
+            }
+            content = JsonConvert.SerializeObject(airllines, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"), content);
         }
+
+
+    
 
         private bool IsAirlineExists(string AirlineName)
         {
@@ -217,17 +256,17 @@ namespace Rezervacija_Avio_Karata.Controllers
             return false;
         }
 
-        private void DeleteFlightFromAirllineFile(Flight flight)
+        private void DeleteFlightFromAirllineFile(string airlineName,int flightId)
         {
             string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"));
             List<Airlline> airllines = JsonConvert.DeserializeObject<List<Airlline>>(content) ?? new List<Airlline>();
             foreach (Airlline air in airllines)
             {
-                if (air.Name == flight.Airline)
+                if (air.Name == airlineName)
                 {
                     for (int i = 0; i < air.Flights.Count; i++)
                     {
-                        if (air.Flights[i].Id == flight.Id)
+                        if (air.Flights[i].Id == flightId)
                         {
                             air.Flights.RemoveAt(i);
                         }
