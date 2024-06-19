@@ -22,9 +22,9 @@ namespace Rezervacija_Avio_Karata.Models
         public string DepartureDateAndTime { get; set; }
         public string ArrivalDateAndTime { get; set; }
         public int AvailableSeats { get; set; }
-        public int OccupiedSeats { get; set; } = 0;
+        public int OccupiedSeats { get; set; }
         public double Price { get; set; }
-        public FlightStatus FlightStatus {get;set;} = FlightStatus.Active;
+        public FlightStatus FlightStatus {get;set;}
 
 
     }
