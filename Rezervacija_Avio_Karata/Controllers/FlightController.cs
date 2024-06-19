@@ -131,7 +131,7 @@ namespace Rezervacija_Avio_Karata.Controllers
                 {
                     flight.IsDeleted = true;
                     success = true;
-                    DeleteFlightFromAirllineFile(flight);
+                    LogicalDeleteFlightFromAirllineFile(flight);
 
                 }
             }
@@ -143,7 +143,7 @@ namespace Rezervacija_Avio_Karata.Controllers
             return Ok();
         }
 
-        private void DeleteFlightFromAirllineFile(Flight flight) {
+        private void LogicalDeleteFlightFromAirllineFile(Flight flight) {
             string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"));
             List<Airlline> airllines = JsonConvert.DeserializeObject<List<Airlline>>(content) ?? new List<Airlline>();
             foreach (Airlline air in airllines)
@@ -163,6 +163,80 @@ namespace Rezervacija_Avio_Karata.Controllers
             File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"), content);
         }
 
+        [HttpPut]
+        [Route("EditFlight")]
+        public IHttpActionResult EditFlight(Flight flight,int id) {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
+            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
+            if (IsAirlineExists(flight.Airline))
+            {
+                for(int i = 0; i < flights.Count; i++)
+                {
+                    if (flights[i].Id == id)
+                    {
+                        string oldAirline = flights[i].Airline;
+                        flights[i].Airline = flight.Airline;
+                        flights[i].ArrivalDateAndTime = flight.ArrivalDateAndTime;
+                        flights[i].DepartureDateAndTime = flight.DepartureDateAndTime;
+                        flights[i].OccupiedSeats = flight.OccupiedSeats;
+                        flights[i].AvailableSeats = flight.AvailableSeats;
+                        flights[i].Price = flight.Price;
+                        flights[i].FlightStatus = flight.FlightStatus;
+                        if (flight.Airline != oldAirline) { FileChangeFlightForAirline(oldAirline, flights[i]); }
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                return BadRequest("Airline with name " + flight.Airline + "doesnt exists");
+            }
+            content = JsonConvert.SerializeObject(flights, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"), content);
+
+            return Ok();
+        }
+
+        private void FileChangeFlightForAirline(string oldAirline,Flight flight) {
+
+
+            
+        }
+
+        private bool IsAirlineExists(string AirlineName)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"));
+            List<Airlline> airllines = JsonConvert.DeserializeObject<List<Airlline>>(content) ?? new List<Airlline>();
+            foreach (Airlline air in airllines)
+            {
+                if (air.Name == AirlineName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void DeleteFlightFromAirllineFile(Flight flight)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"));
+            List<Airlline> airllines = JsonConvert.DeserializeObject<List<Airlline>>(content) ?? new List<Airlline>();
+            foreach (Airlline air in airllines)
+            {
+                if (air.Name == flight.Airline)
+                {
+                    for (int i = 0; i < air.Flights.Count; i++)
+                    {
+                        if (air.Flights[i].Id == flight.Id)
+                        {
+                            air.Flights.RemoveAt(i);
+                        }
+                    }
+                }
+            }
+            content = JsonConvert.SerializeObject(airllines, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"), content);
+        }
 
 
     }
