@@ -5,12 +5,12 @@
     "IsDeleted": false,
     "DepartureDestination": "Beograd",
     "ArrivalDestination": "Dubai",
-    "DepartureDateAndTime": "2024-06-15 21:10",
-    "ArrivalDateAndTime": "2024-06-14 00:12",
-    "AvailableSeats": 43,
+    "DepartureDateAndTime": "2024-06-14 00:12",
+    "ArrivalDateAndTime": "2024-06-15 21:10",
+    "AvailableSeats": 46,
     "OccupiedSeats": 0,
     "Price": 230.0,
-    "FlightStatus": 0
+    "FlightStatus": 1
   },
   {
     "Id": 6,
@@ -106,7 +106,7 @@
   {
     "Id": 11,
     "Airline": "Qatar",
-    "IsDeleted": false,
+    "IsDeleted": true,
     "DepartureDestination": "Hurgada",
     "ArrivalDestination": "Beograd",
     "DepartureDateAndTime": "2024-06-21 17:43",
