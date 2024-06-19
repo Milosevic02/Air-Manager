@@ -1,1 +1,28 @@
-- Kada prodje register formu sve lepo uradi samo return Ok() ne vrati js da je ok I ne udje nikad u success
+-Namesti toast not
+
+
+
+
+*********Sta treba Uraditi***************
+Neulogovan:
+	Filtriranje letova
+	Prikaz Informacija Aviokompanija
+
+Obican Korisnik:
+	Rezervacija i Otkaz Leta
+	Filtriranje letova
+	Prikaz rezervacija
+	Filtriranje rezervacija
+	Izmena Profila
+	Prikaz Informacija Aviokompanija
+
+Admin:
+	Filtriranje letova
+	Izmena Aviokompanija
+	Brisanje aviokompanija
+	Filtriranje aviokompanija	
+	Prihvatanje odbijanje rezervacije
+	Otkazivanje odobrenih rezervacija
+	Prihvatanje i odbijanje review
+	Izmena profila
+	Filtriranje Korisnika
