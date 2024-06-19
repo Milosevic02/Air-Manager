@@ -21,12 +21,17 @@ namespace Rezervacija_Avio_Karata.Controllers
         {
             string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
             List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
-            return flights;
+            List<Flight> result = new List<Flight>();
+            foreach(Flight f in flights)
+            {
+                if (!(f.IsDeleted)) result.Add(f);
+            }
+            return result;
         }
 
         [HttpPost]
         [Route("AddFlight")]
-        public Flight AddFlight(Flight flight)
+        public IHttpActionResult AddFlight(Flight flight)
         {
             if (flight == null)
                 return null;
@@ -58,7 +63,7 @@ namespace Rezervacija_Avio_Karata.Controllers
             }
             else
             {
-                return null;
+                return BadRequest("Airlline with name \"" + flight.Airline + "\" doesnt exist!");
             }
 
             airllineContent = JsonConvert.SerializeObject(airllines, Formatting.Indented);
@@ -72,7 +77,7 @@ namespace Rezervacija_Avio_Karata.Controllers
             content = JsonConvert.SerializeObject(flights, Formatting.Indented);
             File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"), content);
             
-            return flight;
+            return Ok();
         }
 
         [HttpGet]
@@ -84,7 +89,7 @@ namespace Rezervacija_Avio_Karata.Controllers
             List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
             foreach (Flight flight in flights)
             {
-                if (flight.FlightStatus == FlightStatus.Active) retVal.Add(flight);
+                if (flight.FlightStatus == FlightStatus.Active && !(flight.IsDeleted)) retVal.Add(flight);
             }
             return retVal;
         }
@@ -110,6 +115,46 @@ namespace Rezervacija_Avio_Karata.Controllers
 
             var flight = flights.FirstOrDefault(f => f.Id == id);
             return flight;
+        }
+
+        [HttpDelete]
+        [Route("DeleteFlight")]
+        public IHttpActionResult DeleteFlight(int id) {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
+            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
+            
+            
+            bool success = false;
+            foreach (Flight flight in flights)
+            {
+                if (flight.Id == id)
+                {
+                    flight.IsDeleted = true;
+                    success = true;
+                    DeleteFlightFromAirllineFile(flight);
+
+                }
+            }
+            if(!success) return BadRequest("Flight doesnt exist!");
+            content = JsonConvert.SerializeObject(flights, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"), content);
+
+
+            return Ok();
+        }
+
+        private void DeleteFlightFromAirllineFile(Flight flight) {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"));
+            List<Airlline> airllines = JsonConvert.DeserializeObject<List<Airlline>>(content) ?? new List<Airlline>();
+            foreach (Airlline air in airllines)
+            {
+                if(air.Name == flight.Airline)
+                {
+                    air.Flights.Remove(flight);
+                }
+            }
+            content = JsonConvert.SerializeObject(airllines, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"), content);
         }
 
 
