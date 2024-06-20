@@ -17,7 +17,7 @@ function AirllineCards(data){
         card += '<span id="address" class="form-control sec-color text-light" readonly>' + data[airlline].Address + '</span></div>';
         card += '<div class="form-group"><label for="contact" class="sec-color text-light">Contact Info:</label>'
         card += '<span id="contact" class="form-control sec-color text-light" readonly>' + data[airlline].ContactInfo + '</span></div></div><div class="card-body view-btn">';
-        card += '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#airllineModal"><i class="fas fa-eye"></i> View Airline</button></div></div>'
+        card += '<button onclick="GetAirlineInfo(\'' + data[airlline].Name + '\', \'Passenger\')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#airllineModal"><i class="fas fa-eye"></i> View Airline</button></div></div>'
     }
     card += '</div>';
     $("#airllineCard").html(card);
@@ -33,7 +33,7 @@ function AdminTable(data){
         row += '<td>' + data[airlline].Name + '</td>';
         row += '<td>' + data[airlline].Address + '</td>'; 
         row += '<td>' + data[airlline].ContactInfo + '</td>'; 
-        row += '<td class="text-center">  <button type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#editAirllineModal"><i class="fas fa-pen"></i> Edit</button></td>'; 
+        row += '<td class="text-center">  <button onclick="GetAirlineInfo(\'' + data[airlline].Name + '\', \'Admin\')" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#editAirllineModal"><i class="fas fa-pen"></i> Edit</button></td>';
         row += '<td class="text-center">   <button type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button></td>'; 
 
         table += '<tr>' + row + '<tr/>';
@@ -74,4 +74,44 @@ function convertFormToJSON(form) {
         json[this.name] = this.value || "";
     });
     return json;
+}
+
+function GetAirlineInfo(airlineName,role){
+    $.get('/api/GetAirlineDetails?name=' + airlineName + '&role=' + role,function(airllineDetails){
+        if(role === "Admin"){
+            $('#name').val(airllineDetails.Name);
+            $('#address').val(airllineDetails.Address);
+            $('#contactInfo').val(airllineDetails.ContactInfo);
+        }else{
+            $('#name').text(airllineDetails.Name);
+            $('#adress').text(airllineDetails.Address);
+            $('#contactInfo').text(airllineDetails.ContactInfo);
+        }
+        
+
+        if(airllineDetails.Reviews.length > 0){
+            let reviewes = airllineDetails.Reviews;
+            LoadReviewCard(reviewes);
+        }else{
+            $('#reviewContainer').html('<p>No reviews available.</p>');
+
+        }
+    });
+}
+
+function LoadReviewCard(reviews){
+    
+    let reviewCard = ""
+    reviews.forEach(function(review) {
+        reviewCard += `
+            <div class="card mb-3">
+                <h5 class="card-header">${review.Reviewer}</h5>
+                <div class="card-body">
+                    <h5 class="card-title">${review.Title}</h5>
+                    <p class="card-text">${review.Description}</p>
+                    ${review.Image ? `<img src="${review.Image}" alt="${review.Title}" class="img-fluid">` : ''}
+                </div>
+            </div>`;
+    })
+    $('#reviewContainer').html(reviewCard);
 }
