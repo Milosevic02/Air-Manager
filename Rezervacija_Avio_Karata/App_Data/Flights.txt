@@ -14,7 +14,7 @@
   },
   {
     "Id": 6,
-    "Airline": "Qatar",
+    "Airline": "SkyHigh",
     "IsDeleted": false,
     "DepartureDestination": "Beograd",
     "ArrivalDestination": "Prague",
