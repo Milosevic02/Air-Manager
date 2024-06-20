@@ -104,7 +104,7 @@ namespace Rezervacija_Avio_Karata.Controllers
 
             if (flight == null)
             {
-                return NotFound(); // Return 404 Not Found if flight with ID not found
+                return NotFound();
             }
 
             return Ok(flight);
@@ -205,24 +205,30 @@ namespace Rezervacija_Avio_Karata.Controllers
 
         private void FileChangeFlightForAirline(string oldAirline,Flight flight) 
         {
-            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"));
-            List<Airlline> airllines = JsonConvert.DeserializeObject<List<Airlline>>(content) ?? new List<Airlline>();
             
             if (flight.Airline != oldAirline)
             {
                 DeleteFlightFromAirllineFile(oldAirline, flight.Id);
+                string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"));
+                List<Airlline> airllines = JsonConvert.DeserializeObject<List<Airlline>>(content) ?? new List<Airlline>();
+
                 foreach (Airlline air in airllines)
                 {
                     if(air.Name == flight.Airline)
                     {
                         air.Flights.Add(flight);
+                        break;
                     }
                 }
-
+                content = JsonConvert.SerializeObject(airllines, Formatting.Indented);
+                File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"), content);
             }
             else
             {
-                foreach(Airlline air in airllines){
+                string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"));
+                List<Airlline> airllines = JsonConvert.DeserializeObject<List<Airlline>>(content) ?? new List<Airlline>();
+
+                foreach (Airlline air in airllines){
                     if(air.Name == flight.Airline)
                     {
                        for(int i = 0; i < air.Flights.Count; i++)
@@ -230,13 +236,16 @@ namespace Rezervacija_Avio_Karata.Controllers
                             if (air.Flights[i].Id == flight.Id)
                             {
                                 air.Flights[i] = flight;
+                                break;
                             }
                         }
                     }
                 }
+                content = JsonConvert.SerializeObject(airllines, Formatting.Indented);
+                File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"), content);
+
             }
-            content = JsonConvert.SerializeObject(airllines, Formatting.Indented);
-            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"), content);
+
         }
 
 
