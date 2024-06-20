@@ -6,7 +6,6 @@
 *********Sta treba Uraditi***************
 Neulogovan:
 	Filtriranje letova
-	Prikaz Informacija Aviokompanija
 
 Obican Korisnik:
 	Rezervacija i Otkaz Leta
@@ -14,11 +13,9 @@ Obican Korisnik:
 	Prikaz rezervacija
 	Filtriranje rezervacija
 	Izmena Profila
-	Prikaz Informacija Aviokompanija
 
 Admin:
 	Filtriranje letova
-	Izmena Aviokompanija
 	Brisanje aviokompanija
 	Filtriranje aviokompanija	
 	Prihvatanje odbijanje rezervacije
