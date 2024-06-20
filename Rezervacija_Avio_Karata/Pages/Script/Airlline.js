@@ -79,7 +79,9 @@ function convertFormToJSON(form) {
 function GetAirlineInfo(airlineName,role){
     $.get('/api/GetAirlineDetails?name=' + airlineName + '&role=' + role,function(airllineDetails){
         if(role === "Admin"){
+            $('#editAirlineId').val(airllineDetails.Name);
             $('#name').val(airllineDetails.Name);
+            
             $('#address').val(airllineDetails.Address);
             $('#contactInfo').val(airllineDetails.ContactInfo);
         }else{
@@ -114,4 +116,35 @@ function LoadReviewCard(reviews){
             </div>`;
     })
     $('#reviewContainer').html(reviewCard);
+}
+
+function EditAirline(event){
+    event.preventDefault();
+    let form = $('#editAirlineForm');
+    let data = convertFormToJSON(form);
+    data = JSON.stringify(data);
+    let id = $('#editAirlineId').val();
+
+    $.ajax({
+        url:"/api/EditAirline?oldName=" + id,
+        type:"PUT",
+        data:data,
+        contentType:"application/json",
+        success:function(){
+            $('#editAirllineModal').modal('hide');
+            LoadAirllines("Admin");
+            $('#AirllinesToast .toast-body').text('Airlline edited successfully.');
+            $('#AirllinesToast').removeClass('text-bg-danger').addClass('text-bg-success');
+            var toastEl = new bootstrap.Toast($('#AirllinesToast'));
+            toastEl.show();
+        } ,
+        error:function(xhr){
+            var errorMessage = xhr.responseJSON ? xhr.responseJSON.Message : "An error occurred";
+            $('#editAirllineModal').modal('hide');
+            $('#AirllinesToast .toast-body').text(errorMessage);
+            $('#AirllinesToast').removeClass('text-bg-success').addClass('text-bg-danger');
+            var toastEl = new bootstrap.Toast($('#AirllinesToast'));
+            toastEl.show();
+        }
+    })
 }
