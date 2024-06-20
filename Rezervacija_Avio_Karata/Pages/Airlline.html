@@ -54,59 +54,38 @@
     </nav>
 
 <!-- Airline Cards -->
-<div id="airllineCard" class="container mt-5 pt-5">
+<div id="airllineCard" class="container mt-5 pt-5"></div>
 
+
+<div class="modal fade" id="airllineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content sec-color text-light">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5" id="name"></h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="mb-3">
+                  <h5>Address:</h5>
+                  <p id="adress"></p>
+              </div>
+              <div class="mb-3">
+                  <h5>Contact Info:</h5>
+                  <p id="contactInfo"></p>
+              </div>
+              <hr>
+              <h5>Reviews:</h5>
+              <div id="reviewContainer"></div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                  <i class="fas fa-times me-2"></i>Cancel
+              </button>
+          </div>
+      </div>
+  </div>
 </div>
 
-
-    <!--Modal-->
-    <div class="modal fade" id="airllineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content sec-color text-light">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                  <div class="row">
-                    <div class="col">
-                      <h5>Address:</h5>
-                      <p>Addres content here...</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <h5>Contact Info:</h5>
-                      <p>Contact info content here...</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                      <h5>Reviews:</h5>
-                        <div class="card mb-3">
-                            <h5 class="card-header">Reviewer</h5>
-                            <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <p class="card-text">Stars: 4/5 <i class="fas fa-star"></i>
-                            </p>
-                            </div>
-                        </div>
-                        <div class="card mb-3">
-                            <h5 class="card-header">Reviewer</h5>
-                            <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <p class="card-text">Stars: 4/5 <i class="fas fa-star"></i>
-                            </p>
-                            </div>
-                        </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
 
     
 
