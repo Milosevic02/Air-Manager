@@ -18,19 +18,6 @@
         "FlightStatus": 1
       },
       {
-        "Id": 6,
-        "Airline": "Qatar",
-        "IsDeleted": false,
-        "DepartureDestination": "Beograd",
-        "ArrivalDestination": "Prague",
-        "DepartureDateAndTime": "2024-06-2023:21",
-        "ArrivalDateAndTime": "2024-06-2103:23",
-        "AvailableSeats": 33,
-        "OccupiedSeats": 0,
-        "Price": 40.0,
-        "FlightStatus": 0
-      },
-      {
         "Id": 5,
         "Airline": "Qatar",
         "IsDeleted": false,
@@ -143,6 +130,19 @@
         "OccupiedSeats": 0,
         "Price": 55.0,
         "FlightStatus": 0
+      },
+      {
+        "Id": 6,
+        "Airline": "SkyHigh",
+        "IsDeleted": false,
+        "DepartureDestination": "Beograd",
+        "ArrivalDestination": "Prague",
+        "DepartureDateAndTime": "2024-06-20 23:21",
+        "ArrivalDateAndTime": "2024-06-21 03:23",
+        "AvailableSeats": 33,
+        "OccupiedSeats": 0,
+        "Price": 40.0,
+        "FlightStatus": 2
       }
     ],
     "Reviews": []
