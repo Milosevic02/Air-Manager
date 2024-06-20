@@ -212,9 +212,9 @@ function EditFlight(event){
         },
         error:function(xhr){
             var errorMessage = xhr.responseJSON ? xhr.responseJSON.Message : "An error occurred";
-            $('#registerToast .toast-body').text(errorMessage);
-            $('#registerToast').removeClass('text-bg-success').addClass('text-bg-danger');
-            var toastEl = new bootstrap.Toast($('#registerToast'));
+            $('#FlightsToast .toast-body').text(errorMessage);
+            $('#FlightsToast').removeClass('text-bg-success').addClass('text-bg-danger');
+            var toastEl = new bootstrap.Toast($('#FlightsToast'));
             toastEl.show();
         }
 
