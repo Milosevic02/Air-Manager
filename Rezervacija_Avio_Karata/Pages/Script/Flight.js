@@ -66,7 +66,7 @@ function GetFlightInfo(flightId){
         $('#editOccupiedSeats').val(flightDetails.OccupiedSeats);
         $('#editPrice').val(flightDetails.Price);
         let statusValue = GetStatus(flightDetails.FlightStatus);
-        $('#editFlightStatus').val(statusValue);
+        $('#flightStatus').val(statusValue);
     });
 }
 
