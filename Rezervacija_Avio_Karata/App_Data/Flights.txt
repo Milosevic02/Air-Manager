@@ -1,12 +1,12 @@
 [
   {
     "Id": 8,
-    "Airline": "Qatar",
+    "Airline": "VisaAir",
     "IsDeleted": false,
     "DepartureDestination": "Beograd",
     "ArrivalDestination": "Dubai",
-    "DepartureDateAndTime": "2024-06-14 00:12",
-    "ArrivalDateAndTime": "2024-06-15 21:10",
+    "DepartureDateAndTime": "2024-06-15 21:10",
+    "ArrivalDateAndTime": "2024-06-14 00:12",
     "AvailableSeats": 46,
     "OccupiedSeats": 0,
     "Price": 230.0,
