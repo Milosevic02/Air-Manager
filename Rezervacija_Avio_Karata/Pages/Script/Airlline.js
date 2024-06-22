@@ -34,13 +34,43 @@ function AdminTable(data){
         row += '<td>' + data[airlline].Address + '</td>'; 
         row += '<td>' + data[airlline].ContactInfo + '</td>'; 
         row += '<td class="text-center">  <button onclick="GetAirlineInfo(\'' + data[airlline].Name + '\', \'Admin\')" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#editAirllineModal"><i class="fas fa-pen"></i> Edit</button></td>';
-        row += '<td class="text-center">   <button type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button></td>'; 
+        row += '<td class="text-center">   <button onclick="AddIdToDeleteModal(\'' + data[airlline].Name + '\')" type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button></td>'; 
 
         table += '<tr>' + row + '<tr/>';
     }
 
     table += '</tbody></table>';
     $('#airllineTable').html(table);
+}
+
+function AddIdToDeleteModal(airlineId){
+    $('#deleteAirlineId').val(airlineId)
+}
+
+function DeleteAirline(){
+    let id = $('#deleteAirlineId').val();
+    $.ajax({
+        url: '/api/DeleteAirline?name=' + id,
+        type: 'DELETE',
+        success: function () {
+            LoadAirllines("Admin");
+            $('#deleteModal').modal('hide');
+            $('#AirllinesToast .toast-body').text('Airlline deleted successfully.');
+            $('#AirllinesToast').removeClass('text-bg-danger').addClass('text-bg-success');
+            var toastEl = new bootstrap.Toast($('#AirllinesToast'));
+            toastEl.show();
+
+        },
+        error:function(xhr){
+            var errorMessage = xhr.responseJSON ? xhr.responseJSON.Message : "An error occurred";
+
+            $('#deleteModal').modal('hide');
+            $('#AirllinesToast .toast-body').text(errorMessage);
+            $('#AirllinesToast').removeClass('text-bg-success').addClass('text-bg-danger');
+            var toastEl = new bootstrap.Toast($('#AirllinesToast'));
+            toastEl.show();
+        }
+    });
 }
 
 function AddAirlline(event){
