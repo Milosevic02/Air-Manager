@@ -148,6 +148,26 @@
     <!--Table-->
     <div id="airllineTable" class="container mt-3 mb-5"></div>
 
+    <!--Delete Modal-->
+    <div class="modal" tabindex="-1" id="deleteModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content sec-color text-light">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete Flight</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="deleteAirlineId">
+              <p>Are you sure want to delete this airline?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button onclick="DeleteAirline()" type="button" class="btn btn-danger">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 <!-- Edit Modal -->
 <div class="modal fade" id="editAirllineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
