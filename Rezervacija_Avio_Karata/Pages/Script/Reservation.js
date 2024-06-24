@@ -88,6 +88,8 @@ async function LoadCreatedReservationsPassenger() {
 
 
 
+
+
 function GetReservationStatus(status) {
     let retVal = "";
     if (status === 0) {
@@ -118,13 +120,18 @@ function AddReservationIdOnModal(id){
     $("#cancelFlightId").val(id);
 }
 
-function CancelReservation(){
+function CancelReservation(role){
     let id = $("#cancelFlightId").val();
     $.ajax({
         url: '/api/CancelReservation?id=' + id,
         type: 'DELETE',
         success: function () {
-            LoadCreatedReservationsPassenger();
+            if(role != "Admin"){LoadCreatedReservationsPassenger();
+            }else{
+                LoadCreatedReservationsAdmin();
+                LoadApprovedReservationsAdmin();
+            }
+            
             $('#cancelModal').modal('hide');
             $('#ReservationToast .toast-body').text('Flight canceled successfully.');
             $('#ReservationToast').removeClass('text-bg-danger').addClass('text-bg-success');
@@ -213,6 +220,7 @@ function ChangeReservationStatus(id, action) {
         type: 'POST',
         success: function() {
             LoadCreatedReservationsAdmin();
+            LoadApprovedReservationsAdmin();
             $('#ReservationToast .toast-body').text('Reservation ' + action + ' successfully.');
             $('#ReservationToast').removeClass('text-bg-danger').addClass('text-bg-success');
             var toastEl = new bootstrap.Toast($('#ReservationToast'));
@@ -229,7 +237,65 @@ function ChangeReservationStatus(id, action) {
 }
 
 
+async function LoadApprovedReservationsAdmin() {
+    try {
+        const reservations = await $.get("/api/LoadApprovedReservations?role=Admin");
 
+        if (reservations.length > 0) {
+            let table = '<table class="table table-striped table-hover table-bordered">';
+            table += '<thead><tr>';
+            table += '<th scope="col">#</th>';
+            table += '<th scope="col">User</th>';
+            table += '<th scope="col">Airline</th>';
+            table += '<th scope="col">Departure Destination</th>';
+            table += '<th scope="col">Arrival Destination</th>';
+            table += '<th scope="col">Departure Date</th>';
+            table += '<th scope="col">Arrival Date</th>';
+            table += '<th scope="col">Flight Status</th>';
+            table += '<th scope="col">Available Seats</th>';
+            table += '<th scope="col">Reserved Seats</th>';
+
+            table += '<th scope="col">Price</th>';
+            table += '<th scope="col">Reservation Status</th>';
+            table += '<th scope="col">Cancel</th>';
+            table += '</tr></thead><tbody>';
+
+            for (let i = 0; i < reservations.length; i++) {
+                let row = '<tr>';
+                row += '<td>' + (i + 1) + '</td>';
+
+                const flight = await $.get('/api/GetFlightDetails?id=' + reservations[i].FlightId);
+               
+                row += '<td>' + reservations[i].User + '</td>';
+                row += '<td>' + flight.Airline + '</td>';
+                row += '<td>' + flight.DepartureDestination + '</td>';
+                row += '<td>' + flight.ArrivalDestination + '</td>';
+                row += '<td>' + flight.DepartureDateAndTime + '</td>';
+                row += '<td>' + flight.ArrivalDateAndTime + '</td>';
+                let flightStatus = GetFlightStatus(flight.FlightStatus);
+                row += '<td>' + flightStatus + '</td>';
+                row += '<td>' + flight.AvailableSeats + '</td>';
+                row += '<td>' + reservations[i].CountOfPassengers + '</td>';
+                row += '<td>$' + reservations[i].Price + '</td>';
+                let reservationStatus = GetReservationStatus(reservations[i].ReservationStatus);
+                row += '<td>' + reservationStatus + '</td>';
+                row += '<td> <button onclick="AddReservationIdOnModal(\'' + reservations[i].Id + '\', \'Passenger\')" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal"><i class="fas fa-times"></i> Cancel</button></div></div></td>';
+
+                row += '</tr>';
+
+                table += row;
+            }
+
+            table += '</tbody></table>';
+            $("#approvedReservationTable").html(table);
+        } else {
+            $('#approvedReservationTable').html('<h1 class="text-light" >No reservation available.</h1>');
+        }
+    } catch (error) {
+        console.error('Error loading reservations:', error);
+        $('#approvedReservationTable').html('<h1>Error loading reservations.</h1>');
+    }
+}
 
 function convertFormToJSON(form) {
     const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
