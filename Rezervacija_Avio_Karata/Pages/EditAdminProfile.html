@@ -75,7 +75,15 @@
         </div>
     </nav>
 
-
+<!--Toast-->
+<div id="ProfileToast" class="toast mt-5 align-items-center text-bg-primary border-0 position-fixed start-50 translate-middle-x" role="alert" aria-live="assertive" aria-atomic="true" style="top: 75px; z-index: 11;">
+  <div class="d-flex">
+      <div class="toast-body">
+          
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div>
 
 <!--Edit Profile-->
 <div class="container mt-5 p-3">
@@ -83,7 +91,8 @@
       <div class="col-lg-6 sec-color text-light p-5 rounded">
         <!-- Adjust col-lg-6 to decrease width further -->
         <h2 class="mb-4">Update User Profile</h2>
-        <form id="profileForm">
+        <form id="profileForm" onsubmit="EditProfile(event)">
+          <input type="hidden" id="oldUsername">
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input type="text" class="form-control" id="username" name="username" value="">
@@ -117,12 +126,12 @@
           </div>
           <div class="row justify-content-around">
             <div class="col-auto">
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-save me-2"></i> Save Changes
+              <button type="submit" class="btn btn-warning">
+                <i class="fas fa-pen me-2"></i> Edit Profile
               </button>
             </div>
             <div class="col-auto">
-              <a type="button" class="btn btn-danger ms-2" href="EditProfile.html">
+              <a onclick="Discard()" type="button" class="btn btn-danger ms-2" href="EditProfile.html">
                 <i class="fas fa-times me-2"></i> Discard
               </a>
             </div>
