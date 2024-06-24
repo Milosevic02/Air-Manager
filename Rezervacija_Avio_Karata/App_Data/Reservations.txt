@@ -1,0 +1,18 @@
+[
+  {
+    "Id": 2,
+    "User": "maki",
+    "FlightId": 5,
+    "CountOfPassengers": 4,
+    "Price": 92.0,
+    "ReservationStatus": 0
+  },
+  {
+    "Id": 3,
+    "User": "maki",
+    "FlightId": 4,
+    "CountOfPassengers": 3,
+    "Price": 360.0,
+    "ReservationStatus": 0
+  }
+]
