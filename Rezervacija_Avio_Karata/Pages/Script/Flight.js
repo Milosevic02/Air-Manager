@@ -142,14 +142,14 @@ function IndexTable(data) {
     for (flight in data) {
         counter++;
         let row = '<td>' + counter.toString() + '</td>';
-        row += '<td><a class="text-light" href="#" data-bs-toggle="modal" data-bs-target="#airllineModal">' + data[flight].Airline + '</a></td>';
+        row += '<td><a onclick="GetAirlineInfo(\'' + data[flight].Airline + '\',\'Passenger\')" class="text-light" href="#" data-bs-toggle="modal" data-bs-target="#airllineModal">' + data[flight].Airline + '</a></td>';
         row += '<td>' + data[flight].DepartureDestination + '</td>';
         row += '<td>' + data[flight].ArrivalDestination + '</td>';
         row += '<td>' + data[flight].DepartureDateAndTime + '</td>';
         row += '<td>' + data[flight].ArrivalDateAndTime + '</td>';
         row += '<td class="text-center">' + data[flight].AvailableSeats + '</td>';
         row += '<td class="text-center">' + data[flight].OccupiedSeats + '</td>';
-        row += '<td>' + data[flight].Price + '</td>';
+        row += '<td>$' + data[flight].Price + '</td>';
         let status = GetStatus(data[flight].FlightStatus);
         row += '<td>' + status + '</td>';
 
@@ -169,25 +169,36 @@ function PassengerTable(data) {
     for (flight in data) {
         counter++;
         let row = '<td>' + counter.toString() + '</td>';
-        row += '<td><a class="text-light" href="#" data-bs-toggle="modal" data-bs-target="#airllineModal">' + data[flight].Airline + '</a></td>';
+        row += '<td><a onclick="GetAirlineInfo(\'' + data[flight].Airline + '\',\'Passenger\')" class="text-light" href="#" data-bs-toggle="modal" data-bs-target="#airllineModal">' + data[flight].Airline + '</a></td>';
         row += '<td>' + data[flight].DepartureDestination + '</td>';
         row += '<td>' + data[flight].ArrivalDestination + '</td>';
         row += '<td>' + data[flight].DepartureDateAndTime + '</td>';
         row += '<td>' + data[flight].ArrivalDateAndTime + '</td>';
         row += '<td class="text-center">' + data[flight].AvailableSeats + '</td>';
         row += '<td class="text-center">' + data[flight].OccupiedSeats + '</td>';
-        row += '<td>' + data[flight].Price + '</td>';
+        row += '<td>$' + data[flight].Price + '</td>';
         let status = GetStatus(data[flight].FlightStatus);
         row += '<td>' + status + '</td>';
 
-        row += '<td class="text-center">   <button type="button" class="btn btn-primary text-light" data-bs-toggle="modal" data-bs-target="#reservationModal">Reserve</button></td>'; 
+        row += '<td class="text-center">   <button onclick="AddPrice(' + data[flight].Price + ')" type="button" class="btn btn-primary text-light" data-bs-toggle="modal" data-bs-target="#reservationModal">Reserve</button></td>'; 
 
         table += '<tr>' + row + '<tr/>';
+        $('#reserveFlightId').val(data[flight].Id);
     }
 
     table += '</tbody></table>';
     $('#flightTable').html(table);
 }
+
+function AddPrice(price) {
+    $('#price').val('$' + price);
+    $('#countOfPassengers').val(1);
+    $('#countOfPassengers').on('input', function() {
+    let count = $(this).val();
+    let totalPrice = price * count;
+    $('#price').val('$' + totalPrice);
+    });
+    }
 
 function EditFlight(event){
     event.preventDefault();
