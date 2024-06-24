@@ -83,6 +83,36 @@ async function LoadCreatedReservations() {
     }
 }
 
+function AddReservationIdOnModal(id){
+    $("#cancelFlightId").val(id);
+}
+
+function CancelReservation(){
+    let id = $("#cancelFlightId").val();
+    $.ajax({
+        url: '/api/CancelReservation?id=' + id,
+        type: 'DELETE',
+        success: function () {
+            LoadCreatedReservations();
+            $('#cancelModal').modal('hide');
+            $('#ReservationToast .toast-body').text('Flight canceled successfully.');
+            $('#ReservationToast').removeClass('text-bg-danger').addClass('text-bg-success');
+            var toastEl = new bootstrap.Toast($('#ReservationToast'));
+            toastEl.show();
+
+        },
+        error:function(xhr){
+            var errorMessage = xhr.responseJSON ? xhr.responseJSON.Message : "An error occurred";
+            $('#cancelModal').modal('hide');
+            $('#ReservationToast .toast-body').text(errorMessage);
+            $('#ReservationToast').removeClass('text-bg-success').addClass('text-bg-danger');
+            var toastEl = new bootstrap.Toast($('#ReservationToast'));
+            toastEl.show();
+        }
+    });
+
+}
+
 
 
 function convertFormToJSON(form) {
