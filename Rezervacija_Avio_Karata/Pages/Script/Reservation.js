@@ -30,9 +30,14 @@ function ReserveFlight(event){
 
 }
 
-async function LoadCreatedReservationsPassenger() {
+function FilterReservation(){
+    let status = $("#reservationStatus").val()
+    LoadReservationsPassenger(status);
+}
+
+async function LoadReservationsPassenger(status) {
     try {
-        const reservations = await $.get("/api/LoadCreatedReservations?role=\"Passenger\"");
+        const reservations = await $.get("/api/LoadReservations?role=\"Passenger\"&status=" + status);
 
         if (reservations.length > 0) {
             let table = '<table class="table table-striped table-hover table-bordered">';
@@ -48,7 +53,8 @@ async function LoadCreatedReservationsPassenger() {
             table += '<th scope="col">Reserved Seats</th>';
             table += '<th scope="col">Price</th>';
             table += '<th scope="col">Reservation Status</th>';
-            table += '<th scope="col">Action</th>';
+            if(status != "rejected"){table += '<th scope="col">Action</th>';
+            }
             table += '</tr></thead><tbody>';
 
             for (let i = 0; i < reservations.length; i++) {
@@ -68,7 +74,14 @@ async function LoadCreatedReservationsPassenger() {
                 row += '<td>$' + reservations[i].Price + '</td>';
                 let reservationStatus = GetReservationStatus(reservations[i].ReservationStatus);
                 row += '<td>' + reservationStatus + '</td>';
-                row += '<td> <button onclick="AddReservationIdOnModal(\'' + reservations[i].Id + '\', \'Passenger\')" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal"><i class="fas fa-times"></i> Cancel</button></div></div></td>';
+                if(status != "rejected"){
+                    if(status != "finished"){
+                        row += '<td> <button onclick="AddReservationIdOnModal(\'' + reservations[i].Id + '\', \'Passenger\')" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal"><i class="fas fa-times"></i> Cancel</button></div></div></td>';
+                    }else{
+                        row += '<td> <button onclick="AddReservationIdOnReviewModal(\'' + reservations[i].Id + ')" type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#reviewModal"><i class="fas fa-star"></i> Review</button></div></div></td>';
+
+                    }
+                }
                 row += '</tr>';
 
                 table += row;
@@ -77,7 +90,7 @@ async function LoadCreatedReservationsPassenger() {
             table += '</tbody></table>';
             $("#reservationTableContainer").html(table);
         } else {
-            $('#reservationTableContainer').html('<h1>No reservation available.</h1>');
+            $('#reservationTableContainer').html('<h1 class="text-light">No reservation available.</h1>');
         }
     } catch (error) {
         console.error('Error loading reservations:', error);
@@ -126,7 +139,7 @@ function CancelReservation(role){
         url: '/api/CancelReservation?id=' + id,
         type: 'DELETE',
         success: function () {
-            if(role != "Admin"){LoadCreatedReservationsPassenger();
+            if(role != "Admin"){LoadReservationsPassenger();
             }else{
                 LoadCreatedReservationsAdmin();
                 LoadApprovedReservationsAdmin();
@@ -154,7 +167,7 @@ function CancelReservation(role){
 
 async function LoadCreatedReservationsAdmin() {
     try {
-        const reservations = await $.get("/api/LoadCreatedReservations?role=Admin");
+        const reservations = await $.get("/api/LoadReservations?role=Admin&status=created");
 
         if (reservations.length > 0) {
             let table = '<table class="table table-striped table-hover table-bordered">';
@@ -239,7 +252,7 @@ function ChangeReservationStatus(id, action) {
 
 async function LoadApprovedReservationsAdmin() {
     try {
-        const reservations = await $.get("/api/LoadApprovedReservations?role=Admin");
+        const reservations = await $.get("/api/LoadReservations?role=Admin&status=approved");
 
         if (reservations.length > 0) {
             let table = '<table class="table table-striped table-hover table-bordered">';
