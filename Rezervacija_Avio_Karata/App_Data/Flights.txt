@@ -33,8 +33,8 @@
     "ArrivalDestination": "Paris",
     "DepartureDateAndTime": "2024-06-15 21:27",
     "ArrivalDateAndTime": "2024-06-15 23:27",
-    "AvailableSeats": 44,
-    "OccupiedSeats": 0,
+    "AvailableSeats": 40,
+    "OccupiedSeats": 4,
     "Price": 23.0,
     "FlightStatus": 0
   },
@@ -46,8 +46,8 @@
     "ArrivalDestination": "London",
     "DepartureDateAndTime": "2024-06-20 22:38",
     "ArrivalDateAndTime": "2024-06-15 23:44",
-    "AvailableSeats": 45,
-    "OccupiedSeats": 0,
+    "AvailableSeats": 42,
+    "OccupiedSeats": 3,
     "Price": 120.0,
     "FlightStatus": 0
   },
