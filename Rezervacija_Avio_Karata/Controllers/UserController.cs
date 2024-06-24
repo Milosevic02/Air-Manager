@@ -102,6 +102,40 @@ namespace Rezervacija_Avio_Karata.Controllers
             return users;
         }
 
+        //NIJE GOTOVO PRVO MORAM REZERVACIJE I REVIEW DA URADIM JER KAD SE PROMENI USERNAME MORACE I TAMO DA SE MENJA
+
+        [HttpPut]
+        [Route("EditProfile")]
+        public IHttpActionResult EditProfile(User user,string oldUsername)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Users.txt"));
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(content) ?? new List<User>();
+            if (user.Username != oldUsername)
+            {
+                if (UsernameExsits(user.Username))
+                {
+                    return BadRequest("User with username " +  user.Username + " already exsits");
+                }
+            }
+
+            return Ok();
+        }
+
+        private bool UsernameExsits(string username)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Users.txt"));
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(content) ?? new List<User>();
+            foreach (User user in users)
+            {
+                if (user.Username == username)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
 
     }
 }
