@@ -3,6 +3,7 @@ function LoadProfile() {
     $.get("/api/GetCurrentUser", function (data) {
 
         $("#username").val(data.Username);
+        $("#oldUsername").val(data.Username);
         $("#password").val(data.Password);
         $("#email").val(data.Email);
         $("#name").val(data.Name);
@@ -37,4 +38,53 @@ function LoadAllUsers(){
         table += '</tbody></table>';
         $('#userTable').html(table);
     })
+}
+
+//NIJE GOTOVO PRVO MORAM REZERVACIJE I REVIEW DA URADIM JER KAD SE PROMENI USERNAME MORACE I TAMO DA SE MENJA
+
+function EditProfile(event){
+    event.preventDefault(); 
+    let form = $("#profileForm");
+    let data = convertFormToJSON(form)
+    data = JSON.stringify(data)
+    let oldUsername = $("#oldUsername")
+
+
+    $.ajax({
+        url: '/api/EditProfile?oldUsername='+oldUsername,
+        type:'PUT',
+        data:data,
+        contentType:"application/json",
+        success:function(){
+            LoadProfile();
+            LoadAllUsers();
+            $('#ProfileToast .toast-body').text('Profile edited successfully.');
+            $('#ProfileToast').removeClass('text-bg-danger').addClass('text-bg-success');
+            var toastEl = new bootstrap.Toast($('#ProfileToast'));
+            toastEl.show();
+        },
+        error:function(xhr){
+            var errorMessage = xhr.responseJSON ? xhr.responseJSON.Message : "An error occurred";
+            $('#ProfileToast .toast-body').text(errorMessage);
+            $('#ProfileToast').removeClass('text-bg-success').addClass('text-bg-danger');
+            var toastEl = new bootstrap.Toast($('#ProfileToast'));
+            toastEl.show();
+        }
+
+    })
+
+    
+}
+
+function Discard(){
+    LoadProfile()
+}
+
+function convertFormToJSON(form) {
+    const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
+    const json = {};
+    $.each(array, function () {
+        json[this.name] = this.value || "";
+    });
+    return json;
 }
