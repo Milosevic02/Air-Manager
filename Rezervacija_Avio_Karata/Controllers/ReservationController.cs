@@ -27,7 +27,7 @@ namespace Rezervacija_Avio_Karata.Controllers
                 reservation.Id = IdGenerator.GenerateReservationId();
                 reservation.User = ((User)HttpContext.Current.Session["user"]).Username;
                 reservations.Add(reservation);
-                DecreaseAvailableSeats(reservation.FlightId, reservation.CountOfPassengers);
+                ChangeAvailableSeats(reservation.FlightId, reservation.CountOfPassengers,false);
                 content = JsonConvert.SerializeObject(reservations, Formatting.Indented);
                 File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"), content);
 
@@ -58,22 +58,27 @@ namespace Rezervacija_Avio_Karata.Controllers
             return false;
         }
 
-        private void DecreaseAvailableSeats(int id, int seats)
+        private void ChangeAvailableSeats(int id, int seats, bool inc)
         {
-            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
+            int temp = inc ? 1 : -1;
+
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data/Flights.txt"));
+
             List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
+
             foreach (Flight flight in flights)
             {
                 if (flight.Id == id)
                 {
-                    flight.AvailableSeats -= seats;
-                    flight.OccupiedSeats += seats;
+                    flight.AvailableSeats += temp * seats;
+                    flight.OccupiedSeats -= temp * seats;
                 }
             }
-            content = JsonConvert.SerializeObject(flights, Formatting.Indented);
-            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"), content);
 
+            content = JsonConvert.SerializeObject(flights, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data/Flights.txt"), content);
         }
+
 
         [HttpGet]
         [Route("LoadCreatedReservations")]
@@ -91,6 +96,59 @@ namespace Rezervacija_Avio_Karata.Controllers
             }
             return retVal;
 
+        }
+
+        [HttpDelete]
+        [Route("CancelReservation")]
+        public IHttpActionResult CancelReservation(int id)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"));
+            List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(content) ?? new List<Reservation>();
+            bool find = false;
+            for(int i = 0; i < reservations.Count; i++)
+            {
+                if (reservations[i].Id == id)
+                {
+                    if (IsLessThan24Hours(reservations[i].FlightId))
+                    {
+                        return BadRequest("You cant cancel your reservation less than 24h before flight");
+                    }
+                    find = true;
+                    ChangeAvailableSeats(reservations[i].FlightId, reservations[i].CountOfPassengers, true);
+
+                    reservations.RemoveAt(i);
+                    break;
+                }
+            }
+            if (!find) { return NotFound(); }
+            content = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"), content);
+            return Ok();
+        }
+
+        private bool IsLessThan24Hours(int flightId)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
+            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
+            foreach (Flight flight in flights)
+            {
+                if(flight.Id == flightId)
+                {
+                    string datetimeStr = flight.DepartureDateAndTime;
+                    DateTime datetime;
+                    if (!DateTime.TryParseExact(datetimeStr, "yyyy-MM-dd HH:mm", null, System.Globalization.DateTimeStyles.None, out datetime))
+                    {
+                        throw new ArgumentException("Invalid datetime format. Expected format: yyyy-MM-dd HH:mm");
+                    }
+
+                    TimeSpan diff = datetime - DateTime.Now;
+                    double diffHours = diff.TotalHours;
+
+                    return diffHours < 24;
+                }
+            }
+            return false;
+            
         }
 
     }
