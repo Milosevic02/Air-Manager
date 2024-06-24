@@ -65,7 +65,7 @@ async function LoadCreatedReservationsPassenger() {
                 let flightStatus = GetFlightStatus(flight.FlightStatus);
                 row += '<td>' + flightStatus + '</td>';
                 row += '<td>' + reservations[i].CountOfPassengers + '</td>';
-                row += '<td$>' + reservations[i].Price + '</td>';
+                row += '<td>$' + reservations[i].Price + '</td>';
                 let reservationStatus = GetReservationStatus(reservations[i].ReservationStatus);
                 row += '<td>' + reservationStatus + '</td>';
                 row += '<td> <button onclick="AddReservationIdOnModal(\'' + reservations[i].Id + '\', \'Passenger\')" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal"><i class="fas fa-times"></i> Cancel</button></div></div></td>';
