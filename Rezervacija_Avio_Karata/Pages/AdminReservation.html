@@ -20,6 +20,7 @@
         $(document).ready(function(){
             GetUserRole("Admin")
             LoadCreatedReservationsAdmin();
+            LoadApprovedReservationsAdmin();
         })
     </script>
 
@@ -103,88 +104,30 @@
         </div>
     
         <!--Approved Reservation Table-->
-        <div class="mt-5" id="reservations"></div>
+        <div class="m-5" id="approvedReservationTable"></div>
     
-        <div class="m-5">
-            <table class="table table-striped table-hover table-bordered fs-5">
-                <thead >
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">User</th>
-                    <th scope="col">Airlline</th>
-                    <th scope="col">Departure Destination</th>
-                    <th scope="col">Arrival Destination</th>
-                    <th scope="col">Departure Date</th>
-                    <th scope="col">Arrival Date</th>
-                    <th scope="col">Available Seats</th>
-                    <th scope="col">Reservation Seats</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Cancel</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td scope="row">1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-    
-                    
-                    <td class="text-center">
-                        <button type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#reservationModal"><i class="fas fa-times"></i>
-                        </button>
-                    </td>
-    
-                    </tr>
-                    <tr>
-                    <td scope="row">2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-    
-                   
-                    <td class="text-center">
-                        <button type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#reservationModal"><i class="fas fa-times"></i>
-                        </button>
-                    </td>
-                    </tr>
-                    <tr>
-                    <td scope="row">3</td>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-                    <td>Mark</td>
-    
-                    
-                    <td class="text-center">
-                        <button type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#reservationModal"><i class="fas fa-times"></i>
-                        </button>
-                    </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                </tfoot>
-                </table>
+        
+
+
+        <!--Cancel Modal-->
+        <div class="modal" tabindex="-1" id="cancelModal">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content sec-color text-light">
+                <div class="modal-header">
+                <h5 class="modal-title">Cancel Flight</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="cancelFlightId">
+                <p>Are you sure want to cancel this flight?</p>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button onclick='CancelReservation("Admin")' type="button" class="btn btn-danger">Yes</button>
+                </div>
+            </div>
+            </div>
         </div>
-
-
-
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
