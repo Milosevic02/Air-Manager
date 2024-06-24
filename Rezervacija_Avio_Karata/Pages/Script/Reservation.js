@@ -62,10 +62,12 @@ async function LoadCreatedReservations() {
                 row += '<td>' + flight.ArrivalDestination + '</td>';
                 row += '<td>' + flight.DepartureDateAndTime + '</td>';
                 row += '<td>' + flight.ArrivalDateAndTime + '</td>';
-                row += '<td>' + flight.FlightStatus + '</td>';
+                let flightStatus = GetFlightStatus(flight.FlightStatus);
+                row += '<td>' + flightStatus + '</td>';
                 row += '<td>' + reservations[i].CountOfPassengers + '</td>';
                 row += '<td>' + reservations[i].Price + '</td>';
-                row += '<td>' + reservations[i].ReservationStatus + '</td>';
+                let reservationStatus = GetReservationStatus(reservations[i].ReservationStatus);
+                row += '<td>' + reservationStatus + '</td>';
                 row += '<td> <button onclick="AddReservationIdOnModal(\'' + reservations[i].Id + '\', \'Passenger\')" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal"><i class="fas fa-times"></i> Cancel</button></div></div></td>';
                 row += '</tr>';
 
@@ -81,6 +83,32 @@ async function LoadCreatedReservations() {
         console.error('Error loading reservations:', error);
         $('#reservationTableContainer').html('<h1>Error loading reservations.</h1>');
     }
+}
+
+function GetFlightStatus(status) {
+    let retVal = "";
+    if (status === 0) {
+        retVal = "Created";
+    } else if (status === 1) {
+        retVal = "Approved";
+    } else if (status === 2) {
+        retVal = "Rejected";
+    }else if(status === 3){
+        retVal = "Finished"
+    }
+    return retVal;
+}
+
+function GetReservationStatus(status) {
+    let retVal = "";
+    if (status === 0) {
+        retVal = "Active";
+    } else if (status === 1) {
+        retVal = "Cancelled";
+    } else if (status === 2) {
+        retVal = "Completed";
+    }
+    return retVal;
 }
 
 function AddReservationIdOnModal(id){
