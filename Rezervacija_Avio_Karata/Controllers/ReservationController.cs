@@ -191,5 +191,34 @@ namespace Rezervacija_Avio_Karata.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("LoadApprovedReservations")]
+        public List<Reservation> GetApprovedReservations(string role)
+        {
+            List<Reservation> retVal = new List<Reservation>();
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"));
+            List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(content) ?? new List<Reservation>();
+            foreach (Reservation reservation in reservations)
+            {
+                if (reservation.ReservationStatus == ReservationStatus.Approved)
+                {
+                    if (role != "Admin")
+                    {
+                        if (reservation.User == ((User)HttpContext.Current.Session["user"]).Username)
+                        {
+                            retVal.Add(reservation);
+                        }
+                    }
+                    else
+                    {
+                        retVal.Add(reservation);
+
+                    }
+                }
+            }
+            return retVal;
+
+        }
+
     }
 }
