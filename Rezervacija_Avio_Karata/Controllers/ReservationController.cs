@@ -82,16 +82,27 @@ namespace Rezervacija_Avio_Karata.Controllers
 
         [HttpGet]
         [Route("LoadCreatedReservations")]
-        public List<Reservation> GetCreatedReservation()
+        public List<Reservation> GetCreatedReservation(string role)
         {
             List<Reservation>retVal = new List<Reservation>();
             string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"));
             List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(content) ?? new List<Reservation>();
             foreach (Reservation reservation in reservations)
             {
-                if(reservation.ReservationStatus == ReservationStatus.Created && reservation.User == ((User)HttpContext.Current.Session["user"]).Username)
+                if(reservation.ReservationStatus == ReservationStatus.Created)
                 {
-                    retVal.Add(reservation);
+                    if(role != "Admin")
+                    {
+                        if(reservation.User == ((User)HttpContext.Current.Session["user"]).Username)
+                        {
+                            retVal.Add(reservation);
+                        }
+                    }
+                    else
+                    {
+                        retVal.Add(reservation);
+
+                    }
                 }
             }
             return retVal;
@@ -149,6 +160,35 @@ namespace Rezervacija_Avio_Karata.Controllers
             }
             return false;
             
+        }
+
+        [HttpPost]
+        [Route("ChangeReservationStatus")]
+        public IHttpActionResult ChangeReservationStatus(int id,string action)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"));
+            List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(content) ?? new List<Reservation>();
+            bool find = false;
+            foreach (Reservation reservation in reservations)
+            {
+                if (reservation.Id == id)
+                {
+                    find = true;
+                    if(action == "Approved")
+                    {
+                        reservation.ReservationStatus = ReservationStatus.Approved;
+                        break;
+                    }else if(action == "Rejected")
+                    {
+                        reservation.ReservationStatus=ReservationStatus.Rejected;
+                        break;
+                    }
+                }
+            }
+            if (!find) {return NotFound();}
+            content = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"), content);
+            return Ok();
         }
 
     }
