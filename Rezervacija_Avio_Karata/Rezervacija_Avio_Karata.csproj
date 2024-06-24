@@ -153,6 +153,7 @@
     <Content Include="Pages\Script\LoggedIn.js" />
     <Content Include="Pages\Script\Login.js" />
     <Content Include="Pages\Script\Register.js" />
+    <Content Include="Pages\Script\Reservation.js" />
     <Content Include="Pages\Style\Index.css" />
     <Content Include="Pages\Index.html" />
     <Content Include="Scripts\bootstrap.bundle.js" />

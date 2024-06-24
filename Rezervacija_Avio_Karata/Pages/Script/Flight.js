@@ -180,23 +180,23 @@ function PassengerTable(data) {
         let status = GetStatus(data[flight].FlightStatus);
         row += '<td>' + status + '</td>';
 
-        row += '<td class="text-center">   <button onclick="AddPrice(' + data[flight].Price + ')" type="button" class="btn btn-primary text-light" data-bs-toggle="modal" data-bs-target="#reservationModal">Reserve</button></td>'; 
+        row += '<td class="text-center">   <button onclick="AddPrice(' + data[flight].Price + ',' + data[flight].Id + ')" type="button" class="btn btn-primary text-light" data-bs-toggle="modal" data-bs-target="#reservationModal">Reserve</button></td>'; 
 
         table += '<tr>' + row + '<tr/>';
-        $('#reserveFlightId').val(data[flight].Id);
     }
 
     table += '</tbody></table>';
     $('#flightTable').html(table);
 }
 
-function AddPrice(price) {
-    $('#price').val('$' + price);
+function AddPrice(price,id) {
+    $('#flightId').val(id);
+    $('#price').val(price);
     $('#countOfPassengers').val(1);
     $('#countOfPassengers').on('input', function() {
     let count = $(this).val();
     let totalPrice = price * count;
-    $('#price').val('$' + totalPrice);
+    $('#price').val(totalPrice);
     });
     }
 
