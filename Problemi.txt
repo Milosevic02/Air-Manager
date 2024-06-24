@@ -1,4 +1,4 @@
--Namesti toast not
+-Upisuje D date mesto A date u fajl
 
 
 
@@ -6,17 +6,13 @@
 *********Sta treba Uraditi***************
 Neulogovan:
 	Filtriranje letova
-
 Obican Korisnik:
-	Rezervacija i Otkaz Leta
 	Filtriranje letova
-	Prikaz rezervacija
 	Filtriranje rezervacija
 	Izmena Profila
 
 Admin:
 	Filtriranje letova
-	Brisanje aviokompanija
 	Filtriranje aviokompanija	
 	Prihvatanje odbijanje rezervacije
 	Otkazivanje odobrenih rezervacija
