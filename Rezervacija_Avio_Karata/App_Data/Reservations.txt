@@ -21,6 +21,14 @@
     "FlightId": 5,
     "CountOfPassengers": 1,
     "Price": 23.0,
+    "ReservationStatus": 3
+  },
+  {
+    "Id": 11,
+    "User": "maki",
+    "FlightId": 5,
+    "CountOfPassengers": 1,
+    "Price": 23.0,
     "ReservationStatus": 0
   }
 ]
