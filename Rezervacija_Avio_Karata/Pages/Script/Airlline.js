@@ -130,21 +130,19 @@ function GetAirlineInfo(airlineName,role){
         }
     });
 }
-
-function LoadReviewCard(reviews){
-    
-    let reviewCard = ""
+function LoadReviewCard(reviews) {
+    let reviewCard = "";
     reviews.forEach(function(review) {
         reviewCard += `
             <div class="card mb-3">
                 <h5 class="card-header">${review.Reviewer}</h5>
                 <div class="card-body">
-                    <h5 class="card-title">${review.Title}</h5>
+                    <h5 class="card-title fw-bold">${review.Title}</h5>
                     <p class="card-text">${review.Description}</p>
-                    ${review.Image ? `<img src="${review.Image}" alt="${review.Title}" class="img-fluid">` : ''}
+                    ${review.Image ? `<img src="${review.Image}" alt="${review.Title}" class="img-fluid mt-2">` : ''}
                 </div>
             </div>`;
-    })
+    });
     $('#reviewContainer').html(reviewCard);
 }
 
