@@ -39,7 +39,7 @@
         "Title": "Very nice",
         "Description": "Very good flight",
         "Image": "",
-        "ReviewStatus": 0
+        "ReviewStatus": 1
       },
       {
         "Id": 18,
@@ -48,7 +48,7 @@
         "Title": "Very nice flight ",
         "Description": "Save and relax flight with Qatar Airline",
         "Image": "",
-        "ReviewStatus": 0
+        "ReviewStatus": 2
       }
     ]
   },

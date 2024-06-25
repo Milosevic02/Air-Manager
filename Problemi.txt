@@ -1,4 +1,5 @@
 -Upisuje D date mesto A date u fajl
+-Nece da doda sliku za review
 
 
 
@@ -8,14 +9,10 @@ Neulogovan:
 	Filtriranje letova
 Obican Korisnik:
 	Filtriranje letova
-	Filtriranje rezervacija
 	Izmena Profila
 
 Admin:
 	Filtriranje letova
 	Filtriranje aviokompanija	
-	Prihvatanje odbijanje rezervacije
-	Otkazivanje odobrenih rezervacija
-	Prihvatanje i odbijanje review
 	Izmena profila
 	Filtriranje Korisnika
