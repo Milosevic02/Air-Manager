@@ -115,6 +115,7 @@
     <Content Include="App_Data\Flights.txt" />
     <Content Include="App_Data\Id.txt" />
     <Content Include="App_Data\Reservations.txt" />
+    <Content Include="App_Data\Reviews.txt" />
     <Content Include="App_Data\Users.txt" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -208,6 +209,7 @@
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\FlightController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

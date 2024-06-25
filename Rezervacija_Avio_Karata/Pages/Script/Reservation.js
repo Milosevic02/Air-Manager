@@ -78,7 +78,7 @@ async function LoadReservationsPassenger(status) {
                     if(status != "finished"){
                         row += '<td> <button onclick="AddReservationIdOnModal(\'' + reservations[i].Id + '\', \'Passenger\')" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal"><i class="fas fa-times"></i> Cancel</button></div></div></td>';
                     }else{
-                        row += '<td> <button onclick="AddReservationIdOnReviewModal(\'' + reservations[i].Id + ')" type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#reviewModal"><i class="fas fa-star"></i> Review</button></div></div></td>';
+                        row += '<td> <button onclick="AddAirlineNameOnReviewModal(\'' + flight.Airline + '\')" type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#reviewModal"><i class="fas fa-star"></i> Review</button></td>';
 
                     }
                 }
@@ -100,7 +100,10 @@ async function LoadReservationsPassenger(status) {
 
 
 
-
+function AddAirlineNameOnReviewModal(name){
+    $("#modal-title").text(name);
+    $("#airlineName").val(name);
+}
 
 
 function GetReservationStatus(status) {
@@ -308,6 +311,39 @@ async function LoadApprovedReservationsAdmin() {
         console.error('Error loading reservations:', error);
         $('#approvedReservationTable').html('<h1>Error loading reservations.</h1>');
     }
+}
+
+
+function AddReview(event){
+    event.preventDefault(); 
+    let form = $("#addReviewForm");
+    let data = convertFormToJSON(form);
+    data = JSON.stringify(data)
+    let name = $("#airlineName").val();
+    let image = $("#image").val();
+    $.ajax({
+        url:"/api/AddReview?name="+name,
+        type:"POST",
+        data:data,
+        contentType: "application/json", 
+        success: function() {
+            $('#reviewModal').modal('hide');
+            $('#ReservationToast .toast-body').text('Review added successfully.');
+            $('#ReservationToast').removeClass('text-bg-danger').addClass('text-bg-success');
+            var toastEl = new bootstrap.Toast($('#ReservationToast'));
+            toastEl.show();
+        },
+        error: function(xhr) {
+            var errorMessage = xhr.responseJSON ? xhr.responseJSON.Message : "An error occurred";
+            $('#ReservationToast .toast-body').text(errorMessage);
+            $('#ReservationToast').removeClass('text-bg-success').addClass('text-bg-danger');
+            var toastEl = new bootstrap.Toast($('#ReservationToast'));
+            toastEl.show();
+        }
+
+    })
+
+
 }
 
 function convertFormToJSON(form) {
