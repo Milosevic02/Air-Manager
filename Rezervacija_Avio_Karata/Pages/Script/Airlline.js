@@ -1,13 +1,63 @@
-function LoadAirllines(role){
-    $.get("/api/GetAllAirllines",function(data){
 
-        if(role != "Admin"){
+function LoadAirllines(role) {
+    if(role == "Admin"){
+        var searchValue = $("#searchInput").val();
+        var sortBy = $("input[name='sortOption']:checked").val();
+    
+        var filter = {
+            SearchValue: searchValue,
+            SortBy: sortBy
+        };
+        $.ajax({
+            url: "/api/FilterAirlines",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(filter),
+            success: function (data) {
+                displayAirlines(data);
+            },
+            error: function (error) {
+                console.log("Error filtering airlines:", error);
+            }
+        });
+    }else{
+        $.get("/api/GetAllAirllines",function(data){
+
             AirllineCards(data);
-        }else{
-            AdminTable(data);
-        }
-    })
+        })
+    }
+
+    
 }
+
+function displayAirlines(airlines) {
+    let table = '<table class="table table-striped table-hover table-bordered fs-5"><thead><tr><th scope="col">#</th><th scope="col">Name</th><th scope="col">Address</th><th scope="col">Contact Info</th><th scope="col">Edit</th><th scope="col">Delete</th></tr></thead><tbody>';
+
+    let counter = 0;
+    airlines.forEach(function (airline) {
+        counter++;
+        let row = '<td>' + counter.toString() + '</td>';
+        row += '<td>' + airline.Name + '</td>';
+        row += '<td>' + airline.Address + '</td>';
+        row += '<td>' + airline.ContactInfo + '</td>';
+        row += '<td class="text-center">  <button onclick="editAirline(\'' + airline.Name + '\')" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#editAirlineModal"><i class="fas fa-pen"></i> Edit</button></td>';
+        row += '<td class="text-center">   <button onclick="deleteAirline(\'' + airline.Name + '\')" type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteAirlineModal"><i class="fas fa-trash"></i> Delete</button></td>';
+
+        table += '<tr>' + row + '</tr>';
+    });
+
+    table += '</tbody></table>';
+    $('#airllineTable').html(table);
+}
+
+function Reset() {
+    $("#searchInput").val("");
+    $("input[name='sortOption']").prop("checked", false);
+    $("#searchByName").prop("checked", true); // Postavlja radio dugme za "Name" na checked
+
+    LoadAirllines('Admin');
+}
+
 
 function AirllineCards(data){
     let card = '<div class="row">';
@@ -23,25 +73,7 @@ function AirllineCards(data){
     $("#airllineCard").html(card);
 }
 
-function AdminTable(data){
-    let table = '<table class="table table-striped table-hover table-bordered fs-5"><thead><tr><th scope="col">#</th><th scope="col">Name</th><th scope="col">Address</th><th scope="col">Contact Info</th><th scope="col">Edit</th><th scope="col">Delete</th></tr></thead><tbody>';
 
-    let counter = 0;
-    for(airlline in data){
-        counter ++;
-        let row = '<td>' + counter.toString() + '</td>'; 
-        row += '<td>' + data[airlline].Name + '</td>';
-        row += '<td>' + data[airlline].Address + '</td>'; 
-        row += '<td>' + data[airlline].ContactInfo + '</td>'; 
-        row += '<td class="text-center">  <button onclick="GetAirlineInfo(\'' + data[airlline].Name + '\', \'Admin\')" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#editAirllineModal"><i class="fas fa-pen"></i> Edit</button></td>';
-        row += '<td class="text-center">   <button onclick="AddIdToDeleteModal(\'' + data[airlline].Name + '\')" type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button></td>'; 
-
-        table += '<tr>' + row + '<tr/>';
-    }
-
-    table += '</tbody></table>';
-    $('#airllineTable').html(table);
-}
 
 function AddIdToDeleteModal(airlineId){
     $('#deleteAirlineId').val(airlineId)
