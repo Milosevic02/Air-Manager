@@ -25,6 +25,51 @@ namespace Rezervacija_Avio_Karata.Controllers
         }
 
         [HttpPost]
+        [Route("FilterAirlines")]
+        public List<Airlline> FilterAirlines([FromBody] AirlineFilter filter)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data/Airllines.txt"));
+            List<Airlline> airlines = JsonConvert.DeserializeObject<List<Airlline>>(content) ?? new List<Airlline>();
+
+            IEnumerable<Airlline> filteredAirlines = airlines;
+
+            if (!string.IsNullOrEmpty(filter.SearchValue))
+            {
+                string searchLower = filter.SearchValue.ToLower();
+                switch (filter.SortBy.ToLower())
+                {
+                    case "name":
+                        filteredAirlines = filteredAirlines.Where(a =>
+                            a.Name.ToLower().Contains(searchLower));
+                        break;
+                    case "address":
+                        filteredAirlines = filteredAirlines.Where(a =>
+                            a.Address.ToLower().Contains(searchLower));
+                        break;
+                    case "contactinfo":
+                        filteredAirlines = filteredAirlines.Where(a =>
+                            a.ContactInfo.ToLower().Contains(searchLower));
+                        break;
+                    default:
+                        filteredAirlines = filteredAirlines.Where(a =>
+                            a.Name.ToLower().Contains(searchLower) ||
+                            a.Address.ToLower().Contains(searchLower) ||
+                            a.ContactInfo.ToLower().Contains(searchLower));
+                        break;
+                }
+            }
+
+            return filteredAirlines.ToList();
+        }
+
+        public class AirlineFilter
+        {
+            public string SearchValue { get; set; }
+            public string SortBy { get; set; }
+        }
+
+
+        [HttpPost]
         [Route("AddAirlline")]
         public Airlline AddAirlline(Airlline airlline)
         {
