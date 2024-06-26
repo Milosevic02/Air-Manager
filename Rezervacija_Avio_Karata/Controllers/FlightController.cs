@@ -15,19 +15,92 @@ namespace Rezervacija_Avio_Karata.Controllers
     [RoutePrefix("api")]
     public class FlightController : ApiController
     {
-        [HttpGet]
+        [HttpPost]
         [Route("GetAllFlights")]
-        public List<Flight> GetAllFlights()
+        public List<Flight> GetAllFlights([FromBody] FlightFilter filter)
         {
             string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
             List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
             List<Flight> result = new List<Flight>();
-            foreach(Flight f in flights)
+
+            foreach (Flight f in flights)
             {
-                if (!(f.IsDeleted)) result.Add(f);
+                if (HttpContext.Current.Session["user"] == null)
+                {
+                    if (f.FlightStatus == FlightStatus.Active && !f.IsDeleted) result.Add(f);
+                }
+                else
+                {
+                    if (((User)HttpContext.Current.Session["user"]).Role == "Admin")
+                    {
+                        if (!f.IsDeleted) result.Add(f);
+                    }
+                    else
+                    {
+                        if (f.FlightStatus == FlightStatus.Active && !f.IsDeleted) result.Add(f);
+                    }
+                }
             }
-            return result;
+
+            List<Flight> retVal = FilterFlights(result, filter);
+            return retVal;
         }
+
+        private List<Flight> FilterFlights(List<Flight> flights, FlightFilter filter)
+        {
+            IEnumerable<Flight> filteredFlights = flights;
+
+            if (!string.IsNullOrEmpty(filter.DepartureDestination))
+            {
+                filteredFlights = filteredFlights.Where(f => f.DepartureDestination.ToLower().Contains(filter.DepartureDestination.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(filter.DepartureDate))
+            {
+                DateTime departureDate = DateTime.Parse(filter.DepartureDate);
+                filteredFlights = filteredFlights.Where(f => DateTime.Parse(f.DepartureDateAndTime).Date == departureDate.Date);
+            }
+            if (!string.IsNullOrEmpty(filter.Airline))
+            {
+                filteredFlights = filteredFlights.Where(f => f.Airline.ToLower().Contains(filter.Airline.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(filter.ArrivalDestination))
+            {
+                filteredFlights = filteredFlights.Where(f => f.ArrivalDestination.ToLower().Contains(filter.ArrivalDestination.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(filter.ArrivalDate))
+            {
+                DateTime arrivalDate = DateTime.Parse(filter.ArrivalDate);
+                filteredFlights = filteredFlights.Where(f => DateTime.Parse(f.ArrivalDateAndTime).Date == arrivalDate.Date);
+            }
+            if (!string.IsNullOrEmpty(filter.Status))
+            {
+                filteredFlights = filteredFlights.Where(f => f.FlightStatus.ToString().Equals(filter.Status, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (filter.SortByPrice == "asc")
+            {
+                filteredFlights = filteredFlights.OrderBy(f => f.Price);
+            }
+            else if (filter.SortByPrice == "desc")
+            {
+                filteredFlights = filteredFlights.OrderByDescending(f => f.Price);
+            }
+
+            return filteredFlights.ToList();
+        }
+
+        public class FlightFilter
+        {
+            public string DepartureDestination { get; set; }
+            public string DepartureDate { get; set; }
+            public string Airline { get; set; }
+            public string ArrivalDestination { get; set; }
+            public string ArrivalDate { get; set; }
+            public string Status { get; set; }
+            public string SortByPrice { get; set; }
+            public string SortByStatus { get; set; }
+        }
+
 
         [HttpPost]
         [Route("AddFlight")]
@@ -82,19 +155,7 @@ namespace Rezervacija_Avio_Karata.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        [Route("GetActiveFlights")]
-        public List<Flight> GetActiveFlights()
-        {
-            var retVal = new List<Flight>();
-            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
-            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
-            foreach (Flight flight in flights)
-            {
-                if (flight.FlightStatus == FlightStatus.Active && !(flight.IsDeleted)) retVal.Add(flight);
-            }
-            return retVal;
-        }
+        
 
         [HttpGet]
         [Route("GetFlightDetails")]
