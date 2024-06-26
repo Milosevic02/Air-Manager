@@ -1,31 +1,127 @@
-function LoadFlights(){
-    $.get("/api/GetAllFlights",function(data){
-        let table = '<table class="table table-striped table-hover table-bordered fs-5"><thead><tr><th scope="col">#</th><th scope="col">Airlline</th><th scope="col">Departure Destination</th><th scope="col">Arrival Destination</th><th scope="col">Departure Date</th><th scope="col">Arrival Date</th><th scope="col">Available Seats</th><th scope="col">Occupied Seats</th><th scope="col">Price</th><th scope="col">Status</th><th scope="col">Edit</th><th scope="col">Delete</th></tr></thead><tbody>';
+function LoadFlights(role) {
+    var filter = {
+        DepartureDestination: $("#departureDestination").val(),
+        DepartureDate: $("#departureDate").val(),
+        Airline: $("#airline").val(),
+        ArrivalDestination: $("#arrivalDestination").val(),
+        ArrivalDate: $("#arrivalDate").val(),
+        Status: $("#status").val(),
+        SortByPrice: $("input[name='sortOptionPrice']:checked").val()
+    };
 
-        let counter = 0;
-        for(flight in data){
-            counter++;
-            let row = '<td>' + counter.toString() + '</td>'; 
-            row += '<td>' + data[flight].Airline + '</td>';
-            row += '<td>' + data[flight].DepartureDestination + '</td>'; 
-            row += '<td>' + data[flight].ArrivalDestination + '</td>'; 
-            row += '<td>' + data[flight].DepartureDateAndTime + '</td>'; 
-            row += '<td>' + data[flight].ArrivalDateAndTime + '</td>'; 
-            row += '<td class="text-center">' + data[flight].AvailableSeats + '</td>'; 
-            row += '<td class="text-center">' + data[flight].OccupiedSeats + '</td>'; 
-            row += '<td>' + data[flight].Price + '</td>'; 
-            let status = GetStatus(data[flight].FlightStatus);
-            row += '<td>' + status + '</td>'; 
-
-            row += '<td class="text-center">  <button onclick ="GetFlightInfo('+ data[flight].Id + ')" type="button" class="btn btn-warning text-dark edit-flight-btn" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-pen"></i> Edit</button></td>'; 
-            row += '<td class="text-center">   <button onclick="AddIdToDeleteModal(' + data[flight].Id + ')" type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button></td>'; 
-
-            table += '<tr>' + row + '<tr/>';
+    $.ajax({
+        url: "/api/GetAllFlights",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(filter),
+        success: function(data) {
+            if (role == "Passenger") {
+                PassengerTable(data);
+            } else if (role == "Admin") {
+                AdminTable(data);
+            } else {
+                IndexTable(data);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error loading flights: ", error);
         }
+    });
+}
 
-        table += '</tbody></table>';
-        $('#flightTable').html(table);
-    })
+function Reset(role) {
+    $("#departureDestination").val('');
+    $("#departureDate").val('');
+    $("#airline").val('');
+    $("#arrivalDestination").val('');
+    $("#arrivalDate").val('');
+    $("#status").val('active');
+    $("input[name='sortOptionPrice']").prop('checked', false);
+
+    LoadFlights(role);
+}
+
+
+function IndexTable(data) {
+    let table = '<table class="table table-striped table-hover table-bordered fs-5"><thead><tr><th scope="col">#</th><th scope="col">Airlline</th><th scope="col">Departure Destination</th><th scope="col">Arrival Destination</th><th scope="col">Departure Date</th><th scope="col">Arrival Date</th><th scope="col">Available Seats</th><th scope="col">Occupied Seats</th><th scope="col">Price</th><th scope="col">Status</th></tr></thead><tbody>';
+
+    let counter = 0;
+    for (flight in data) {
+        counter++;
+        let row = '<td>' + counter.toString() + '</td>';
+        row += '<td><a onclick="GetAirlineInfo(\'' + data[flight].Airline + '\',\'Passenger\')" class="text-light" href="#" data-bs-toggle="modal" data-bs-target="#airllineModal">' + data[flight].Airline + '</a></td>';
+        row += '<td>' + data[flight].DepartureDestination + '</td>';
+        row += '<td>' + data[flight].ArrivalDestination + '</td>';
+        row += '<td>' + data[flight].DepartureDateAndTime + '</td>';
+        row += '<td>' + data[flight].ArrivalDateAndTime + '</td>';
+        row += '<td class="text-center">' + data[flight].AvailableSeats + '</td>';
+        row += '<td class="text-center">' + data[flight].OccupiedSeats + '</td>';
+        row += '<td>$' + data[flight].Price + '</td>';
+        let status = GetStatus(data[flight].FlightStatus);
+        row += '<td>' + status + '</td>';
+
+
+        table += '<tr>' + row + '<tr/>';
+    }
+
+    table += '</tbody></table>';
+    $('#flightTable').html(table);
+}
+
+
+function PassengerTable(data) {
+    let table = '<table class="table table-striped table-hover table-bordered fs-5"><thead><tr><th scope="col">#</th><th scope="col">Airlline</th><th scope="col">Departure Destination</th><th scope="col">Arrival Destination</th><th scope="col">Departure Date</th><th scope="col">Arrival Date</th><th scope="col">Available Seats</th><th scope="col">Occupied Seats</th><th scope="col">Price</th><th scope="col">Status</th><th>Action</th></tr></thead><tbody>';
+
+    let counter = 0;
+    for (flight in data) {
+        counter++;
+        let row = '<td>' + counter.toString() + '</td>';
+        row += '<td><a onclick="GetAirlineInfo(\'' + data[flight].Airline + '\',\'Passenger\')" class="text-light" href="#" data-bs-toggle="modal" data-bs-target="#airllineModal">' + data[flight].Airline + '</a></td>';
+        row += '<td>' + data[flight].DepartureDestination + '</td>';
+        row += '<td>' + data[flight].ArrivalDestination + '</td>';
+        row += '<td>' + data[flight].DepartureDateAndTime + '</td>';
+        row += '<td>' + data[flight].ArrivalDateAndTime + '</td>';
+        row += '<td class="text-center">' + data[flight].AvailableSeats + '</td>';
+        row += '<td class="text-center">' + data[flight].OccupiedSeats + '</td>';
+        row += '<td>$' + data[flight].Price + '</td>';
+        let status = GetStatus(data[flight].FlightStatus);
+        row += '<td>' + status + '</td>';
+
+        row += '<td class="text-center">   <button onclick="AddPrice(' + data[flight].Price + ',' + data[flight].Id + ')" type="button" class="btn btn-primary text-light" data-bs-toggle="modal" data-bs-target="#reservationModal">Reserve</button></td>'; 
+
+        table += '<tr>' + row + '<tr/>';
+    }
+
+    table += '</tbody></table>';
+    $('#flightTable').html(table);
+}
+
+function AdminTable(data){
+    let table = '<table class="table table-striped table-hover table-bordered fs-5"><thead><tr><th scope="col">#</th><th scope="col">Airlline</th><th scope="col">Departure Destination</th><th scope="col">Arrival Destination</th><th scope="col">Departure Date</th><th scope="col">Arrival Date</th><th scope="col">Available Seats</th><th scope="col">Occupied Seats</th><th scope="col">Price</th><th scope="col">Status</th><th scope="col">Edit</th><th scope="col">Delete</th></tr></thead><tbody>';
+
+    let counter = 0;
+    for(flight in data){
+        counter++;
+        let row = '<td>' + counter.toString() + '</td>'; 
+        row += '<td>' + data[flight].Airline + '</td>';
+        row += '<td>' + data[flight].DepartureDestination + '</td>'; 
+        row += '<td>' + data[flight].ArrivalDestination + '</td>'; 
+        row += '<td>' + data[flight].DepartureDateAndTime + '</td>'; 
+        row += '<td>' + data[flight].ArrivalDateAndTime + '</td>'; 
+        row += '<td class="text-center">' + data[flight].AvailableSeats + '</td>'; 
+        row += '<td class="text-center">' + data[flight].OccupiedSeats + '</td>'; 
+        row += '<td>' + data[flight].Price + '</td>'; 
+        let status = GetStatus(data[flight].FlightStatus);
+        row += '<td>' + status + '</td>'; 
+
+        row += '<td class="text-center">  <button onclick ="GetFlightInfo('+ data[flight].Id + ')" type="button" class="btn btn-warning text-dark edit-flight-btn" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-pen"></i> Edit</button></td>'; 
+        row += '<td class="text-center">   <button onclick="AddIdToDeleteModal(' + data[flight].Id + ')" type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button></td>'; 
+
+        table += '<tr>' + row + '<tr/>';
+    }
+
+    table += '</tbody></table>';
+    $('#flightTable').html(table);
 }
 
 function AddIdToDeleteModal(flightId){
@@ -122,72 +218,6 @@ function convertFormToJSON(form) {
     return json;
 }
 
-
-function LoadActiveFlights(role){
-    $.get("/api/GetActiveFlights",function(data){
-        if (role != "Passenger") {
-            IndexTable(data);
-        } else {
-            PassengerTable(data);
-        }
-    })
-}
-
-
-
-function IndexTable(data) {
-    let table = '<table class="table table-striped table-hover table-bordered fs-5"><thead><tr><th scope="col">#</th><th scope="col">Airlline</th><th scope="col">Departure Destination</th><th scope="col">Arrival Destination</th><th scope="col">Departure Date</th><th scope="col">Arrival Date</th><th scope="col">Available Seats</th><th scope="col">Occupied Seats</th><th scope="col">Price</th><th scope="col">Status</th></tr></thead><tbody>';
-
-    let counter = 0;
-    for (flight in data) {
-        counter++;
-        let row = '<td>' + counter.toString() + '</td>';
-        row += '<td><a onclick="GetAirlineInfo(\'' + data[flight].Airline + '\',\'Passenger\')" class="text-light" href="#" data-bs-toggle="modal" data-bs-target="#airllineModal">' + data[flight].Airline + '</a></td>';
-        row += '<td>' + data[flight].DepartureDestination + '</td>';
-        row += '<td>' + data[flight].ArrivalDestination + '</td>';
-        row += '<td>' + data[flight].DepartureDateAndTime + '</td>';
-        row += '<td>' + data[flight].ArrivalDateAndTime + '</td>';
-        row += '<td class="text-center">' + data[flight].AvailableSeats + '</td>';
-        row += '<td class="text-center">' + data[flight].OccupiedSeats + '</td>';
-        row += '<td>$' + data[flight].Price + '</td>';
-        let status = GetStatus(data[flight].FlightStatus);
-        row += '<td>' + status + '</td>';
-
-
-        table += '<tr>' + row + '<tr/>';
-    }
-
-    table += '</tbody></table>';
-    $('#flightTable').html(table);
-}
-
-
-function PassengerTable(data) {
-    let table = '<table class="table table-striped table-hover table-bordered fs-5"><thead><tr><th scope="col">#</th><th scope="col">Airlline</th><th scope="col">Departure Destination</th><th scope="col">Arrival Destination</th><th scope="col">Departure Date</th><th scope="col">Arrival Date</th><th scope="col">Available Seats</th><th scope="col">Occupied Seats</th><th scope="col">Price</th><th scope="col">Status</th><th>Action</th></tr></thead><tbody>';
-
-    let counter = 0;
-    for (flight in data) {
-        counter++;
-        let row = '<td>' + counter.toString() + '</td>';
-        row += '<td><a onclick="GetAirlineInfo(\'' + data[flight].Airline + '\',\'Passenger\')" class="text-light" href="#" data-bs-toggle="modal" data-bs-target="#airllineModal">' + data[flight].Airline + '</a></td>';
-        row += '<td>' + data[flight].DepartureDestination + '</td>';
-        row += '<td>' + data[flight].ArrivalDestination + '</td>';
-        row += '<td>' + data[flight].DepartureDateAndTime + '</td>';
-        row += '<td>' + data[flight].ArrivalDateAndTime + '</td>';
-        row += '<td class="text-center">' + data[flight].AvailableSeats + '</td>';
-        row += '<td class="text-center">' + data[flight].OccupiedSeats + '</td>';
-        row += '<td>$' + data[flight].Price + '</td>';
-        let status = GetStatus(data[flight].FlightStatus);
-        row += '<td>' + status + '</td>';
-
-        row += '<td class="text-center">   <button onclick="AddPrice(' + data[flight].Price + ',' + data[flight].Id + ')" type="button" class="btn btn-primary text-light" data-bs-toggle="modal" data-bs-target="#reservationModal">Reserve</button></td>'; 
-
-        table += '<tr>' + row + '<tr/>';
-    }
-
-    table += '</tbody></table>';
-    $('#flightTable').html(table);
-}
 
 function AddPrice(price,id) {
     $('#flightId').val(id);
