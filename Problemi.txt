@@ -1,18 +1,3 @@
 -Upisuje D date mesto A date u fajl
 -Nece da doda sliku za review
-
-
-
-
-*********Sta treba Uraditi***************
-Neulogovan:
-	Filtriranje letova
-Obican Korisnik:
-	Filtriranje letova
-	Izmena Profila
-
-Admin:
-	Filtriranje letova
-	Filtriranje aviokompanija	
-	Izmena profila
-	Filtriranje Korisnika
+-Ne valja filtriranje po statusima u Obicnom korisniku za prikaz letova
