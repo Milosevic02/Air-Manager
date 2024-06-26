@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
+using static Rezervacija_Avio_Karata.Controllers.FlightController;
 
 namespace Rezervacija_Avio_Karata.Controllers
 {
@@ -93,16 +94,70 @@ namespace Rezervacija_Avio_Karata.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetAllUsers")]
-        public List<User> GetAllUsers()
+        public List<User> GetAllUsers([FromBody] UserFilter filter)
         {
             string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Users.txt"));
             List<User> users = JsonConvert.DeserializeObject<List<User>>(content) ?? new List<User>();
-            return users;
+            List<User>retVal = new List<User>();
+            retVal = FilterUsers(users, filter);
+            return retVal;
         }
 
-        //NIJE GOTOVO PRVO MORAM REZERVACIJE I REVIEW DA URADIM JER KAD SE PROMENI USERNAME MORACE I TAMO DA SE MENJA
+        private List<User> FilterUsers(List<User> users, UserFilter filter)
+        {
+            IEnumerable<User> filteredUsers = users;
+
+            if (!string.IsNullOrEmpty(filter.SearchByName))
+            {
+                filteredUsers = filteredUsers.Where(u => u.Name.ToLower().Contains(filter.SearchByName.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(filter.SearchBySurname))
+            {
+                filteredUsers = filteredUsers.Where(u => u.Surname.ToLower().Contains(filter.SearchBySurname.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(filter.LowerDateOfBirth))
+            {
+                DateTime lowerDateOfBirth = DateTime.Parse(filter.LowerDateOfBirth);
+                filteredUsers = filteredUsers.Where(u => DateTime.Parse(u.DateOfBirth) >= lowerDateOfBirth.Date);
+            }
+            if (!string.IsNullOrEmpty(filter.UpperDateOfBirth))
+            {
+                DateTime upperDateOfBirth = DateTime.Parse(filter.UpperDateOfBirth);
+                filteredUsers = filteredUsers.Where(u => DateTime.Parse(u.DateOfBirth) <= upperDateOfBirth.Date);
+            }
+
+            if (filter.SortByName == "asc")
+            {
+                filteredUsers = filteredUsers.OrderBy(u => u.Name);
+            }
+            else if (filter.SortByName == "desc")
+            {
+                filteredUsers = filteredUsers.OrderByDescending(u => u.Name);
+            }
+
+            if (filter.SortByDate == "asc")
+            {
+                filteredUsers = filteredUsers.OrderBy(u => DateTime.Parse(u.DateOfBirth));
+            }
+            else if (filter.SortByDate == "desc")
+            {
+                filteredUsers = filteredUsers.OrderByDescending(u => DateTime.Parse(u.DateOfBirth));
+            }
+
+            return filteredUsers.ToList();
+        }
+        public class UserFilter
+        {
+            public string SearchByName { get; set; }
+            public string SearchBySurname { get; set; }
+            public string LowerDateOfBirth { get; set; }
+            public string UpperDateOfBirth { get; set; }
+            public string SortByName { get; set; }
+            public string SortByDate { get; set; }
+        }
+
 
         [HttpPut]
         [Route("EditProfile")]
