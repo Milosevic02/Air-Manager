@@ -40,14 +40,13 @@ function LoadAllUsers(){
     })
 }
 
-//NIJE GOTOVO PRVO MORAM REZERVACIJE I REVIEW DA URADIM JER KAD SE PROMENI USERNAME MORACE I TAMO DA SE MENJA
 
 function EditProfile(event){
     event.preventDefault(); 
     let form = $("#profileForm");
     let data = convertFormToJSON(form)
     data = JSON.stringify(data)
-    let oldUsername = $("#oldUsername")
+    let oldUsername = $("#oldUsername").val()
 
 
     $.ajax({
@@ -88,3 +87,4 @@ function convertFormToJSON(form) {
     });
     return json;
 }
+
