@@ -17,7 +17,7 @@
     <script>
         $(document).ready(function(){
             GetUserRole("Admin")
-            LoadFlights()
+            LoadFlights("Admin")
         })
     </script>
 
@@ -90,14 +90,14 @@
                     <span class="input-group-text"><i class="fas fa-map-marker-alt"></i>
                     </span>
                     <div class="form-floating">
-                      <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-                      <label for="floatingInputGroup1">Departure Destination</label>
+                        <input type="text" class="form-control" id="departureDestination" placeholder="Departure Destination">
+                        <label for="departureDestination">Departure Destination</label>
                     </div>
                   </div>
             </div>
             <div class="col">
-                <label for="dob" class="text-light fw-bold">Departure Date</label>
-                <input type="date" class="form-control date-picker" id="dob">
+                <label for="departureDate" class="text-light fw-bold">Departure Date</label>
+                <input type="date" class="form-control date-picker" id="departureDate">
             </div>
         </div>
         <!-- Drugi red -->
@@ -107,16 +107,16 @@
                     <span class="input-group-text"><i class="fas fa-map-marker-alt"></i>
                     </span>
                     <div class="form-floating">
-                      <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-                      <label for="floatingInputGroup1">Arrival Destination</label>
+                        <input type="text" class="form-control" id="arrivalDestination" placeholder="Arrival Destination">
+                        <label for="arrivalDestination">Arrival Destination</label>
                     </div>
                   </div>
             </div>
             <div class="col">
-                <button type="button" class="btn btn-outline-warning filter-btn mt-2">
+                <button onclick="LoadFlights('Admin')" type="button" class="btn btn-outline-warning filter-btn mt-2">
                     <i class="fas fa-filter"></i> Filter 
                 </button>
-                <button type="button" class="btn btn-outline-danger reset-btn mt-2">
+                <button type="button" class="btn btn-outline-danger reset-btn mt-2" onclick="Reset('Admin')">
                     <i class="fas fa-undo"></i> Reset 
                 </button>
                 <button type="button" class="btn btn-outline-success add-btn mt-2" data-bs-toggle="modal" data-bs-target="#addModal">
@@ -145,7 +145,7 @@
               <p>Are you sure want to delete this flight?</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button onclick='LoadFlights(Admin)' type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
               <button onclick="DeleteFlight()" type="button" class="btn btn-danger">Yes</button>
             </div>
           </div>
