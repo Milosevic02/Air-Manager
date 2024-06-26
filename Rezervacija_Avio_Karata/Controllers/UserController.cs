@@ -108,16 +108,37 @@ namespace Rezervacija_Avio_Karata.Controllers
         [Route("EditProfile")]
         public IHttpActionResult EditProfile(User user,string oldUsername)
         {
-            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Users.txt"));
-            List<User> users = JsonConvert.DeserializeObject<List<User>>(content) ?? new List<User>();
+            
             if (user.Username != oldUsername)
             {
                 if (UsernameExsits(user.Username))
                 {
                     return BadRequest("User with username " +  user.Username + " already exsits");
                 }
+                ChangeUsernameInReviewFile(oldUsername,user.Username);
+                ChangeUsernameInReservationFile(oldUsername,user.Username);
+
+            }
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Users.txt"));
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(content) ?? new List<User>();
+            for (int i = 0; i < users.Count(); i++)
+            {
+                if (users[i].Username == oldUsername)
+                {
+                    foreach (Reservation reservation in users[i].Reservations)
+                    {
+                        reservation.User = user.Username;
+                        user.Reservations.Add(reservation);
+                    }
+                    user.Role = users[i].Role;
+                    users.RemoveAt(i);
+                    users.Insert(i, user);
+                }
             }
 
+            HttpContext.Current.Session["user"] = user;
+            content = JsonConvert.SerializeObject(users, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Users.txt"), content);
             return Ok();
         }
 
@@ -133,6 +154,36 @@ namespace Rezervacija_Avio_Karata.Controllers
                 }
             }
             return false;
+        }
+
+        private void ChangeUsernameInReviewFile(string oldUsername, string username)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reviews.txt"));
+            List<Review> reviews = JsonConvert.DeserializeObject<List<Review>>(content) ?? new List<Review>();
+            foreach (Review review in reviews)
+            {
+                if (review.Reviewer == oldUsername)
+                {
+                    review.Reviewer = username;
+                }
+            }
+            content = JsonConvert.SerializeObject(reviews, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reviews.txt"), content);
+        }
+
+        private void ChangeUsernameInReservationFile(string oldUsername, string username)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"));
+            List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(content) ?? new List<Reservation>();
+            foreach (Reservation reservation in reservations)
+            {
+                if (reservation.User == oldUsername)
+                {
+                    reservation.User = username;
+                }
+            }
+            content = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"), content);
         }
 
 
