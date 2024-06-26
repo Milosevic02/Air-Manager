@@ -59,8 +59,8 @@
     "ArrivalDestination": "Istanbul",
     "DepartureDateAndTime": "2024-06-22 18:09",
     "ArrivalDateAndTime": "2024-06-22 23:09",
-    "AvailableSeats": 33,
-    "OccupiedSeats": 0,
+    "AvailableSeats": 20,
+    "OccupiedSeats": 13,
     "Price": 125.0,
     "FlightStatus": 0
   },

@@ -9,7 +9,7 @@
     "Role": "Passenger",
     "Gender": 1,
     "Reservations": [
-        {
+      {
         "Id": 2,
         "User": "maki",
         "FlightId": 5,
@@ -48,6 +48,14 @@
         "CountOfPassengers": 3,
         "Price": 69.0,
         "ReservationStatus": 2
+      },
+      {
+        "Id": 13,
+        "User": "maki",
+        "FlightId": 3,
+        "CountOfPassengers": 13,
+        "Price": 1625.0,
+        "ReservationStatus": 0
       }
     ]
   },
