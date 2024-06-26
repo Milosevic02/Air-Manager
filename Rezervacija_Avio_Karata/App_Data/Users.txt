@@ -8,7 +8,48 @@
     "DateOfBirth": "2024-06-08",
     "Role": "Passenger",
     "Gender": 1,
-    "Reservations": []
+    "Reservations": [
+        {
+        "Id": 2,
+        "User": "maki",
+        "FlightId": 5,
+        "CountOfPassengers": 4,
+        "Price": 92.0,
+        "ReservationStatus": 1
+      },
+      {
+        "Id": 3,
+        "User": "maki",
+        "FlightId": 4,
+        "CountOfPassengers": 3,
+        "Price": 360.0,
+        "ReservationStatus": 1
+      },
+      {
+        "Id": 7,
+        "User": "maki",
+        "FlightId": 5,
+        "CountOfPassengers": 1,
+        "Price": 23.0,
+        "ReservationStatus": 3
+      },
+      {
+        "Id": 11,
+        "User": "maki",
+        "FlightId": 5,
+        "CountOfPassengers": 1,
+        "Price": 23.0,
+        "ReservationStatus": 1
+      },
+      {
+        "Id": 12,
+        "User": "maki",
+        "FlightId": 5,
+        "CountOfPassengers": 3,
+        "Price": 69.0,
+        "ReservationStatus": 2
+      }
+    ]
   },
   {
     "Username": "dragan",
