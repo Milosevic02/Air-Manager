@@ -28,6 +28,7 @@ namespace Rezervacija_Avio_Karata.Controllers
                 reservation.User = ((User)HttpContext.Current.Session["user"]).Username;
                 reservations.Add(reservation);
                 ChangeAvailableSeats(reservation.FlightId, reservation.CountOfPassengers,false);
+                AddReservationToUserFile(reservation);
                 content = JsonConvert.SerializeObject(reservations, Formatting.Indented);
                 File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"), content);
 
@@ -37,6 +38,23 @@ namespace Rezervacija_Avio_Karata.Controllers
             {
                 return BadRequest("Flight dont have enough seats for you.");
             }
+
+        }
+
+        private void AddReservationToUserFile(Reservation reservation)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Users.txt"));
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(content) ?? new List<User>();
+            foreach(User user in users)
+            {
+                if(user.Username == ((User)HttpContext.Current.Session["user"]).Username)
+                {
+                    user.Reservations.Add(reservation);
+                    HttpContext.Current.Session["user"] = user;
+                }
+            }
+            content = JsonConvert.SerializeObject(users, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Users.txt"), content);
 
         }
 
