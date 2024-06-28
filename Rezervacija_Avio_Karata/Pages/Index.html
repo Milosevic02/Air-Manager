@@ -67,8 +67,12 @@
               </div>
         </div>
         <div class="col">
-            <label for="departureDate" class="text-light fw-bold">Departure Date</label>
-            <input type="date" class="form-control date-picker" id="departureDate">
+            <label for="departureDateFrom" class="text-light fw-bold">Departure Date From</label>
+            <input type="date" class="form-control date-picker" id="departureDateFrom">
+        </div>
+        <div class="col">
+            <label for="departureDateTo" class="text-light fw-bold">Departure Date To</label>
+            <input type="date" class="form-control date-picker" id="departureDateTo">
         </div>
         <div class="col">
             <div class="input-group mb-3 text-dark">
@@ -78,21 +82,6 @@
                   <label for="airline">Airline</label>
                 </div>
               </div>
-        </div>
-        <div class="col">
-            <div class="text-light">
-                <p>Sort By Price</p>
-                <form id="sortForm">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="sortOptionPrice" id="sortOptionPriceAsc" value="asc">
-                        <label class="form-check-label" for="sortOptionPriceAsc">Ascending</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="sortOptionPrice" id="sortOptionPriceDesc" value="desc">
-                        <label class="form-check-label" for="sortOptionPriceDesc">Descending</label>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
     <!-- Drugi red -->
@@ -107,11 +96,12 @@
               </div>
         </div>
         <div class="col">
-            <label for="arrivalDate" class="text-light fw-bold">Arrival Date</label>
-            <input type="date" class="form-control date-picker" id="arrivalDate">
+            <label for="arrivalDateFrom" class="text-light fw-bold">Arrival Date From</label>
+            <input type="date" class="form-control date-picker" id="arrivalDateFrom">
         </div>
         <div class="col">
-            
+            <label for="arrivalDateTo" class="text-light fw-bold">Arrival Date To</label>
+            <input type="date" class="form-control date-picker" id="arrivalDateTo">
         </div>
         <div class="col">
             <button onclick="LoadFlights()" type="button" class="btn btn-outline-warning filter-btn mt-2">
@@ -123,6 +113,7 @@
         </div>
     </div>
 </div>
+
 
 
 

@@ -1,10 +1,12 @@
 function LoadFlights(role) {
     var filter = {
         DepartureDestination: $("#departureDestination").val(),
-        DepartureDate: $("#departureDate").val(),
+        DepartureDateFrom: $("#departureDateFrom").val(),
+        DepartureDateTo: $("#departureDateTo").val(),
         Airline: $("#airline").val(),
         ArrivalDestination: $("#arrivalDestination").val(),
-        ArrivalDate: $("#arrivalDate").val(),
+        ArrivalDateFrom: $("#arrivalDateFrom").val(),
+        ArrivalDateTo: $("#arrivalDateTo").val(),
         Status: $("#status").val(),
         SortByPrice: $("input[name='sortOptionPrice']:checked").val()
     };
@@ -31,15 +33,18 @@ function LoadFlights(role) {
 
 function Reset(role) {
     $("#departureDestination").val('');
-    $("#departureDate").val('');
+    $("#departureDateFrom").val('');
+    $("#departureDateTo").val('');
     $("#airline").val('');
     $("#arrivalDestination").val('');
-    $("#arrivalDate").val('');
+    $("#arrivalDateFrom").val('');
+    $("#arrivalDateTo").val('');
     $("#status").val('active');
     $("input[name='sortOptionPrice']").prop('checked', false);
 
     LoadFlights(role);
 }
+
 
 
 function IndexTable(data) {

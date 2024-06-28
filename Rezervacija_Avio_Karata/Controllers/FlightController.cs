@@ -84,10 +84,15 @@ namespace Rezervacija_Avio_Karata.Controllers
             {
                 filteredFlights = filteredFlights.Where(f => f.DepartureDestination.ToLower().Contains(filter.DepartureDestination.ToLower()));
             }
-            if (!string.IsNullOrEmpty(filter.DepartureDate))
+            if (!string.IsNullOrEmpty(filter.DepartureDateFrom))
             {
-                DateTime departureDate = DateTime.Parse(filter.DepartureDate);
-                filteredFlights = filteredFlights.Where(f => DateTime.Parse(f.DepartureDateAndTime).Date == departureDate.Date);
+                DateTime departureDateFrom = DateTime.Parse(filter.DepartureDateFrom);
+                filteredFlights = filteredFlights.Where(f => DateTime.Parse(f.DepartureDateAndTime).Date >= departureDateFrom.Date);
+            }
+            if (!string.IsNullOrEmpty(filter.DepartureDateTo))
+            {
+                DateTime departureDateTo = DateTime.Parse(filter.DepartureDateTo);
+                filteredFlights = filteredFlights.Where(f => DateTime.Parse(f.DepartureDateAndTime).Date <= departureDateTo.Date);
             }
             if (!string.IsNullOrEmpty(filter.Airline))
             {
@@ -97,12 +102,17 @@ namespace Rezervacija_Avio_Karata.Controllers
             {
                 filteredFlights = filteredFlights.Where(f => f.ArrivalDestination.ToLower().Contains(filter.ArrivalDestination.ToLower()));
             }
-            if (!string.IsNullOrEmpty(filter.ArrivalDate))
+            if (!string.IsNullOrEmpty(filter.ArrivalDateFrom))
             {
-                DateTime arrivalDate = DateTime.Parse(filter.ArrivalDate);
-                filteredFlights = filteredFlights.Where(f => DateTime.Parse(f.ArrivalDateAndTime).Date == arrivalDate.Date);
+                DateTime arrivalDateFrom = DateTime.Parse(filter.ArrivalDateFrom);
+                filteredFlights = filteredFlights.Where(f => DateTime.Parse(f.ArrivalDateAndTime).Date >= arrivalDateFrom.Date);
             }
-            
+            if (!string.IsNullOrEmpty(filter.ArrivalDateTo))
+            {
+                DateTime arrivalDateTo = DateTime.Parse(filter.ArrivalDateTo);
+                filteredFlights = filteredFlights.Where(f => DateTime.Parse(f.ArrivalDateAndTime).Date <= arrivalDateTo.Date);
+            }
+
             if (filter.SortByPrice == "asc")
             {
                 filteredFlights = filteredFlights.OrderBy(f => f.Price);
@@ -114,6 +124,7 @@ namespace Rezervacija_Avio_Karata.Controllers
 
             return filteredFlights.ToList();
         }
+
 
         private List<Flight> StatusFilter(string status)
         {
@@ -168,10 +179,14 @@ namespace Rezervacija_Avio_Karata.Controllers
         public class FlightFilter
         {
             public string DepartureDestination { get; set; }
-            public string DepartureDate { get; set; }
+            public string DepartureDateFrom { get; set; }
+
+            public string DepartureDateTo { get; set; }
             public string Airline { get; set; }
             public string ArrivalDestination { get; set; }
-            public string ArrivalDate { get; set; }
+            public string ArrivalDateFrom { get; set; }
+
+            public string ArrivalDateTo { get; set; }
             public string Status { get; set; }
             public string SortByPrice { get; set; }
             public string SortByStatus { get; set; }
