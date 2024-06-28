@@ -49,7 +49,10 @@ namespace Rezervacija_Avio_Karata.Controllers
         private List<Flight> FilterFlights(List<Flight> flights, FlightFilter filter)
         {
             IEnumerable<Flight> filteredFlights = flights;
-
+            if (!string.IsNullOrEmpty(filter.Status) && filter.Status != "active")
+            {
+                filteredFlights = StatusFilter(filter.Status);
+            }
             if (!string.IsNullOrEmpty(filter.DepartureDestination))
             {
                 filteredFlights = filteredFlights.Where(f => f.DepartureDestination.ToLower().Contains(filter.DepartureDestination.ToLower()));
@@ -72,11 +75,7 @@ namespace Rezervacija_Avio_Karata.Controllers
                 DateTime arrivalDate = DateTime.Parse(filter.ArrivalDate);
                 filteredFlights = filteredFlights.Where(f => DateTime.Parse(f.ArrivalDateAndTime).Date == arrivalDate.Date);
             }
-            if (!string.IsNullOrEmpty(filter.Status))
-            {
-                filteredFlights = filteredFlights.Where(f => f.FlightStatus.ToString().Equals(filter.Status, StringComparison.OrdinalIgnoreCase));
-            }
-
+            
             if (filter.SortByPrice == "asc")
             {
                 filteredFlights = filteredFlights.OrderBy(f => f.Price);
@@ -87,6 +86,56 @@ namespace Rezervacija_Avio_Karata.Controllers
             }
 
             return filteredFlights.ToList();
+        }
+
+        private List<Flight> StatusFilter(string status)
+        {
+            List<Flight> filteredFlights = new List<Flight>();
+            List<int> flightsId = GetFlightsIdFromReservation();
+            FlightStatus fs = GetFlightStatus(status);
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
+            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
+            foreach (Flight flight in flights)
+            {
+                if (flightsId.Contains(flight.Id))
+                {
+                    if(flight.FlightStatus == fs)
+                    {
+                        filteredFlights.Add(flight);
+                    }
+                }
+            }
+            return filteredFlights;
+        }
+        private FlightStatus GetFlightStatus(string status) {
+            if(status == "completed")
+            {
+                return FlightStatus.Completed;
+            }else
+            {
+                return FlightStatus.Cancelled;
+            }
+        }
+
+
+        private List<int> GetFlightsIdFromReservation()
+        {
+            List<int> retVal = new List<int>();
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"));
+            List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(content) ?? new List<Reservation>();
+            foreach (Reservation reservation in reservations)
+            {
+                if (reservation.ReservationStatus == ReservationStatus.Approved)
+                {
+                    if (reservation.User == ((User)HttpContext.Current.Session["user"]).Username)
+                    {
+                        retVal.Add(reservation.FlightId);
+                    }
+
+                   
+                }
+            }
+            return retVal;
         }
 
         public class FlightFilter
