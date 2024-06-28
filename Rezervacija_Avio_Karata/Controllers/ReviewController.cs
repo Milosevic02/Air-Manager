@@ -17,30 +17,47 @@ namespace Rezervacija_Avio_Karata.Controllers
     {
         [HttpPost]
         [Route("AddReview")]
-        public IHttpActionResult AddReview(Review review,string name)
+        public IHttpActionResult AddReview()
         {
-
-            if(review == null)
+            var httpRequest = HttpContext.Current.Request;
+            if (httpRequest.Files.Count == 0)
             {
-                return BadRequest();
+                return BadRequest("No file uploaded");
             }
+
+            var postedFile = httpRequest.Files[0];
+            if (postedFile != null && postedFile.ContentLength > 0)
+            {
+                var filePath = HttpContext.Current.Server.MapPath("~/UploadedImages/" + postedFile.FileName);
+                postedFile.SaveAs(filePath);
+            }
+
+            var review = new Review
+            {
+                Id = IdGenerator.GenerateReviewId(),
+                Reviewer = ((User)HttpContext.Current.Session["user"]).Username,
+                Airline = httpRequest.Params["name"],
+                Title = httpRequest.Form["title"],
+                Description = httpRequest.Form["description"],
+                Image = "/UploadedImages/" + postedFile.FileName,
+                ReviewStatus = ReviewStatus.Created
+            };
+
             string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reviews.txt"));
             List<Review> reviews = JsonConvert.DeserializeObject<List<Review>>(content) ?? new List<Review>();
-            review.Id = IdGenerator.GenerateReviewId();
-            review.Reviewer = ((User)HttpContext.Current.Session["user"]).Username;
-            review.ReviewStatus = ReviewStatus.Created;
-            review.Airline = name;
+
             if (!AddReviewToAirline(review))
             {
-                return BadRequest("Airline with name " + review.Airline + "doesnt exists");
+                return BadRequest("Airline with name " + review.Airline + " doesn't exist");
             }
-            reviews.Add(review);
 
+            reviews.Add(review);
             content = JsonConvert.SerializeObject(reviews, Formatting.Indented);
             File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reviews.txt"), content);
-            return Ok();
 
+            return Ok();
         }
+
 
         private bool AddReviewToAirline(Review review)
         {

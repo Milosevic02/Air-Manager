@@ -10,7 +10,7 @@
     "AvailableSeats": 46,
     "OccupiedSeats": 0,
     "Price": 230.0,
-    "FlightStatus": 1
+    "FlightStatus": 2
   },
   {
     "Id": 6,
@@ -33,10 +33,10 @@
     "ArrivalDestination": "Paris",
     "DepartureDateAndTime": "2024-06-15 21:27",
     "ArrivalDateAndTime": "2024-06-15 23:27",
-    "AvailableSeats": 35,
-    "OccupiedSeats": 9,
+    "AvailableSeats": 11,
+    "OccupiedSeats": 33,
     "Price": 23.0,
-    "FlightStatus": 0
+    "FlightStatus": 2
   },
   {
     "Id": 4,
@@ -49,7 +49,7 @@
     "AvailableSeats": 42,
     "OccupiedSeats": 3,
     "Price": 120.0,
-    "FlightStatus": 0
+    "FlightStatus": 2
   },
   {
     "Id": 3,
@@ -62,7 +62,7 @@
     "AvailableSeats": 20,
     "OccupiedSeats": 13,
     "Price": 125.0,
-    "FlightStatus": 0
+    "FlightStatus": 2
   },
   {
     "Id": 2,
@@ -72,8 +72,8 @@
     "ArrivalDestination": "Roma",
     "DepartureDateAndTime": "2024-06-28 21:15",
     "ArrivalDateAndTime": "2024-06-28 23:17",
-    "AvailableSeats": 56,
-    "OccupiedSeats": 0,
+    "AvailableSeats": 4,
+    "OccupiedSeats": 52,
     "Price": 85.0,
     "FlightStatus": 0
   },
@@ -88,7 +88,7 @@
     "AvailableSeats": 47,
     "OccupiedSeats": 0,
     "Price": 55.0,
-    "FlightStatus": 0
+    "FlightStatus": 2
   },
   {
     "Id": 10,
@@ -98,8 +98,8 @@
     "ArrivalDestination": "London",
     "DepartureDateAndTime": "2024-06-29 16:38",
     "ArrivalDateAndTime": "2024-06-29 18:45",
-    "AvailableSeats": 20,
-    "OccupiedSeats": 0,
+    "AvailableSeats": 8,
+    "OccupiedSeats": 12,
     "Price": 125.0,
     "FlightStatus": 0
   },
@@ -114,6 +114,6 @@
     "AvailableSeats": 56,
     "OccupiedSeats": 0,
     "Price": 250.0,
-    "FlightStatus": 0
+    "FlightStatus": 2
   }
 ]

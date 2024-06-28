@@ -60,13 +60,13 @@ function IndexTable(data) {
         let status = GetStatus(data[flight].FlightStatus);
         row += '<td>' + status + '</td>';
 
-
-        table += '<tr>' + row + '<tr/>';
+        table += '<tr>' + row + '</tr>';
     }
 
     table += '</tbody></table>';
     $('#flightTable').html(table);
 }
+
 
 
 function PassengerTable(data) {
@@ -89,18 +89,19 @@ function PassengerTable(data) {
 
         row += '<td class="text-center">   <button onclick="AddPrice(' + data[flight].Price + ',' + data[flight].Id + ')" type="button" class="btn btn-primary text-light" data-bs-toggle="modal" data-bs-target="#reservationModal">Reserve</button></td>'; 
 
-        table += '<tr>' + row + '<tr/>';
+        table += '<tr>' + row + '</tr>';
     }
 
     table += '</tbody></table>';
     $('#flightTable').html(table);
 }
 
+
 function AdminTable(data){
     let table = '<table class="table table-striped table-hover table-bordered fs-5"><thead><tr><th scope="col">#</th><th scope="col">Airlline</th><th scope="col">Departure Destination</th><th scope="col">Arrival Destination</th><th scope="col">Departure Date</th><th scope="col">Arrival Date</th><th scope="col">Available Seats</th><th scope="col">Occupied Seats</th><th scope="col">Price</th><th scope="col">Status</th><th scope="col">Edit</th><th scope="col">Delete</th></tr></thead><tbody>';
 
     let counter = 0;
-    for(flight in data){
+    for(let flight in data){
         counter++;
         let row = '<td>' + counter.toString() + '</td>'; 
         row += '<td>' + data[flight].Airline + '</td>';
@@ -117,12 +118,13 @@ function AdminTable(data){
         row += '<td class="text-center">  <button onclick ="GetFlightInfo('+ data[flight].Id + ')" type="button" class="btn btn-warning text-dark edit-flight-btn" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fas fa-pen"></i> Edit</button></td>'; 
         row += '<td class="text-center">   <button onclick="AddIdToDeleteModal(' + data[flight].Id + ')" type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button></td>'; 
 
-        table += '<tr>' + row + '<tr/>';
+        table += '<tr>' + row + '</tr>';
     }
 
     table += '</tbody></table>';
     $('#flightTable').html(table);
 }
+
 
 function AddIdToDeleteModal(flightId){
     $('#deleteFlightId').val(flightId)

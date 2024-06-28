@@ -1,3 +1,5 @@
 -Upisuje D date mesto A date u fajl
--Nece da doda sliku za review
--Ne valja filtriranje po statusima u Obicnom korisniku za prikaz letova
+
+
+
+

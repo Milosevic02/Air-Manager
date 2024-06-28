@@ -314,18 +314,18 @@ async function LoadApprovedReservationsAdmin() {
 }
 
 
-function AddReview(event){
-    event.preventDefault(); 
-    let form = $("#addReviewForm");
-    let data = convertFormToJSON(form);
-    data = JSON.stringify(data)
+function AddReview(event) {
+    event.preventDefault();
+    let form = $("#addReviewForm")[0];
+    let formData = new FormData(form);
     let name = $("#airlineName").val();
-    let image = $("#image").val();
+    
     $.ajax({
-        url:"/api/AddReview?name="+name,
-        type:"POST",
-        data:data,
-        contentType: "application/json", 
+        url: "/api/AddReview?name=" + name,
+        type: "POST",
+        data: formData,
+        contentType: false, // Important: Do not set contentType
+        processData: false, // Important: Do not process data
         success: function() {
             $('#reviewModal').modal('hide');
             $('#ReservationToast .toast-body').text('Review added successfully.');
@@ -340,10 +340,7 @@ function AddReview(event){
             var toastEl = new bootstrap.Toast($('#ReservationToast'));
             toastEl.show();
         }
-
-    })
-
-
+    });
 }
 
 function convertFormToJSON(form) {

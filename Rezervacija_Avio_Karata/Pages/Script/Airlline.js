@@ -171,7 +171,7 @@ function LoadReviewCard(reviews) {
                 <div class="card-body">
                     <h5 class="card-title fw-bold">${review.Title}</h5>
                     <p class="card-text">${review.Description}</p>
-                    ${review.Image ? `<img src="${review.Image}" alt="${review.Title}" class="img-fluid mt-2">` : ''}
+                    ${review.Image ? `<img src="${review.Image}" alt="${review.Title}" class="review-img img-fluid mt-2">` : ''}
                 </div>
             </div>`;
     });

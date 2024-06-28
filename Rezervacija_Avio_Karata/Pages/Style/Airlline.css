@@ -46,3 +46,9 @@ li{
     margin-left: 55px !important;
 }
 
+.review-img {
+    max-width: 300px !important; 
+    max-height: 300px !important; 
+    width: auto;
+    height: auto;
+}

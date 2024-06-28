@@ -84,7 +84,7 @@ p{
 }
 
 tr:nth-child(even) td {
-    background-color: rgb(25, 38, 77)!important; /* Adjust the alpha value (0.8) to make it lighter or darker */
+    background-color: rgb(25, 38, 77)!important; 
     color: white !important;
 }
 
@@ -105,3 +105,9 @@ th{
     margin-left: 80px !important;
 }
 
+.review-img {
+    max-width: 300px !important; 
+    max-height: 300px !important; 
+    width: auto;
+    height: auto;
+}

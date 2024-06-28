@@ -56,6 +56,38 @@
         "CountOfPassengers": 13,
         "Price": 1625.0,
         "ReservationStatus": 0
+      },
+      {
+        "Id": 14,
+        "User": "maki",
+        "FlightId": 5,
+        "CountOfPassengers": 12,
+        "Price": 276.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 15,
+        "User": "maki",
+        "FlightId": 5,
+        "CountOfPassengers": 12,
+        "Price": 276.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 20,
+        "User": "maki",
+        "FlightId": 2,
+        "CountOfPassengers": 6,
+        "Price": 510.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 21,
+        "User": "maki",
+        "FlightId": 10,
+        "CountOfPassengers": 12,
+        "Price": 1500.0,
+        "ReservationStatus": 0
       }
     ]
   },
@@ -79,6 +111,47 @@
     "DateOfBirth": "2024-06-02",
     "Role": "Passenger",
     "Gender": 0,
-    "Reservations": []
+    "Reservations": [
+      {
+        "Id": 16,
+        "User": "pera",
+        "FlightId": 10,
+        "CountOfPassengers": 12,
+        "Price": 1500.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 17,
+        "User": "pera",
+        "FlightId": 10,
+        "CountOfPassengers": 7,
+        "Price": 875.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 18,
+        "User": "pera",
+        "FlightId": 2,
+        "CountOfPassengers": 40,
+        "Price": 3400.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 19,
+        "User": "pera",
+        "FlightId": 2,
+        "CountOfPassengers": 6,
+        "Price": 510.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 22,
+        "User": "pera",
+        "FlightId": 10,
+        "CountOfPassengers": 12,
+        "Price": 1500.0,
+        "ReservationStatus": 0
+      }
+    ]
   }
 ]
