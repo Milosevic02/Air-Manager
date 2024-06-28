@@ -10,7 +10,7 @@ function ReserveFlight(event){
         data:data,
         contentType: "application/json", 
         success:function(){
-            LoadActiveFlights("Passenger");
+            LoadFlights("Passenger");
             $('#reservationModal').modal('hide');
             $('#passengerToast .toast-body').text('Reservation created successfully.');
             $('#passengerToast').removeClass('text-bg-danger').addClass('text-bg-success');
@@ -142,7 +142,7 @@ function CancelReservation(role){
         url: '/api/CancelReservation?id=' + id,
         type: 'DELETE',
         success: function () {
-            if(role != "Admin"){LoadReservationsPassenger();
+            if(role != "Admin"){LoadReservationsPassenger("created");
             }else{
                 LoadCreatedReservationsAdmin();
                 LoadApprovedReservationsAdmin();
