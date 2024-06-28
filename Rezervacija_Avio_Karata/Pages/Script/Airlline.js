@@ -40,8 +40,8 @@ function displayAirlines(airlines) {
         row += '<td>' + airline.Name + '</td>';
         row += '<td>' + airline.Address + '</td>';
         row += '<td>' + airline.ContactInfo + '</td>';
-        row += '<td class="text-center">  <button onclick="editAirline(\'' + airline.Name + '\')" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#editAirlineModal"><i class="fas fa-pen"></i> Edit</button></td>';
-        row += '<td class="text-center">   <button onclick="deleteAirline(\'' + airline.Name + '\')" type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteAirlineModal"><i class="fas fa-trash"></i> Delete</button></td>';
+        row += '<td class="text-center">  <button onclick="GetAirlineInfo(\'' + airline.Name + '\', \'Admin\')" type="button" class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#editAirllineModal"><i class="fas fa-pen"></i> Edit</button></td>';
+        row += '<td class="text-center">   <button onclick="AddIdToDeleteModal(\'' + airline.Name + '\')" type="button" class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fas fa-trash"></i> Delete</button></td>';
 
         table += '<tr>' + row + '</tr>';
     });
