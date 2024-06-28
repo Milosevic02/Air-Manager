@@ -102,6 +102,7 @@ namespace Rezervacija_Avio_Karata.Controllers
         [Route("LoadReservations")]
         public List<Reservation> GetReservations(string role,string status)
         {
+            UpdateFinishedReservation();
             ReservationStatus resStatus = GetReservationStatus(status);
             List<Reservation>retVal = new List<Reservation>();
             string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"));
@@ -127,6 +128,43 @@ namespace Rezervacija_Avio_Karata.Controllers
             return retVal;
 
         }
+
+        private void UpdateFinishedReservation()
+        {
+            List<int>flightsId = GetCompletedFlights();
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"));
+            List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(content) ?? new List<Reservation>();
+            foreach (Reservation reservation in reservations)
+            {
+                if (flightsId.Contains(reservation.FlightId))
+                {
+                    reservation.ReservationStatus = ReservationStatus.Finished;
+                }
+
+            }
+            content = JsonConvert.SerializeObject(reservations, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"), content);
+
+
+        }
+
+        private List<int> GetCompletedFlights()
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
+            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
+            List<int> result = new List<int>();
+            foreach(Flight flight in flights)
+            {
+                if(flight.FlightStatus == FlightStatus.Completed)
+                {
+                    result.Add(flight.Id);
+                }
+            }
+            
+            return result;
+        }
+
+
 
         private ReservationStatus GetReservationStatus(string status)
         {
