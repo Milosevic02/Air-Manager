@@ -19,10 +19,11 @@ namespace Rezervacija_Avio_Karata.Controllers
         [Route("GetAllFlights")]
         public List<Flight> GetAllFlights([FromBody] FlightFilter filter)
         {
+            UpdateCompleatedFlights();
+
             string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
             List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
             List<Flight> result = new List<Flight>();
-
             foreach (Flight f in flights)
             {
                 if (HttpContext.Current.Session["user"] == null)
@@ -45,6 +46,32 @@ namespace Rezervacija_Avio_Karata.Controllers
             List<Flight> retVal = FilterFlights(result, filter);
             return retVal;
         }
+
+        private void UpdateCompleatedFlights()
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
+            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
+            foreach(Flight f in flights)
+            {
+                if (Expired(f.DepartureDateAndTime))
+                {
+                    f.FlightStatus = FlightStatus.Completed;
+                }
+            }
+            content = JsonConvert.SerializeObject(flights, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"), content);
+        }
+
+        private bool Expired(string date)
+        {
+            DateTime departureDateTime;
+            if (DateTime.TryParseExact(date, "yyyy-MM-dd HH:mm", null, System.Globalization.DateTimeStyles.None, out departureDateTime))
+            {
+                return DateTime.Now > departureDateTime;
+            }
+            return false;
+        }
+
 
         private List<Flight> FilterFlights(List<Flight> flights, FlightFilter filter)
         {
@@ -125,7 +152,7 @@ namespace Rezervacija_Avio_Karata.Controllers
             List<Reservation> reservations = JsonConvert.DeserializeObject<List<Reservation>>(content) ?? new List<Reservation>();
             foreach (Reservation reservation in reservations)
             {
-                if (reservation.ReservationStatus == ReservationStatus.Approved)
+                if (reservation.ReservationStatus != ReservationStatus.Rejected)
                 {
                     if (reservation.User == ((User)HttpContext.Current.Session["user"]).Username)
                     {
