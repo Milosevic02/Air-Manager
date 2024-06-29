@@ -128,26 +128,47 @@ namespace Rezervacija_Avio_Karata.Controllers
                 filteredUsers = filteredUsers.Where(u => DateTime.Parse(u.DateOfBirth) <= upperDateOfBirth.Date);
             }
 
-            if (filter.SortByName == "asc")
-            {
-                filteredUsers = filteredUsers.OrderBy(u => u.Name);
-            }
-            else if (filter.SortByName == "desc")
-            {
-                filteredUsers = filteredUsers.OrderByDescending(u => u.Name);
-            }
+            bool sortByName = filter.SortByName == "asc" || filter.SortByName == "desc";
+            bool sortByDate = filter.SortByDate == "asc" || filter.SortByDate == "desc";
 
-            if (filter.SortByDate == "asc")
+            if (sortByName)
             {
-                filteredUsers = filteredUsers.OrderBy(u => DateTime.Parse(u.DateOfBirth));
+                if (filter.SortByName == "asc")
+                {
+                    filteredUsers = filteredUsers.OrderBy(u => u.Name);
+                }
+                else if (filter.SortByName == "desc")
+                {
+                    filteredUsers = filteredUsers.OrderByDescending(u => u.Name);
+                }
+
+                if (sortByDate)
+                {
+                    if (filter.SortByDate == "asc")
+                    {
+                        filteredUsers = ((IOrderedEnumerable<User>)filteredUsers).ThenBy(u => DateTime.Parse(u.DateOfBirth));
+                    }
+                    else if (filter.SortByDate == "desc")
+                    {
+                        filteredUsers = ((IOrderedEnumerable<User>)filteredUsers).ThenByDescending(u => DateTime.Parse(u.DateOfBirth));
+                    }
+                }
             }
-            else if (filter.SortByDate == "desc")
+            else if (sortByDate)
             {
-                filteredUsers = filteredUsers.OrderByDescending(u => DateTime.Parse(u.DateOfBirth));
+                if (filter.SortByDate == "asc")
+                {
+                    filteredUsers = filteredUsers.OrderBy(u => DateTime.Parse(u.DateOfBirth));
+                }
+                else if (filter.SortByDate == "desc")
+                {
+                    filteredUsers = filteredUsers.OrderByDescending(u => DateTime.Parse(u.DateOfBirth));
+                }
             }
 
             return filteredUsers.ToList();
         }
+
         public class UserFilter
         {
             public string SearchByName { get; set; }
