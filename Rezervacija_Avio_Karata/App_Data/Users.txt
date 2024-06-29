@@ -92,8 +92,8 @@
     ]
   },
   {
-    "Username": "dragan",
-    "Password": "dragan",
+    "Username": "admin",
+    "Password": "admin",
     "Email": "dmilosevic322@gmail.com",
     "Name": "Dragan",
     "Surname": "Milosevic",
