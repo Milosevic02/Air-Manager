@@ -163,8 +163,26 @@ namespace Rezervacija_Avio_Karata.Controllers
             }
             content = JsonConvert.SerializeObject(airllines, Formatting.Indented);
             File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"), content);
+
+            UpdateFlights(oldName, airlineName);
+        
         }
 
+        private void UpdateFlights(string oldName, string airlineName)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
+            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
+            foreach (Flight f in flights)
+            {
+                if(f.Airline == oldName)
+                {
+                    f.Airline = airlineName;
+                }
+            }
+            content = JsonConvert.SerializeObject(flights, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"), content);
+       
+        }
 
         [HttpDelete]
         [Route("DeleteAirline")]
@@ -199,11 +217,18 @@ namespace Rezervacija_Avio_Karata.Controllers
         }
 
         private bool HaveActiveFlights(Airlline air) {
-            foreach (Flight flight in air.Flights) {
-                if (flight.FlightStatus == FlightStatus.Active)
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
+            List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
+            foreach (Flight f in flights)
+            {
+                if(f.Airline == air.Name)
                 {
-                    return true;
+                    if (f.FlightStatus == FlightStatus.Active)
+                    {
+                        return true;
+                    }
                 }
+                
             }
             return false;
         }
@@ -216,12 +241,8 @@ namespace Rezervacija_Avio_Karata.Controllers
             }
             string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"));
             List<Flight> flights = JsonConvert.DeserializeObject<List<Flight>>(content) ?? new List<Flight>();
-            for(int i = 0; i < flights.Count; i++)
-            {
-                if (flightsId.Contains(flights[i].Id)){
-                    flights.RemoveAt(i);
-                }
-            }
+            flights = flights.Where(f => !flightsId.Contains(f.Id)).ToList();
+
             content = JsonConvert.SerializeObject(flights, Formatting.Indented);
             File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Flights.txt"), content);
         }
