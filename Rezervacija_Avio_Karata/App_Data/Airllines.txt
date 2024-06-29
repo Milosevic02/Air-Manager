@@ -78,6 +78,19 @@
         "OccupiedSeats": 0,
         "Price": 230.0,
         "FlightStatus": 1
+      },
+      {
+        "Id": 19,
+        "Airline": "VisaAir",
+        "IsDeleted": false,
+        "DepartureDestination": "Lisabon",
+        "ArrivalDestination": "Paris",
+        "DepartureDateAndTime": "2024-07-05 14:01",
+        "ArrivalDateAndTime": "2024-07-05 17:01",
+        "AvailableSeats": 43,
+        "OccupiedSeats": 0,
+        "Price": 35.0,
+        "FlightStatus": 0
       }
     ],
     "Reviews": []
