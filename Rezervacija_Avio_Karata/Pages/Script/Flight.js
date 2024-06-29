@@ -257,7 +257,7 @@ function EditFlight(event){
         contentType:"application/json",
         success: function(){
             $('#editModal').modal('hide');
-            LoadFlights();
+            LoadFlights('Admin');
             $('#FlightsToast .toast-body').text('Flight edited successfully.');
             $('#FlightsToast').removeClass('text-bg-danger').addClass('text-bg-success');
             var toastEl = new bootstrap.Toast($('#FlightsToast'));
