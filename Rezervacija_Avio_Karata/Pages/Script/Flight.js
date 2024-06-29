@@ -203,7 +203,7 @@ function AddFlight(event){
         contentType: "application/json", 
         success: function () {
             $('#addModal').modal('hide');
-            LoadFlights();
+            LoadFlights('Admin');
             $('#FlightsToast .toast-body').text('Flight added successfully.');
             $('#FlightsToast').removeClass('text-bg-danger').addClass('text-bg-success');
             var toastEl = new bootstrap.Toast($('#FlightsToast'));
