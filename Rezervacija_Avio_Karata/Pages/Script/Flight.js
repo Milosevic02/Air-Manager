@@ -141,7 +141,7 @@ function DeleteFlight() {
         url: '/api/DeleteFlight?id=' + id,
         type: 'DELETE',
         success: function () {
-            LoadFlights();
+            LoadFlights('Admin');
             $('#deleteModal').modal('hide');
             $('#FlightsToast .toast-body').text('Flight deleted successfully.');
             $('#FlightsToast').removeClass('text-bg-danger').addClass('text-bg-success');
