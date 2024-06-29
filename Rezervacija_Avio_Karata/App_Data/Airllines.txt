@@ -175,5 +175,12 @@
       }
     ],
     "Reviews": []
+  },
+  {
+    "Name": "AirSerbia",
+    "Address": "Karadjordjeva 36 ,Beograd",
+    "ContactInfo": "airserbia@gmail.com",
+    "Flights": [],
+    "Reviews": []
   }
 ]
