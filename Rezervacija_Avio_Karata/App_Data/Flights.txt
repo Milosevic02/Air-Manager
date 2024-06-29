@@ -75,7 +75,7 @@
     "AvailableSeats": 4,
     "OccupiedSeats": 52,
     "Price": 85.0,
-    "FlightStatus": 0
+    "FlightStatus": 2
   },
   {
     "Id": 1,
