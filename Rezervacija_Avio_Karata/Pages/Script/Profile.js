@@ -96,7 +96,7 @@ function EditProfile(event){
         contentType:"application/json",
         success:function(){
             LoadProfile();
-            LoadAllUsers();
+            LoadUsers();
             $('#ProfileToast .toast-body').text('Profile edited successfully.');
             $('#ProfileToast').removeClass('text-bg-danger').addClass('text-bg-success');
             var toastEl = new bootstrap.Toast($('#ProfileToast'));
