@@ -334,8 +334,8 @@ namespace Rezervacija_Avio_Karata.Controllers
                         string[] dateD = flight.DepartureDateAndTime.ToString().Split('T');
 
           
-                        flights[i].ArrivalDateAndTime = dateD[0] + ' ' + dateD[1];
-                        flights[i].DepartureDateAndTime = dateA[0] + ' ' + dateA[1];
+                        flights[i].ArrivalDateAndTime = dateA[0] + ' ' + dateA[1];
+                        flights[i].DepartureDateAndTime = dateD[0] + ' ' + dateD[1];
                         flights[i].OccupiedSeats = flight.OccupiedSeats;
                         flights[i].AvailableSeats = flight.AvailableSeats;
                         flights[i].Price = flight.Price;
