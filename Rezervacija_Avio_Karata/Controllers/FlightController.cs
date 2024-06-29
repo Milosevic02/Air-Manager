@@ -283,9 +283,16 @@ namespace Rezervacija_Avio_Karata.Controllers
             {
                 if (flight.Id == id)
                 {
-                    flight.IsDeleted = true;
-                    success = true;
-                    LogicalDeleteFlightFromAirllineFile(flight);
+                    if(flight.OccupiedSeats == 0) {
+                        flight.IsDeleted = true;
+                        success = true;
+                        LogicalDeleteFlightFromAirllineFile(flight);
+                    }
+                    else
+                    {
+                        return BadRequest("Cannot delete a flight that has an approved or created reservation.");
+                    }
+
 
                 }
             }
@@ -429,6 +436,7 @@ namespace Rezervacija_Avio_Karata.Controllers
                     {
                         if (air.Flights[i].Id == flightId)
                         {
+
                             air.Flights.RemoveAt(i);
                         }
                     }
