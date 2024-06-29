@@ -193,6 +193,7 @@ namespace Rezervacija_Avio_Karata.Controllers
                 }
                 ChangeUsernameInReviewFile(oldUsername,user.Username);
                 ChangeUsernameInReservationFile(oldUsername,user.Username);
+                ChangeUsernameInAirlinesReviewFile(oldUsername,user.Username);
 
             }
             string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Users.txt"));
@@ -260,6 +261,24 @@ namespace Rezervacija_Avio_Karata.Controllers
             }
             content = JsonConvert.SerializeObject(reservations, Formatting.Indented);
             File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Reservations.txt"), content);
+        }
+
+        private void ChangeUsernameInAirlinesReviewFile(string oldUsername, string username)
+        {
+            string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"));
+            List<Airlline> airllines = JsonConvert.DeserializeObject<List<Airlline>>(content) ?? new List<Airlline>();
+            foreach(Airlline air in airllines)
+            {
+                foreach(Review review in air.Reviews)
+                {
+                    if(review.Reviewer == oldUsername)
+                    {
+                        review.Reviewer = username;
+                    }
+                }
+            }
+            content = JsonConvert.SerializeObject(airllines, Formatting.Indented);
+            File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"), content);
         }
 
 
