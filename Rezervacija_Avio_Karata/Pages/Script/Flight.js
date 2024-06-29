@@ -170,6 +170,11 @@ function GetFlightInfo(flightId){
         $('#editPrice').val(flightDetails.Price);
         let statusValue = GetStatus(flightDetails.FlightStatus);
         $('#flightStatus').val(statusValue);
+        if(flightDetails.OccupiedSeats != 0){
+            $('#editPrice').parent().hide();
+        } else {
+            $('#editPrice').parent().show();
+        }
     });
 }
 
