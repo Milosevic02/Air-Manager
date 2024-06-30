@@ -153,5 +153,16 @@
         "ReservationStatus": 0
       }
     ]
+  },
+  {
+    "Username": "markoni",
+    "Password": "markoni",
+    "Email": "markic@gmail.com",
+    "Name": "Marko",
+    "Surname": "Kraljevic",
+    "DateOfBirth": "2024-06-07",
+    "Role": "Passenger",
+    "Gender": 0,
+    "Reservations": []
   }
 ]

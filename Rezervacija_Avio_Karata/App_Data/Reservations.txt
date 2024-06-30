@@ -93,6 +93,6 @@
     "FlightId": 10,
     "CountOfPassengers": 12,
     "Price": 1500.0,
-    "ReservationStatus": 2
+    "ReservationStatus": 3
   }
 ]

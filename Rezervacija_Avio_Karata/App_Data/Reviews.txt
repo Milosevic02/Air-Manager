@@ -25,5 +25,23 @@
     "Description": "dasdaaaaaaasaaaaaaaaaaaaa",
     "Image": "/UploadedImages/HSA-Logo.jpeg",
     "ReviewStatus": 1
+  },
+  {
+    "Id": 7,
+    "Reviewer": "pera",
+    "Airline": "SkyHigh",
+    "Title": "dsaaaaaaaaaaaaaaaa",
+    "Description": "dsaassdadssada",
+    "Image": "/UploadedImages/",
+    "ReviewStatus": 1
+  },
+  {
+    "Id": 8,
+    "Reviewer": "pera",
+    "Airline": "SkyHigh",
+    "Title": "dsaaaaaaaaaaaaaaaa",
+    "Description": "dsaassdadssada",
+    "Image": "/UploadedImages/Logo.png",
+    "ReviewStatus": 1
   }
 ]
