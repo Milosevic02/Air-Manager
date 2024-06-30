@@ -324,8 +324,8 @@ function AddReview(event) {
         url: "/api/AddReview?name=" + name,
         type: "POST",
         data: formData,
-        contentType: false, // Important: Do not set contentType
-        processData: false, // Important: Do not process data
+        contentType: false, 
+        processData: false, 
         success: function() {
             $('#reviewModal').modal('hide');
             $('#ReservationToast .toast-body').text('Review added successfully.');
