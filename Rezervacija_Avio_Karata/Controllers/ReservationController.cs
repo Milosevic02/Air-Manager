@@ -246,7 +246,10 @@ namespace Rezervacija_Avio_Karata.Controllers
                         break;
                     }else if(action == "Rejected")
                     {
+                        ChangeAvailableSeats(reservation.FlightId, reservation.CountOfPassengers, true);
+
                         reservation.ReservationStatus=ReservationStatus.Rejected;
+
                         break;
                     }
                 }
