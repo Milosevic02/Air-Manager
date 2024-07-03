@@ -1,0 +1,5 @@
+-Upisuje D date mesto A date u fajl
+
+
+
+

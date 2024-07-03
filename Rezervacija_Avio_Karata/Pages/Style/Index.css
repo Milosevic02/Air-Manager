@@ -1,0 +1,113 @@
+body {
+    padding-top: 80px; /* Adjust this value according to your navbar height */
+
+}
+.navbar {
+    height: 100px; /* Set the desired height for the navbar */
+    
+}
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+.navbar-brand img {
+    height: 50px; /* Adjust the size of the icon */
+    margin-right: 10px;
+}
+.navbar-brand {
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+}
+.navbar-nav .nav-item .nav-link i {
+    font-size: 40px;
+    display: block;
+    margin: 0 auto;
+}
+.navbar-nav .nav-item .nav-link small {
+    display: block;
+    text-align: center;
+}
+
+.name{
+    font-size: 36px;
+}
+
+li{
+    padding-right:4rem;
+   }
+
+.sec-color{
+    /*rgb(15, 23, 46);*/
+    background-color: rgb(25, 38, 77);
+}
+.dropdown-item:hover {
+    background-color: rgb(35, 55, 95);  /* Custom hover background color */
+  }
+
+.data-picker{
+    height: 55px;
+    
+}
+.date-picker{
+    height: 35px;
+    width: 250px;
+    font-weight: bold;
+}
+.status{
+    height: 40px;
+    width: 250px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.filter-btn{
+    width: 120px;
+    height: 40px;
+    margin-right: 25px;
+}
+
+.add-btn{
+    width: 140px;
+    height: 40px;
+    margin-left: 25px;
+}
+
+.reset-btn{
+    width: 120px;
+    height: 40px;
+
+}
+
+p{
+    font-weight: bold;
+}
+
+tr:nth-child(even) td {
+    background-color: rgb(25, 38, 77)!important; 
+    color: white !important;
+}
+
+tr:nth-child(odd) td {
+    background-color: rgb(25, 38, 77,0.6) !important;
+    color: white !important;
+}
+
+
+th{
+    background-color: rgb(25, 38, 77) !important;
+    color: white !important;
+
+}
+
+.admin-date{
+    width: 300px !important;
+    margin-left: 80px !important;
+}
+
+.review-img {
+    max-width: 300px !important; 
+    max-height: 300px !important; 
+    width: auto;
+    height: auto;
+}

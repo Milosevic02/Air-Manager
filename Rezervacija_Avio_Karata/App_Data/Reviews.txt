@@ -1,0 +1,47 @@
+[
+  {
+    "Id": 1,
+    "Reviewer": "maki",
+    "Airline": "Qatar",
+    "Title": "Very nice",
+    "Description": "Very good flight",
+    "Image": "",
+    "ReviewStatus": 1
+  },
+  {
+    "Id": 2,
+    "Reviewer": "maki",
+    "Airline": "Qatar",
+    "Title": "Very nice flight ",
+    "Description": "Save and relax flight with Qatar Airline",
+    "Image": "",
+    "ReviewStatus": 2
+  },
+  {
+    "Id": 4,
+    "Reviewer": "maki",
+    "Airline": "Qatar",
+    "Title": "dasdasdas",
+    "Description": "dasdaaaaaaasaaaaaaaaaaaaa",
+    "Image": "/UploadedImages/HSA-Logo.jpeg",
+    "ReviewStatus": 1
+  },
+  {
+    "Id": 7,
+    "Reviewer": "pera",
+    "Airline": "SkyHigh",
+    "Title": "dsaaaaaaaaaaaaaaaa",
+    "Description": "dsaassdadssada",
+    "Image": "/UploadedImages/",
+    "ReviewStatus": 1
+  },
+  {
+    "Id": 8,
+    "Reviewer": "pera",
+    "Airline": "SkyHigh",
+    "Title": "dsaaaaaaaaaaaaaaaa",
+    "Description": "dsaassdadssada",
+    "Image": "/UploadedImages/Logo.png",
+    "ReviewStatus": 1
+  }
+]

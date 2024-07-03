@@ -1,0 +1,218 @@
+[
+  {
+    "Name": "Qatar",
+    "Address": "Muahsid 43 Kairo",
+    "ContactInfo": "qatar@gmail.com",
+    "Flights": [
+      {
+        "Id": 5,
+        "Airline": "Qatar",
+        "IsDeleted": false,
+        "DepartureDestination": "Beograd",
+        "ArrivalDestination": "Paris",
+        "DepartureDateAndTime": "2024-06-15 21:27",
+        "ArrivalDateAndTime": "2024-06-15 23:27",
+        "AvailableSeats": 44,
+        "OccupiedSeats": 0,
+        "Price": 23.0,
+        "FlightStatus": 0
+      },
+      {
+        "Id": 11,
+        "Airline": "Qatar",
+        "IsDeleted": true,
+        "DepartureDestination": "Hurgada",
+        "ArrivalDestination": "Beograd",
+        "DepartureDateAndTime": "2024-06-21 17:43",
+        "ArrivalDateAndTime": "2024-06-21 21:58",
+        "AvailableSeats": 56,
+        "OccupiedSeats": 0,
+        "Price": 250.0,
+        "FlightStatus": 0
+      }
+    ],
+    "Reviews": [
+      {
+        "Id": 15,
+        "Reviewer": "maki",
+        "Airline": "Qatar",
+        "Title": "Very nice",
+        "Description": "Very good flight",
+        "Image": "",
+        "ReviewStatus": 1
+      },
+      {
+        "Id": 18,
+        "Reviewer": "maki",
+        "Airline": "Qatar",
+        "Title": "Very nice flight ",
+        "Description": "Save and relax flight with Qatar Airline",
+        "Image": "",
+        "ReviewStatus": 2
+      },
+      {
+        "Id": 4,
+        "Reviewer": "maki",
+        "Airline": "Qatar",
+        "Title": "dasdasdas",
+        "Description": "dasdaaaaaaasaaaaaaaaaaaaa",
+        "Image": "/UploadedImages/HSA-Logo.jpeg",
+        "ReviewStatus": 1
+      }
+    ]
+  },
+  {
+    "Name": "VisaAir",
+    "Address": "Green Forest 57 London",
+    "ContactInfo": "visaair@gmail.com",
+    "Flights": [
+      {
+        "Id": 8,
+        "Airline": "VisaAir",
+        "IsDeleted": false,
+        "DepartureDestination": "Beograd",
+        "ArrivalDestination": "Dubai",
+        "DepartureDateAndTime": "2024-06-15 21:10",
+        "ArrivalDateAndTime": "2024-06-14 00:12",
+        "AvailableSeats": 46,
+        "OccupiedSeats": 0,
+        "Price": 230.0,
+        "FlightStatus": 1
+      },
+      {
+        "Id": 19,
+        "Airline": "VisaAir",
+        "IsDeleted": false,
+        "DepartureDestination": "Lisabon",
+        "ArrivalDestination": "Paris",
+        "DepartureDateAndTime": "2024-07-05 14:01",
+        "ArrivalDateAndTime": "2024-07-05 17:01",
+        "AvailableSeats": 43,
+        "OccupiedSeats": 0,
+        "Price": 35.0,
+        "FlightStatus": 0
+      }
+    ],
+    "Reviews": []
+  },
+  {
+    "Name": "StarCruise",
+    "Address": "Skyline Road, 789 ,Starlight Town",
+    "ContactInfo": "+44 123 456 7890",
+    "Flights": [
+      {
+        "Id": 4,
+        "Airline": "StarCruise",
+        "IsDeleted": false,
+        "DepartureDestination": "Paris",
+        "ArrivalDestination": "London",
+        "DepartureDateAndTime": "2024-06-20 22:38",
+        "ArrivalDateAndTime": "2024-06-15 23:44",
+        "AvailableSeats": 45,
+        "OccupiedSeats": 0,
+        "Price": 120.0,
+        "FlightStatus": 0
+      },
+      {
+        "Id": 3,
+        "Airline": "StarCruise",
+        "IsDeleted": false,
+        "DepartureDestination": "Paris",
+        "ArrivalDestination": "Istanbul",
+        "DepartureDateAndTime": "2024-06-22 18:09",
+        "ArrivalDateAndTime": "2024-06-22 23:09",
+        "AvailableSeats": 33,
+        "OccupiedSeats": 0,
+        "Price": 125.0,
+        "FlightStatus": 0
+      },
+      {
+        "Id": 10,
+        "Airline": "StarCruise",
+        "IsDeleted": false,
+        "DepartureDestination": "Rome",
+        "ArrivalDestination": "London",
+        "DepartureDateAndTime": "2024-06-29 16:38",
+        "ArrivalDateAndTime": "2024-06-29 18:45",
+        "AvailableSeats": 20,
+        "OccupiedSeats": 0,
+        "Price": 125.0,
+        "FlightStatus": 0
+      }
+    ],
+    "Reviews": []
+  },
+  {
+    "Name": "SkyHigh",
+    "Address": "Airline Boulevard, 890 ,Aeroport City",
+    "ContactInfo": "info@skyhighairlines.com",
+    "Flights": [
+      {
+        "Id": 2,
+        "Airline": "SkyHigh",
+        "IsDeleted": false,
+        "DepartureDestination": "Lisabon",
+        "ArrivalDestination": "Roma",
+        "DepartureDateAndTime": "2024-06-28 21:15",
+        "ArrivalDateAndTime": "2024-06-28 23:17",
+        "AvailableSeats": 56,
+        "OccupiedSeats": 0,
+        "Price": 85.0,
+        "FlightStatus": 0
+      },
+      {
+        "Id": 1,
+        "Airline": "SkyHigh",
+        "IsDeleted": false,
+        "DepartureDestination": "Lisabon",
+        "ArrivalDestination": "Madrid",
+        "DepartureDateAndTime": "2024-06-27 10:28",
+        "ArrivalDateAndTime": "2024-06-27 11:29",
+        "AvailableSeats": 47,
+        "OccupiedSeats": 0,
+        "Price": 55.0,
+        "FlightStatus": 0
+      },
+      {
+        "Id": 6,
+        "Airline": "SkyHigh",
+        "IsDeleted": false,
+        "DepartureDestination": "Beograd",
+        "ArrivalDestination": "Prague",
+        "DepartureDateAndTime": "2024-06-20 23:21",
+        "ArrivalDateAndTime": "2024-06-21 03:23",
+        "AvailableSeats": 33,
+        "OccupiedSeats": 0,
+        "Price": 40.0,
+        "FlightStatus": 2
+      }
+    ],
+    "Reviews": [
+      {
+        "Id": 7,
+        "Reviewer": "pera",
+        "Airline": "SkyHigh",
+        "Title": "dsaaaaaaaaaaaaaaaa",
+        "Description": "dsaassdadssada",
+        "Image": "/UploadedImages/",
+        "ReviewStatus": 1
+      },
+      {
+        "Id": 8,
+        "Reviewer": "pera",
+        "Airline": "SkyHigh",
+        "Title": "dsaaaaaaaaaaaaaaaa",
+        "Description": "dsaassdadssada",
+        "Image": "/UploadedImages/Logo.png",
+        "ReviewStatus": 1
+      }
+    ]
+  },
+  {
+    "Name": "AirSerbia",
+    "Address": "Karadjordjeva 36 ,Beograd",
+    "ContactInfo": "airserbia@gmail.com",
+    "Flights": [],
+    "Reviews": []
+  }
+]

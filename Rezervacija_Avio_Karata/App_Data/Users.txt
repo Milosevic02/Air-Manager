@@ -1,0 +1,168 @@
+[
+  {
+    "Username": "maki",
+    "Password": "maki",
+    "Email": "maki@kavasaki",
+    "Name": "Marko",
+    "Surname": "Markovic",
+    "DateOfBirth": "2024-06-08",
+    "Role": "Passenger",
+    "Gender": 1,
+    "Reservations": [
+      {
+        "Id": 2,
+        "User": "maki",
+        "FlightId": 5,
+        "CountOfPassengers": 4,
+        "Price": 92.0,
+        "ReservationStatus": 1
+      },
+      {
+        "Id": 3,
+        "User": "maki",
+        "FlightId": 4,
+        "CountOfPassengers": 3,
+        "Price": 360.0,
+        "ReservationStatus": 1
+      },
+      {
+        "Id": 7,
+        "User": "maki",
+        "FlightId": 5,
+        "CountOfPassengers": 1,
+        "Price": 23.0,
+        "ReservationStatus": 3
+      },
+      {
+        "Id": 11,
+        "User": "maki",
+        "FlightId": 5,
+        "CountOfPassengers": 1,
+        "Price": 23.0,
+        "ReservationStatus": 1
+      },
+      {
+        "Id": 12,
+        "User": "maki",
+        "FlightId": 5,
+        "CountOfPassengers": 3,
+        "Price": 69.0,
+        "ReservationStatus": 2
+      },
+      {
+        "Id": 13,
+        "User": "maki",
+        "FlightId": 3,
+        "CountOfPassengers": 13,
+        "Price": 1625.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 14,
+        "User": "maki",
+        "FlightId": 5,
+        "CountOfPassengers": 12,
+        "Price": 276.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 15,
+        "User": "maki",
+        "FlightId": 5,
+        "CountOfPassengers": 12,
+        "Price": 276.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 20,
+        "User": "maki",
+        "FlightId": 2,
+        "CountOfPassengers": 6,
+        "Price": 510.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 21,
+        "User": "maki",
+        "FlightId": 10,
+        "CountOfPassengers": 12,
+        "Price": 1500.0,
+        "ReservationStatus": 0
+      }
+    ]
+  },
+  {
+    "Username": "admin",
+    "Password": "admin",
+    "Email": "dmilosevic322@gmail.com",
+    "Name": "Dragan",
+    "Surname": "Milosevic",
+    "DateOfBirth": "2002-12-28",
+    "Role": "Admin",
+    "Gender": 0,
+    "Reservations": []
+  },
+  {
+    "Username": "pera",
+    "Password": "pera",
+    "Email": "pera@gmail.com",
+    "Name": "Pera ",
+    "Surname": "Peric",
+    "DateOfBirth": "2024-06-02",
+    "Role": "Passenger",
+    "Gender": 0,
+    "Reservations": [
+      {
+        "Id": 16,
+        "User": "pera",
+        "FlightId": 10,
+        "CountOfPassengers": 12,
+        "Price": 1500.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 17,
+        "User": "pera",
+        "FlightId": 10,
+        "CountOfPassengers": 7,
+        "Price": 875.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 18,
+        "User": "pera",
+        "FlightId": 2,
+        "CountOfPassengers": 40,
+        "Price": 3400.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 19,
+        "User": "pera",
+        "FlightId": 2,
+        "CountOfPassengers": 6,
+        "Price": 510.0,
+        "ReservationStatus": 0
+      },
+      {
+        "Id": 22,
+        "User": "pera",
+        "FlightId": 10,
+        "CountOfPassengers": 12,
+        "Price": 1500.0,
+        "ReservationStatus": 0
+      }
+    ]
+  },
+  {
+    "Username": "markoni",
+    "Password": "markoni",
+    "Email": "markic@gmail.com",
+    "Name": "Marko",
+    "Surname": "Kraljevic",
+    "DateOfBirth": "2024-06-07",
+    "Role": "Passenger",
+    "Gender": 0,
+    "Reservations": []
+  }
+]
