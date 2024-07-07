@@ -71,17 +71,21 @@ namespace Rezervacija_Avio_Karata.Controllers
 
         [HttpPost]
         [Route("AddAirlline")]
-        public Airlline AddAirlline(Airlline airlline)
+        public IHttpActionResult AddAirlline(Airlline airlline)
         {
             if (airlline == null)
                 return null;
 
             string content = File.ReadAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"));
             List<Airlline> airllines = JsonConvert.DeserializeObject<List<Airlline>>(content) ?? new List<Airlline>();
+            if (IsAirlineExists(airlline.Name))
+            {
+                return BadRequest("Airline with Name " +  airlline.Name + " already exists");
+            }
             airllines.Add(airlline);
             content = JsonConvert.SerializeObject(airllines, Formatting.Indented);
             File.WriteAllText(Path.Combine(HttpRuntime.AppDomainAppPath + "App_Data/Airllines.txt"), content);
-            return airlline;
+            return Ok();
         }
 
         [HttpGet]
