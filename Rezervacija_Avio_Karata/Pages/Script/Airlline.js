@@ -117,13 +117,21 @@ function AddAirlline(event){
         data: JSON.stringify(data),
         contentType: "application/json", 
         success: function (result) {
-            console.log("success", result);
-            window.location.href = "AirllineAdmin.html";
+            LoadAirllines("Admin");
+            $('#addAirllineModal').modal('hide');
+            $('#AirllinesToast .toast-body').text('Airlline added successfully.');
+            $('#AirllinesToast').removeClass('text-bg-danger').addClass('text-bg-success');
+            var toastEl = new bootstrap.Toast($('#AirllinesToast'));
+            toastEl.show();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            console.log("error", xhr.responseText);
-            var errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
-            errorToast.show();
+            var errorMessage = xhr.responseJSON ? xhr.responseJSON.Message : "An error occurred";
+
+            $('#addAirllineModal').modal('hide');
+            $('#AirllinesToast .toast-body').text(errorMessage);
+            $('#AirllinesToast').removeClass('text-bg-success').addClass('text-bg-danger');
+            var toastEl = new bootstrap.Toast($('#AirllinesToast'));
+            toastEl.show();
         }
     });
 
